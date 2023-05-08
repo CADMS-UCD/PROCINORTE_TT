@@ -1,0 +1,379 @@
+---
+title: "Network visualization"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+In this lab we will review concepts of community detection and how to represent our network in a map.  
+
+First we will load the data and the libraries we will be using. Remember that on the previous lab we exported a data set at the end, we will continue using this objects.  
+
+```{r}
+# If you are starting a new session, load the files and libraries again 
+# Load the data
+net <- readRDS("Data/Outputs/net.rds") # Loading the network object
+node <- read.csv("Data/Outputs/node.csv") # loading the nodes
+edge <- read.csv("Data/Outputs/edge.csv") # Loading the edges
+
+# libraries we will use.
+library(dplyr) # Data manipulation
+library(sf) # Spatial data manipulation
+library(tidygraph) # Network manipulation and analysis
+library(purrr) # for data manipulation
+library(ggraph) # for network visualization
+library(ggpubr) # for arranging plots
+```
+
+```{r eval=FALSE, include=FALSE}
+Net <- edge %>% 
+  select(type_orig, type_dest) %>% 
+  as_tbl_graph() %N>% 
+  mutate(Degree = centrality_degree()) %E>% 
+  mutate(N = as.integer(1)) %>%  # create a variable for the number of movements (each row is 1 movement)
+  convert(to_simple) %E>%  # now we will convert it to a simple network
+  mutate(weight = map_int(.orig_data, ~.x %>% pull(N) %>% sum())) 
+
+Net %>% 
+  ggraph(layout = 'kk') + # call the ggraph function
+  geom_edge_link(aes(width = weight), colour = 'grey20', 
+                 arrow = arrow(angle = 35, length = unit(.4, 'cm'))) + # add the edges
+  geom_node_label(aes(label = name, size = Degree), 
+                  col = 'red4', fill = 'grey90', alpha = 0.8) +
+  scale_edge_width(range = c(0.5, 3.5)) + 
+  scale_size(range = c(3, 5)) +
+  theme(legend.position = 'none') # set the legend position to bottom
+```
+
+
+
+# Community detection
+
+In this section we will use different algorithms to identify communities in our network. 
+
+```{r}
+# First we need to simplify the network
+c <- net %E>%  # we call our network and activate the edges
+  mutate(N = as.integer(1)) %>%  # create a variable for the number of movements (each row is 1 movement)
+  convert(to_simple) %E>%  # now we will convert it to a simple network
+  mutate(weight = map_int(.orig_data, ~.x %>% pull(N) %>% sum())) %N>%  # We have to sum all the repeated movements
+  mutate(walktrap = factor(group_walktrap(weights = weight)), # use the walktrap algorithm for community detection
+         infomap = factor(group_infomap(weights = weight))) # use the infomap for community detection
+```
+
+Then we will create an empty list to fill with plots and compare the different algorithms.
+
+```{r}
+# Create the empty list
+CP <- list()
+# Make a plot for the edges only
+pc <- c %>% # our simplified network
+  ggraph(layout = 'nicely') + # call the ggraph function
+  geom_edge_link() + # add the edges
+  theme(legend.position = 'bottom') # set the legend position to bottom
+
+CP[['Infomap']] <- pc + # We call our plot with only the edges
+  geom_node_point(aes(col = infomap), size = 2) + # we add the nodes
+  labs(title = 'Infomap') # title of our plot
+
+CP[['Walktrap']] <- pc +
+  geom_node_point(aes(col = walktrap), size = 2) +
+  labs(title = 'Walktrap') 
+
+# We arrange our plots in a single figure
+ggarrange(plotlist = CP)
+```
+
+```{r}
+c %N>% 
+  filter(walktrap == '4') %>% # filter for community
+  ggraph(layout = 'nicely') + # call the ggraph function
+  geom_edge_link() + # add the edges
+  geom_node_point(aes(col = walktrap), size = 2) + # we add the nodes
+  theme(legend.position = 'bottom') # set the legend position to bottom
+```
+
+
+
+*Excercise: * Now increase the number of steps in the walk trap algorithm, what happens when we increase the number of steps? What do you think would be the optimal number of steps for this example
+
+```{r eval=FALSE, include=FALSE}
+c <- c %N>%
+  mutate(walktrap10 = factor(group_walktrap(weights = weight, steps = 10)),
+         walktrap15 = factor(group_walktrap(weights = weight, steps = 15)),
+         walktrap20 = factor(group_walktrap(weights = weight, steps = 20)))
+
+# Make a plot for the edges only
+pc <- c %>% # our simplified network
+  ggraph(layout = 'nicely') + # call the ggraph function
+  geom_edge_link() + # add the edges
+  theme(legend.position = 'bottom') # set the legend position to bottom
+
+
+# Increase the number of steps until no more groups are created
+CP[['Walktrap10']] <- pc +
+  geom_node_point(aes(col = walktrap10), size = 2) +
+  labs(title = 'Walktrap 10 steps')
+
+CP[['Walktrap15']] <- pc +
+  geom_node_point(aes(col = walktrap15), size = 2) +
+  labs(title = 'Walktrap 15 steps')
+
+CP[['Walktrap20']] <-pc +
+  geom_node_point(aes(col = walktrap20), size = 2) +
+  labs(title = 'Walktrap 20 steps')
+
+ggarrange(plotlist = CP[-1])
+```
+
+# Spatial representation of the network
+
+Now we will use the network we created and the spatial location of our farms to see the movements on a map.  
+We will be using the `sf` package to manipulate the spatial objects, and the `ggplot2` package for visualization.  
+In the `STNet` package there is a spatial polygons data, which includes the counties in the state of Iowa.  
+
+```{r}
+# Loading the packages
+library(sf) # Package for spatial objects
+library(ggplot2) # package for plots
+
+# We load the spatial object from the package STNet
+iowa <- st_read(system.file("data/Io.shp", package = "STNet"))
+
+# plot map using sf
+plot(iowa$geometry)
+```
+
+Next we will transform the nodes as a spatial points object, for this we use the function `st_to_sf()` and we need to specify the names of the columns that have the spatial coordinates.    
+
+```{r Transform nodes to spatial}
+NodeSp <- node %>% # This is our node data.frame
+  st_as_sf(coords = c("long", "lat"), # Variables for the coordinates
+           crs = st_crs(iowa)) # This is the CRS we are using
+```
+
+
+## Plotting our map
+
+One of the nice things of ggplot is that we can create a map and store it in an object and later we can keep adding layers to this map. So first we will create a map of the state.    
+
+```{r}
+map <- ggplot() +
+  geom_sf(data = iowa, # name of the spatial dataset
+          color="grey20", # color of the shape border
+          fill="white", # fill of the shape
+          size=0.4) + # width of the border
+  theme_void() # This is a theme form ggplot
+```
+
+
+## Plot the nodes
+
+Once we have the base map of the state, we can add the spatial points data we created previously. We can specify the size of the points using a variable.  
+
+```{r}
+map + geom_sf(data = NodeSp, # name of our data
+              aes(color = farm_type, # we color the nodes by farm type
+                  size = indegree)) +
+  ggtitle("Farms and their indegree") # the title of our plot
+```
+
+**Excercise:** Make the same plot, but make the size of the nodes relative to outdegree
+
+
+
+## Adding the euclidean contacts
+
+In the previous lab we calculated the euclidean distance between each pair of farms involved in a movement. Here we will visualize those movements.  
+
+```{r}
+# The function geom_segment adds a straight line between two coordinates:
+map +
+  geom_segment(data=edge, 
+               aes(x=O_Long, y=O_Lat, # this is where the line starts
+                   xend=D_Long, yend=D_Lat)) # this is where it ends
+
+# We can add the information of the type of movement to change the color of the line and the number of animals for the transparency
+map +
+  geom_segment(data=edge, 
+               aes(x=O_Long, y=O_Lat,
+                   xend=D_Long, yend=D_Lat, 
+                   color=type_orig,
+                   alpha = pigs.moved))
+```
+
+
+## Putting everything together
+
+Now we will add both the farm locations and the direction of the movements between the farms on a map.  
+
+```{r}
+#plot nodes & edges - add both commands geom_segment and geom_point#
+map +
+  geom_segment(data=edge, 
+               aes(x=O_Long, y=O_Lat,
+                   xend=D_Long, yend=D_Lat,
+                   alpha = pigs.moved), 
+               show.legend=F) +
+  geom_sf(data = NodeSp, 
+          aes(color = farm_type, 
+              size = indegree), show.legend = "point")
+```
+
+
+## Subsetting the data
+
+Sometimes we are interested in a particular type of movements. We can subset this using the dplyr functions such as `filter()`. In the next plot we will select only the movements that comes from sow farms.  
+
+```{r}
+# plot movements from sow farms only
+map +
+  edge %>%
+  filter(type_orig == "sow farm") %>%
+  geom_segment(data = ., 
+               aes(x=O_Long, y=O_Lat, 
+                   xend=D_Long, yend=D_Lat, 
+                   color = type_orig), show.legend = F) +
+  geom_sf(data = NodeSp, 
+          aes(color = farm_type), size=3, show.legend = "point")
+```
+  
+  We can be even more specific and filter the movements from sow farms that are directed to GDU.  
+We will also add at the end the function `ggplotly()` from the package `plotly` to obtain a map were we can zoom and hover over some features to obtain more information.  
+
+  
+```{r}
+# We store the map of movements between GDU to sow farm
+m <- map +
+  edge %>%
+  filter(type_orig == 'GDU', type_dest == "sow farm") %>%
+  geom_segment(data = ., aes(x=O_Long, y=O_Lat,
+                             xend=D_Long, yend=D_Lat, 
+                             color = type_orig), show.legend = F) +
+  geom_sf(data = NodeSp, 
+          aes(color = farm_type),
+          size=3, show.legend = "point") +
+  ggtitle("GDU to Sow farm Movments")
+
+# We use the function from plotly to transform our map into n interactive map.  
+library(plotly)
+
+ggplotly(m)
+```
+
+
+# Kernel density map
+
+Like we just saw, visualizing the movements can be challenging, one approach to do this is using a kernel density map. The idea behind this is to extrapolate values in a continuous surface, but here we are just interested in the visualization of the values, not so much in the interpolation of our values.  
+We will use the package `KernSmooth` for this, so make sure you ahve it installed.  
+First we will define a function to automate the process:  
+
+```{r}
+library(KernSmooth)
+library(raster)
+# we will create a function to create a density raster:
+processRaster <- function(x, b, shp, res = c(200, 200)) {
+  est <- bkde2D( # we use the function bkde2D to obtain our values
+    x, # This will be our dataset
+    bandwidth = c(b, b), # The bandwidth we define
+    gridsize = res, # the resolution level we want
+    range.x = list(extent(shp)[c(1, 2)], extent(shp)[c(3:4)])
+  )
+  
+  # Add the results to a raster
+  r <- raster(list(
+    x = est$x1,
+    y = est$x2,
+    z = est$fhat
+  )) %>%
+    `projection<-`(st_crs(iowa)) %>% # set the CRS
+    `extent<-`(extent(iowa)) %>% # set the extent
+    crop(., iowa) %>% # crop the raster to the area
+    mask(., iowa) # crop the raster to the stat shape
+  
+  return(r)
+}
+```
+
+Now lets use our function for the data.  
+
+```{r}
+# Obtain the estimated kernel with bandwidth 2km
+Erc <- processRaster(x = edge[,c("O_Long", "O_Lat")], # we want the outgoing only
+                     b = 2, # we choose a bandwidth of 2
+                     shp = iowa) # we set our extent 
+
+# plot the raster and the map
+plot(Erc)
+plot(iowa$geometry, col=NA, border = "grey80", add = T)
+```
+
+We might have used a very large bandwidth in the previous plot, lets try with a smaller size.  
+
+```{r}
+# Using a different bandwidth
+Erc <- processRaster(x = edge[,c("O_Long", "O_Lat")],
+                     b = 0.1,
+                     shp = iowa)
+
+# plot the raster and the map
+plot(Erc)
+plot(iowa$geometry, col=NA, border = "grey80", add = T)
+```
+
+**Exercise:** Create a kernel density map for the incoming movements.  
+
+___________________________________________________
+
+# More on interactive maps. 
+
+If you are interested in more about interactive maps `plotly` also has option for using background maps, but for this you need to get a public [Mapbox access token](https://www.mapbox.com/studio), which is free, but requires registration. Some great resources for more information:  
+  
+  - https://plotly-r.com/maps.html
+  - https://plotly.com/r/maps/
+
+Here I provide an example of the kind of maps you can get using mapbox, but this **This code will not run unless you use your own API Key**
+
+```{r include=FALSE}
+Sys.setenv('MAPBOX_TOKEN' = 'pk.eyJ1Ijoiam9zZXBhYmxvOTEiLCJhIjoiY2tsaXR5ZGd3MmJoNzJ3bWxrbTF5emw1eSJ9.THUKAPF8TYZ-qpIDKD5Icg')
+```
+
+
+
+```{r}
+# Sys.setenv('MAPBOX_TOKEN' = yourKey)
+
+plot_mapbox() %>%
+  add_segments(
+    data = group_by(edge, id_orig, id_dest),
+    x = ~O_Long, xend = ~D_Long,
+    y = ~O_Lat, yend = ~D_Lat,
+    alpha = 0.1, size = I(1), hoverinfo = "none"
+  )   %>%
+  add_markers(data = node,
+    x = ~long, y = ~lat, size = ~indegree, text = ~id,
+    split = ~farm_type,
+    hoverinfo = "text"
+  ) %>%
+  layout(
+    mapbox = list(
+      style = 'open-street-map',
+      zoom = 6,
+      center = list(lat = 42, lon = -93)
+    ))
+```
+
+------------------------------------------------------------------------
+
+*This lab has been developed with contributions from: [Jose Pablo
+Gomez-Vazquez](https://www.spablo-temporal.network), [Jerome
+Baron](https://www.researchgate.net/profile/Jerome-Baron-2?_iepl%5Bcontexts%5D%5B0%5D=searchReact&_iepl%5BinteractionType%5D=headerSearchResearcher&_iepl%5Bposition%5D=1&_iepl%5BrgKey%5D=AC%3A19976637&_iepl%5Bquery%5D=jerome%20baron&_sg%5B0%5D=h0qwByBH7jEA9pnkn57dm5DqgHcuF9RNJMTd-1Y79ltjmKk1-oUwMXIy0pcjRE2CnEYq1KdLptyRR6s54PsSQTvSojEvOpxGlpJjg6kuLhyfGh3pNjLchg.RUn0HdO-b7dyxeqozqlU1rJYELS8Vbv-3SOTmOVKfhG2vntyZ18MRQemx2xzjlKdofPhapNFbhW2HCVG1gGhtw&_sg%5B1%5D=LN6moeDNOP7fMtM7A31LTwZ9q27yotxpXtAgTlLmDlxFCvXSd6qjzytmLHphEk7feO7YsBVeJEbTHCewI-A.RUn0HdO-b7dyxeqozqlU1rJYELS8Vbv-3SOTmOVKfhG2vntyZ18MRQemx2xzjlKdofPhapNFbhW2HCVG1gGhtw&_sgd%5B2%20words%5D=1&_sgd%5B10-20%20characters%5D=1), and [Beatriz
+Martinez-Lopez](https://cadms.vetmed.ucdavis.edu/about/director).\
+Feel free to use these training materials for your own research and
+teaching. When using the materials we would appreciate using the proper
+credits. If you would be interested in a training session, please
+contact: [jpgo\@ucdavis.edu](mailto:jpgo@ucdavis.edu){.email}*
+
+------------------------------------------------------------------------

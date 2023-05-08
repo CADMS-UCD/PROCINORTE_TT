@@ -1,0 +1,260 @@
+---
+title: "Graphics part I"
+author: "Pablo Gomez"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = F, message = F)
+library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
+```
+
+We will continue using the data set from the previous section to introduce some basics of data visualization. If starting a new session, make sure to load the data, otherwise just make sure the data is in your environment.
+
+```{r}
+# Import the file
+PRRS <- readxl::read_xlsx("Data/PRRS.xlsx")
+nodes <- read.csv('Data/nodes.csv')
+mov <- read.csv('Data/network.csv')
+
+# Load the libraries
+library(ggplot2) # for graphics
+library(dplyr) # For data manipulation
+```
+
+# Plots in R
+
+By default R already has a set of functions to create a variety of figures, but the code can get quite complex and difficult to read as we produce more detailed figures. `ggplot2` is a library that provides a set of functions for producing a variety of figures.
+
+The basic components that we need to define for a plot are the following:
+  
+  - *data*, the data set we will use to generate the figure
+  - *geometry*, or type of graphic we will generate (i.e. histogram, bar, scatter, etc..)
+  - *aesthetic*, variables or arguments that will be used for the figure for example: location, color, size, etc..
+
+An example:
+
+```{r hist example}
+ggplot(data = PRRS) + # This is the data we will use
+  geom_histogram( # This is the geometry 
+    aes(x = Age) # The aesthetic includes only one variable representing the x axis
+  )
+```
+
+Other components of the plots can be defined to further customize our figures, and we will cover those more in detail in future sections.  
+As you noticed in the previous example, we can print the figures directly from the R console, but a way I like to organize our figures is to put them all inside a single object in R. This object can be a `list`, which is just a container for other objects.  
+
+```{r create fig list}
+# To create an empty list we can use the function list()
+figures <- list()
+```
+
+
+
+# Visualizing distributions
+
+## Continous variables
+
+### Histograms
+
+The most simple way to visualize the distribution of a continuous variable is using a histogram. Histograms are a special kind of bar plots where our variable is grouped in bins and showing the counts for each bin. Now that we have our container list for the plots, we can simply save it there and assign a name we want.
+
+```{r hist}
+figures$histogram <- PRRS %>% 
+  ggplot() +
+  geom_histogram(aes(x = Age))
+
+# we can see our plot by calling the name in our container list
+figures$histogram
+```
+
+
+### Boxplots
+
+Box plots are great to show the distribution of a continuous variable. We can use it to show only one variable, or multiple variables. It is important to be very descriptive when making plots, the idea of a figure is that can explain itself. we will start to slowly introduce functions to do this and customize our figures.
+
+```{r boxplot}
+# Only one variable
+figures$box <- PRRS %>% 
+  ggplot() +
+  geom_boxplot(aes(y = Age)) +
+  labs(title = 'Distribution of Age') # we can add different labels such as the main title
+
+figures$box
+```
+
+
+## Frequencies (Barplots, bubbles, mozaics, Pie charts)
+
+### Barplots
+
+```{r barplots}
+figures$bars <- PRRS %>% 
+  count(farm_type) %>% 
+  ggplot() +
+  geom_bar(aes(x = farm_type, y = n), stat = 'identity')
+
+figures$bars
+```
+
+# Visualizing relationships
+
+## Scatterplots
+
+This is one of the most popular kind of plots, it is useful to represent relationship between two continuous variables.  
+We can achieve the same result in different ways. The first one is better when we have our variables in the same dataset, and the second one when we have data from different objects. (the length of the two vectors has to be the same).  
+
+```{r}
+figures$scatter <- nodes %>% # first we start with the name of our data.frame
+  ggplot() + # then we call ggplot
+  geom_point(aes(Outgoing, Incoming)) # and we add the first layer, which is the points
+
+figures$scatter
+```
+
+
+# Time series
+
+To create a time series we will need to reformat the data a little bit so R can do what we want. We will introduce a new kind of variable: `date`. The date variables are pretty much what it sounds like, is a variable that has a format with year, month and day; there are other ways to format dates in R, but this is the most common and straight forward.  
+
+```{r}
+mov <- mov %>% 
+  mutate(date = as.Date(date, "%m/%d/%y"), # First we will format the date
+         week = format(date, "%V"),
+         week = lubridate::floor_date(date, 'week')) # The we create a variable formatting the date as week of the year
+```
+
+Now that we have our variables in the correct format, we can use it as any other variable.
+
+```{r}
+figures$timeseries <- mov %>% 
+  count(week) %>% 
+  ggplot() +
+  geom_line(aes(x = week, y = n)) +
+  labs(title = 'Movements per week', x = 'Date', y = "Number of movements")
+
+figures$timeseries
+```
+
+# Arranging the plots in a layout
+
+Now that we have all the figures in a list, we can make arrangements with our figures. For this we use the function `ggarrange()` from the ggpubr library.  
+
+```{r}
+library(ggpubr) # load the library
+ggarrange(plotlist = figures)
+```
+
+# Further customization
+
+## Other aesthetics
+
+```{r fill}
+PRRS %>% 
+  ggplot() + # we call ggplot
+  geom_boxplot(aes(y = Age, fill = Sex)) # we add a boxplot layer
+```
+
+```{r col}
+PRRS %>% 
+  ggplot() +
+  geom_boxplot(aes(y = Age, col = Sex))
+```
+
+### Non aesthetics customization
+
+So far we have added variables inside our `aes()` function, but we can add some arguments outside the `aes()` function that we want them to be applied for all observations. For example, we can change the outline of the boxplot to be the same for the two groups, but the fill color different per group:
+
+```{r}
+PRRS %>% 
+  ggplot() + # we call ggplot
+  geom_boxplot(
+    aes(y = Age, fill = Sex), # This is the normal aesthetics we define
+    col = 'red' # all aesthetics we define here will be applied to all th ebservations
+  ) # we add a boxplot layer
+```
+
+## Colors
+
+To define specific colors for our figure, we can use the function `scale_*_manual` where the * represents the aesthetic we want to represent. If we want to use the color for the fill, we would use:
+
+```{r colors}
+PRRS %>% 
+  ggplot() +
+  geom_boxplot(aes(y = Age, fill = Sex)) +
+  scale_fill_manual(values = c('red', 'green'))
+```
+
+
+R manages colors in three different ways: by name (i.e: 'red'), by rgb value using the function `rgb()` (i.e. `rgb(1, 0, 0)`), or using [hexadecimal code](https://marketing.istockphoto.com/blog/hex-colors-guide/) (i.e. "#F00000"). You can get a full list of the named colors in R by using the function `colors()`, but you will only be able to see the names. Luckly someone made a tool that can help us exacly the colors that we want: the *Colour Picker* addin. Addins are tools that are available in Rstudio to facilitate tasks, lets try the colour picker (should be already in your addins toolbar).
+
+![](img/1c_colPicker.gif)
+
+**Exercise: ** Pick two colors you like and use them to create a boxplot of the distribution of age by the test result.
+
+```{r include = F}
+PRRS %>% 
+  ggplot() +
+  geom_boxplot(aes(y = Age, fill = Result), col = 'grey20') +
+  scale_fill_manual(values = c('red4', 'blue4'))
+```
+
+
+## Labels
+
+Usually we try to avoid spaces when using names for the column names, but for our plots this could be not the most straight forward way to communicate our analysis, we can set specific labels to make our plots more readable and self explanatory. lets improve our figure a bit more
+
+```{r}
+PRRS %>% 
+  ggplot() +
+  geom_boxplot(aes(y = Age, fill = farm_type)) +
+  labs(
+    title = 'Distribution of Age by Farm type',
+    x = 'Farm type',
+    fill = 'Farm Type'
+  )
+```
+
+## Themes
+
+ggplot includes the function `theme()` to define most of the aspects of the figure such as the background color, the grid, axes, legend, among many others. There is also several predefined themes that you can use, if dont want to mess with all the arguments from the function `theme()`. For example:
+
+```{r}
+# all the predefined themes start with theme_
+PRRS %>% 
+  ggplot() +
+  geom_boxplot(aes(y = Age, fill = farm_type)) +
+  labs(title = 'Distribution of Age by Farm type', x = 'Farm type', fill = 'Farm Type') +
+  theme_minimal()
+```
+
+
+# Facets
+
+```{r}
+PRRS %>% 
+  ggplot() +
+  geom_histogram(aes(Age)) +
+  facet_grid(rows = vars(Sex), cols = vars(Result)) +
+  theme_classic()
+```
+
+# Exporting plots
+
+# Interactive figures
+
+
+------------------------------------------------------------------------
+
+*This lab has been developed with contributions from: [Jose Pablo
+Gomez-Vazquez](https://www.spablo-temporal.network).\
+Feel free to use these training materials for your own research and
+teaching. When using the materials we would appreciate using the proper
+credits. If you would be interested in a training session, please
+contact: [jpgo\@ucdavis.edu](mailto:jpgo@ucdavis.edu){.email}*
+
+------------------------------------------------------------------------

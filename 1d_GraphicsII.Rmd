@@ -1,0 +1,33 @@
+---
+title: "Graphics part II"
+author: "Pablo Gomez"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = F, message = F)
+library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
+```
+
+# Further customization
+
+# Layouts
+
+# Exporting plots
+
+# Interactive figures
+
+------------------------------------------------------------------------
+
+*This lab has been developed with contributions from: [Jose Pablo
+Gomez-Vazquez](https://www.spablo-temporal.network).\
+Feel free to use these training materials for your own research and
+teaching. When using the materials we would appreciate using the proper
+credits. If you would be interested in a training session, please
+contact: [jpgo\@ucdavis.edu](mailto:jpgo@ucdavis.edu){.email}*
+
+------------------------------------------------------------------------

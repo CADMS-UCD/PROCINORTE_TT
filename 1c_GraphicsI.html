@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Pablo Gomez" />
+
+
+<title>Graphics part I</title>
+
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CADMS</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Pre Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Intro_to_R.html">Intro to R</a>
+    </li>
+    <li>
+      <a href="Spatial_intro.html">Intro to Spatial data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Contact
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Instructors.html">
+        <span class="fa fa-users"></span>
+         
+        Instructors
+      </a>
+    </li>
+    <li>
+      <a href="https://cadms.vetmed.ucdavis.edu">
+        <span class="fa fa-server"></span>
+         
+        CADMS Website
+      </a>
+    </li>
+    <li>
+      <a href="mailto:jpgo@ucdavis.edu">
+        <span class="fa fa-envelope"></span>
+         
+        Email
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Graphics part I</h1>
+<h4 class="author">Pablo Gomez</h4>
+
+</div>
+
+
+<p>We will continue using the data set from the previous section to
+introduce some basics of data visualization. If starting a new session,
+make sure to load the data, otherwise just make sure the data is in your
+environment.</p>
+<pre class="r"><code># Import the file
+PRRS &lt;- readxl::read_xlsx(&quot;Data/PRRS.xlsx&quot;)
+nodes &lt;- read.csv(&#39;Data/nodes.csv&#39;)
+mov &lt;- read.csv(&#39;Data/network.csv&#39;)
+
+# Load the libraries
+library(ggplot2) # for graphics
+library(dplyr) # For data manipulation</code></pre>
+<div id="plots-in-r" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Plots in R</h1>
+<p>By default R already has a set of functions to create a variety of
+figures, but the code can get quite complex and difficult to read as we
+produce more detailed figures. <code>ggplot2</code> is a library that
+provides a set of functions for producing a variety of figures.</p>
+<p>The basic components that we need to define for a plot are the
+following:</p>
+<ul>
+<li><em>data</em>, the data set we will use to generate the figure</li>
+<li><em>geometry</em>, or type of graphic we will generate
+(i.e. histogram, bar, scatter, etc..)</li>
+<li><em>aesthetic</em>, variables or arguments that will be used for the
+figure for example: location, color, size, etc..</li>
+</ul>
+<p>An example:</p>
+<pre class="r"><code>ggplot(data = PRRS) + # This is the data we will use
+  geom_histogram( # This is the geometry 
+    aes(x = Age) # The aesthetic includes only one variable representing the x axis
+  )</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/hist%20example-1.png" width="672" /></p>
+<p>Other components of the plots can be defined to further customize our
+figures, and we will cover those more in detail in future
+sections.<br />
+As you noticed in the previous example, we can print the figures
+directly from the R console, but a way I like to organize our figures is
+to put them all inside a single object in R. This object can be a
+<code>list</code>, which is just a container for other objects.</p>
+<pre class="r"><code># To create an empty list we can use the function list()
+figures &lt;- list()</code></pre>
+</div>
+<div id="visualizing-distributions" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Visualizing
+distributions</h1>
+<div id="continous-variables" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Continous
+variables</h2>
+<div id="histograms" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Histograms</h3>
+<p>The most simple way to visualize the distribution of a continuous
+variable is using a histogram. Histograms are a special kind of bar
+plots where our variable is grouped in bins and showing the counts for
+each bin. Now that we have our container list for the plots, we can
+simply save it there and assign a name we want.</p>
+<pre class="r"><code>figures$histogram &lt;- PRRS %&gt;% 
+  ggplot() +
+  geom_histogram(aes(x = Age))
+
+# we can see our plot by calling the name in our container list
+figures$histogram</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/hist-1.png" width="672" /></p>
+</div>
+<div id="boxplots" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Boxplots</h3>
+<p>Box plots are great to show the distribution of a continuous
+variable. We can use it to show only one variable, or multiple
+variables. It is important to be very descriptive when making plots, the
+idea of a figure is that can explain itself. we will start to slowly
+introduce functions to do this and customize our figures.</p>
+<pre class="r"><code># Only one variable
+figures$box &lt;- PRRS %&gt;% 
+  ggplot() +
+  geom_boxplot(aes(y = Age)) +
+  labs(title = &#39;Distribution of Age&#39;) # we can add different labels such as the main title
+
+figures$box</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/boxplot-1.png" width="672" /></p>
+</div>
+</div>
+<div id="frequencies-barplots-bubbles-mozaics-pie-charts"
+class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Frequencies
+(Barplots, bubbles, mozaics, Pie charts)</h2>
+<div id="barplots" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Barplots</h3>
+<pre class="r"><code>figures$bars &lt;- PRRS %&gt;% 
+  count(farm_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(x = farm_type, y = n), stat = &#39;identity&#39;)
+
+figures$bars</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/barplots-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="visualizing-relationships" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Visualizing
+relationships</h1>
+<div id="scatterplots" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Scatterplots</h2>
+<p>This is one of the most popular kind of plots, it is useful to
+represent relationship between two continuous variables.<br />
+We can achieve the same result in different ways. The first one is
+better when we have our variables in the same dataset, and the second
+one when we have data from different objects. (the length of the two
+vectors has to be the same).</p>
+<pre class="r"><code>figures$scatter &lt;- nodes %&gt;% # first we start with the name of our data.frame
+  ggplot() + # then we call ggplot
+  geom_point(aes(Outgoing, Incoming)) # and we add the first layer, which is the points
+
+figures$scatter</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+</div>
+<div id="time-series" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Time series</h1>
+<p>To create a time series we will need to reformat the data a little
+bit so R can do what we want. We will introduce a new kind of variable:
+<code>date</code>. The date variables are pretty much what it sounds
+like, is a variable that has a format with year, month and day; there
+are other ways to format dates in R, but this is the most common and
+straight forward.</p>
+<pre class="r"><code>mov &lt;- mov %&gt;% 
+  mutate(date = as.Date(date, &quot;%m/%d/%y&quot;), # First we will format the date
+         week = format(date, &quot;%V&quot;),
+         week = lubridate::floor_date(date, &#39;week&#39;)) # The we create a variable formatting the date as week of the year</code></pre>
+<p>Now that we have our variables in the correct format, we can use it
+as any other variable.</p>
+<pre class="r"><code>figures$timeseries &lt;- mov %&gt;% 
+  count(week) %&gt;% 
+  ggplot() +
+  geom_line(aes(x = week, y = n)) +
+  labs(title = &#39;Movements per week&#39;, x = &#39;Date&#39;, y = &quot;Number of movements&quot;)
+
+figures$timeseries</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="arranging-the-plots-in-a-layout" class="section level1"
+number="5">
+<h1><span class="header-section-number">5</span> Arranging the plots in
+a layout</h1>
+<p>Now that we have all the figures in a list, we can make arrangements
+with our figures. For this we use the function <code>ggarrange()</code>
+from the ggpubr library.</p>
+<pre class="r"><code>library(ggpubr) # load the library
+ggarrange(plotlist = figures)</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="further-customization" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Further
+customization</h1>
+<div id="other-aesthetics" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Other aesthetics</h2>
+<pre class="r"><code>PRRS %&gt;% 
+  ggplot() + # we call ggplot
+  geom_boxplot(aes(y = Age, fill = Sex)) # we add a boxplot layer</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/fill-1.png" width="672" /></p>
+<pre class="r"><code>PRRS %&gt;% 
+  ggplot() +
+  geom_boxplot(aes(y = Age, col = Sex))</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/col-1.png" width="672" /></p>
+<div id="non-aesthetics-customization" class="section level3"
+number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Non aesthetics
+customization</h3>
+<p>So far we have added variables inside our <code>aes()</code>
+function, but we can add some arguments outside the <code>aes()</code>
+function that we want them to be applied for all observations. For
+example, we can change the outline of the boxplot to be the same for the
+two groups, but the fill color different per group:</p>
+<pre class="r"><code>PRRS %&gt;% 
+  ggplot() + # we call ggplot
+  geom_boxplot(
+    aes(y = Age, fill = Sex), # This is the normal aesthetics we define
+    col = &#39;red&#39; # all aesthetics we define here will be applied to all th ebservations
+  ) # we add a boxplot layer</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+<div id="colors" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Colors</h2>
+<p>To define specific colors for our figure, we can use the function
+<code>scale_*_manual</code> where the * represents the aesthetic we want
+to represent. If we want to use the color for the fill, we would
+use:</p>
+<pre class="r"><code>PRRS %&gt;% 
+  ggplot() +
+  geom_boxplot(aes(y = Age, fill = Sex)) +
+  scale_fill_manual(values = c(&#39;red&#39;, &#39;green&#39;))</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/colors-1.png" width="672" /></p>
+<p>R manages colors in three different ways: by name (i.e: ‘red’), by
+rgb value using the function <code>rgb()</code>
+(i.e. <code>rgb(1, 0, 0)</code>), or using <a
+href="https://marketing.istockphoto.com/blog/hex-colors-guide/">hexadecimal
+code</a> (i.e. “#F00000”). You can get a full list of the named colors
+in R by using the function <code>colors()</code>, but you will only be
+able to see the names. Luckly someone made a tool that can help us
+exacly the colors that we want: the <em>Colour Picker</em> addin. Addins
+are tools that are available in Rstudio to facilitate tasks, lets try
+the colour picker (should be already in your addins toolbar).</p>
+<p><img src="img/1c_colPicker.gif" /></p>
+<p><strong>Exercise: </strong> Pick two colors you like and use them to
+create a boxplot of the distribution of age by the test result.</p>
+</div>
+<div id="labels" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Labels</h2>
+<p>Usually we try to avoid spaces when using names for the column names,
+but for our plots this could be not the most straight forward way to
+communicate our analysis, we can set specific labels to make our plots
+more readable and self explanatory. lets improve our figure a bit
+more</p>
+<pre class="r"><code>PRRS %&gt;% 
+  ggplot() +
+  geom_boxplot(aes(y = Age, fill = farm_type)) +
+  labs(
+    title = &#39;Distribution of Age by Farm type&#39;,
+    x = &#39;Farm type&#39;,
+    fill = &#39;Farm Type&#39;
+  )</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="themes" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Themes</h2>
+<p>ggplot includes the function <code>theme()</code> to define most of
+the aspects of the figure such as the background color, the grid, axes,
+legend, among many others. There is also several predefined themes that
+you can use, if dont want to mess with all the arguments from the
+function <code>theme()</code>. For example:</p>
+<pre class="r"><code># all the predefined themes start with theme_
+PRRS %&gt;% 
+  ggplot() +
+  geom_boxplot(aes(y = Age, fill = farm_type)) +
+  labs(title = &#39;Distribution of Age by Farm type&#39;, x = &#39;Farm type&#39;, fill = &#39;Farm Type&#39;) +
+  theme_minimal()</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+</div>
+<div id="facets" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Facets</h1>
+<pre class="r"><code>PRRS %&gt;% 
+  ggplot() +
+  geom_histogram(aes(Age)) +
+  facet_grid(rows = vars(Sex), cols = vars(Result)) +
+  theme_classic()</code></pre>
+<p><img src="1c_GraphicsI_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<hr />
+<p><em>This lab has been developed with contributions from: <a
+href="https://www.spablo-temporal.network">Jose Pablo
+Gomez-Vazquez</a>.<br />
+Feel free to use these training materials for your own research and
+teaching. When using the materials we would appreciate using the proper
+credits. If you would be interested in a training session, please
+contact: <a href="mailto:jpgo@ucdavis.edu"
+class="email">jpgo@ucdavis.edu</a></em></p>
+<hr />
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
