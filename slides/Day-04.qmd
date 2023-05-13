@@ -1,0 +1,286 @@
+---
+title: "Day 04"
+format: 
+  revealjs:
+    theme: [dark, custom.scss]
+    footer: "[Workshop homepage](https://cadms-ucd.github.io/DiseaseModeling/)"
+editor: visual
+title-slide-attributes:
+    data-background-image: img/bg_title.png
+---
+
+## [Review: day 01]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r, echo = F}
+knitr::opts_chunk$set(warning = F, message = F, echo = T)
+library(dplyr); library(kableExtra);library(DT); library(ggplot2)
+library(STNet)
+options(DT.options = list(pageLength = 5))
+
+data('captures')
+
+Pable <- function(x, head = 5){
+  x %>% head(head) %>% 
+  kbl() %>% 
+  kable_material_dark(full_width = F, lightable_options = c('hover'))
+}
+```
+
+```{r echo=T}
+x <- seq(from = 5, to = 23, length.out = 10) # create a sequence of numbers
+y <- seq(from = 0.1, to = 0.78, length.out = 10) # Create another sequence
+
+mean(x*y) # Get the mean of the multiplication
+```
+
+::: columns
+::: {.column with="30%"}
+Objects:\
+- x\
+- y
+:::
+
+::: {.column with="30%"}
+Operators:\
+- `*`\
+- `<-`
+:::
+:::
+
+::: columns
+::: {.column with="30%"}
+Functions:\
+- `seq()`\
+- `mean()`
+:::
+
+::: {.column with="30%"}
+Arguments:\
+- `from`\
+- `to`\
+- `lengt.out`
+:::
+:::
+
+## Review: day 02 {background-image="img/bg.png"}
+
+<br/>
+
+-   `select()` [to select specific *columns*]{.black}
+-   `slice()` [to select specific *rows* based on position]{.black}
+-   `filter()` [to select specific *rows* based on a condition]{.black}
+-   `mutate()` [to create new variables]{.black}
+
+## Review: day 02 {background-image="img/bg.png"}
+
+<br/>
+
+[Other function we reviewed:]{.black}
+
+-   `count()` [Count rows by one or more groups]{.black}
+-   `group_by()` [aggregate the data by one or more groups]{.black}
+-   `summarise()` [applies functions to the grouped variables]{.black}
+
+## Review: figures {background-image="img/bg.png"}
+
+<br/>
+
+[Components needed to define a graphic:]{.black}
+
+::: incremental
+-   [*data*, the data set we will use to generate the figure]{.black}
+-   [*geometry*, or type of graphic we will generate (i.e. histogram, bar, scatter, etc..)]{.black}
+-   [*aesthetic or mapping*, variables or arguments that will be used for the figure for example: location, color, size, etc..]{.black}
+:::
+
+## Review: Maps {background-image="img/bg.png"}
+
+<br/>
+
+[Types of vectors:]{.black}
+
+::: incremental
+-   [*Point*, Location]{.black}
+-   [*Line*, Location and direction]{.black}
+-   [*Polygon*, Location and area]{.black}
+:::
+
+## Review: Maps {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "|1"
+ggplot() +
+  geom_stars(data = Mxst) +
+  geom_sf(data = Area, fill = NA, col = 'grey60') +
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') +
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "2"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) +
+  geom_sf(data = Area, fill = NA, col = 'grey60') +
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') +
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "3"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + 
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') +
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "4"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') +
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "5"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') + # add point layer
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "6"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') + # add point layer
+  theme_void() + # theme for the figure
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "7"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') + # add point layer
+  theme_void() + # theme for the figure
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) + # color for the gradient
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "8"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') + # add point layer
+  theme_void() + # theme for the figure
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) + # color for the gradient
+  labs(title = 'Map of the study area', fill = 'Altitude') # labels for the figure
+```
+
+![](img/4a_map.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+[Using the `?` operator:]{.black}
+
+![](img/4a_help.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+![](img/4a_helpDoc.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+![](img/4a_helpDocArg.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+![](img/4a_helpDocEx.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+[ChatGPT:](https://chat.openai.com/)
+
+[![](img/4a_helpChat.png){fig-align="center"}]()
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+[ChatGPT:](https://chat.openai.com/)
+
+[! WARNING: CHAT GPT CAN GIVE INCORRECT INFORMATION !]{.red}
+
+-   [If chat GPT does not knows something, sometimes will make up information (i.e. made up references, name of packages, libraries etc...)]{.black}
+-   [Make sure to verify the information provided by Chat GPT]{.black}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+![](img/4a_helpGoogle.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+[Data to Viz:](https://www.data-to-viz.com)
+
+![](img/4a_helpDataViz.png){fig-align="center"}
