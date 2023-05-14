@@ -132,7 +132,7 @@ As you can notice, to read the code `F2(F1(x))` we have to go from the inside to
 **Suggestion:** we can use the keys *Ctrl* + *shift* + *m* to insert the `%>%` operator.  
 
 ```{r pipes} 
-# We previosly used this code to calculate the square root of the sum of x
+# We previously used this code to calculate the square root of the sum of x
 sqrt(sum(x))
 ```
 
@@ -170,6 +170,17 @@ The most popular format for tables in R are called `data.frame`, when we import 
 class(PRRS)
 ```
 
+
+```{r}
+PRRS %>% 
+  select(Result, Age, Sex) %>% # select COlumns Result, Age, Sex
+  filter(Age >= 20) %>% 
+  filter(Result == 1)
+```
+
+
+
+
 It is possible that objects can have more than 1 class. In the previous example, you can notice that the `PRRS` object has 3 different types of class.  
 
 # Data manipulation
@@ -204,7 +215,7 @@ Filtering columns works based on boolean logic, so we can specify a condition an
 
 ```{r filtering observations}
 PRRS %>% 
-  filter(farm_type == 'boar studs') # we will use the equals to operator for this
+  filter(farm_type == 'boar stud') # we will use the equals to operator for this
 ```
 
 ## Creating or modifying variables
@@ -250,11 +261,23 @@ PRRS %>%
 
 The previous table show us that were 986 observations with test result negative and 367 with test result positive. We can add multiple variables to count. Now we will count by *Result* and *Sex*:
 
-```{r count}
+```{r count2}
 # We can count based on multiple variables
 PRRS %>% 
   count(Result, Sex)
 ```
+
+We can also calculate other statistics by group. For example lets calculate the mean and standard deviation of the age by Result and Sex:
+
+```{r}
+PRRS %>%
+  group_by(Result, Sex) %>% # The groups used for the data
+  summarise( # the function summarise calculates statistics by the defined groups
+    meanAge = mean(Age), # Calculate the mean age
+    sdAge = sd(Age) # Calculate the standard deviation
+  )
+```
+
 
 ```{r weighted count}
 # PRRS %>% 
@@ -266,64 +289,74 @@ PRRS %>%
 Sometimes we have different data sets that have variables in common and we want to integrate them into a single data set for further analysis. In this example we have the data sets *node_attrib.csv* and *network.csv*
 
 ```{r}
-# Importing the farm dataseet
+# First we import the data -----------
+# Importing the farm dataset 
 nodes <- read.csv("Data/node_attrib.csv")
 # Importing the movement dataset
 mov <- read.csv("Data/network.csv")
-# Get the number of outgoing and incoming shipments 
-Out <- mov %>% 
-  group_by(id_orig) %>%
-  summarise(Outgoing = n()) %>%
-  rename(id = id_orig)
-
-In <- mov %>%
-  group_by(id_dest) %>%
-  summarise(Incoming = n()) %>% 
-  rename(id = id_dest)
-
-# Joining the two datasets
-nodes <- nodes %>% 
-  left_join(Out, by ="id")
-
-nodes <- nodes %>%
-  left_join(In, by = "id")
-
-nodes
 ```
 
-Now we will get the ones that had the higher number of movements: 
+The data `mov` has information of place of origin (*id_orig*) and destination (*id_dest*) of animal shipments. First we will calculate the total number of pigs moved for each of the incoming and outgoing movements. To do this we will use the function `count()`
 
 ```{r}
-mov %>% 
-  group_by(id_orig) %>% 
-  summarise(N = n(), N_pigs = sum(pigs.moved)) %>%
-  arrange(desc(N)) %>%
-  head()
+# Get the number of outgoing and incoming shipments 
+Out <- mov %>% # First we call the data
+  count(id_orig, wt = pigs.moved) %>% # then we count the number of movements
+  rename(id = id_orig, outgoing = n) # Rename the variables
+```
+
+You will notice that we added the argument `wt = pigs.moved`, *pigs.moved* is a variable that tell us the number of pigs shipped. The argument `wt` in the function `count()` allow us to add a weight to the counts. We also used the function `rename()` which pretty much does what it sounds like, it renames variables in the data.
+
+Now we will join the data with the farm information contained in the *nodes* object, to do this we use the `left_join()` function:
+
+```{r}
+# Joining the two tables
+# First we join with the outgoing
+farms <- nodes %>% # This is the main object we will join with
+  left_join(Out, by ="id") # we need to specify the variable name we are joining by
+```
+
+**Exercise: ** Not create a object that is the same as the `Out` we just created, but instead of counting the outgoing animals, counts the incoming animals. For this you can use the column *id_dest*. Then join the new object you created with the farms data. Name the variable that has the number of pigs moved *incoming*
+
+```{r echo = F}
+# Get the number of outgoing and incoming shipments 
+In <- mov %>% # First we call the data
+  count(id_dest, wt = pigs.moved) %>% # then we count the number of movements
+  rename(id = id_dest, incoming = n) # Rename the variable
+
+## Then we join with the incoming
+farms <- farms %>%
+  left_join(In, by = "id")
+```
+
+The first rows of your data should look like these:
+
+```{r}
+head(farms)
+```
+
+Notice that we have some outgoing and incoming rows with NA values. Sometimes NAs can interfer with some functions such as sum, in the next example we will summarise the data and egt the ones with the highest number of incoming movements:
+
+```{r}
+farms %>% # This is our joined data
+  group_by(id) %>% # We will group it by id
+  summarise( # we will perform some summary statistics
+    incoming = sum(incoming, na.rm = T) # notice that we add the argument na.rm = T
+  ) %>%
+  arrange(desc(incoming)) %>% # now we will order by incoming
+  head(5) # we use the head() function to get the first 5 observations
 ```
 
 <!-- ## Wide and Long formats -->
-
-# Tables in R
-
-We can use the base R functions to create basic tables. For example, we can create a table that shows the number of positive by sex:  
-
-```{r}
-TBL <- table(PRRS$Sex, PRRS$Result)
-TBL
-```
-
-When we have a table object we can ask for a specific column or row, where is represented as [row, column].  
-
-```{r}
-TBL[,2] # Get the second column
-```
 
 <!-- # Loops in R -->
 
 # Exporting the data
 
+Once that you have processed the data, often times you want to export it so the next time dont have to run all the code. YOu can export to multiple formats, but the most common is to a comma delimited file (CSV), which can be read in excel.
+
 ```{r}
-write.csv(nodes, 'Data/nodes.csv', row.names = F)
+write.csv(farms, 'Data/farms.csv', row.names = F)
 ```
 
 

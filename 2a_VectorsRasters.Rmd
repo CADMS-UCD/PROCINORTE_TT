@@ -10,31 +10,8 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
+library(sf)
 ```
-
-<!-- # Vectors -->
-
-<!-- ## Components of spatial datasets -->
-
-<!-- ### CRS -->
-
-<!-- ### Projections -->
-
-<!-- ## Types of vectors -->
-
-<!-- ### One dimension: Location -->
-
-<!-- Point data -->
-
-<!-- ### Two dimensions: Direction -->
-
-<!-- Lines -->
-
-<!-- ### Three dimensions: Are -->
-
-<!-- Polygons -->
-
-<!-- # Rasters -->
 
 # Introduction.  
 
@@ -43,36 +20,20 @@ Spatial data is usually represented in two different ways:
   - *Vectors*: Represent objects in different dimensions.  
   - *Raster*: Represent continuous values in a grid.  
   
-## Vector data
-
-We can represent spatial objects in different dimensions:  
-
-  - *Point*, is the most basic form of representing spatial data. It contains only the spatial coordinates of an even or object. For example, we use this to represent the spatial location of a farm, a capture of an animal or a case report.  
-  - *Line*, Includes the spatial location of an object and the direction. we can use lines to represent a road, a river or a route.  
-  - *Polygon*, Includes the spatial location and geometry of an object. We use polygon data to represent the shape of a building, lake or a administrative area.  
-  
-Besides having the location of an object, we can include other characteristics such as the name, id, temperature recorded, number of animals in the farm, etc...  
-
-## Raster data:
-
-We use raster data to represent continuous values in a field. Raster are just a grid where each cell has a value and in a grid. The resolution of a raster just represent the size of the cells from the grid. We use raster data to represent values such as altitude, temperature, among other continuous values.  
-
 ## Spatial objects in R.  
 
 In this tutorial we will introduce to spatial data manipulation in R.  
 There are two main formats to manipulate spatial data in R:  
+
   - **SpatialDataFrame** from the `sp` package: This is was the first format introduced in R for spatial data manipulation, therefore, this package has a lot of dependencies (packages that uses this format to do other functions) i.e `raster`, `spdep`, `spstat`.  
+  
   - **Simple features** from the package `sf`: This is a more recently developed package, this package was developed to be more intuitive and friendly with other packages such as `dplyr`. The problem with this package is that since its more recent, some packages doesn't support this format.  
   
 Working with both formats has its advantages, for spatial data manipulation `sf` is more intuitive and powerful, but for spatial analysis `sp` is more robust.  
 
 Here we will use mostly the `sf` package, but there will be times that we will need to switch between formats.  
-  
-  
-___________________________________________
-  
-The package `STNet` was developed specifically for this workshop. All the data and some functions we will use are contained in the package.  
-The installation of this package is done from github, so we will need to install the package`devtools` to access the `STNet` package.
+
+We will continue using the library `STNet` to get the data we will be using in this exercise. Just in case you have not installed it yet, the installation of this package is done from github, so we will need to install the package`devtools` to access the `STNet` package.
 
 ```{r eval=FALSE}
 # If devtools is not installed we need to install it
@@ -83,233 +44,400 @@ devtools::install_github("jpablo91/STNet")
   
 ________________________________________
   
-  
-# Loading the data
+# Vector data
 
-```{r message = F}
+Spatial objects can be represented in multiple dimesions:  
+
+  - *Point*, is the most basic form of representing spatial data. It contains only the spatial coordinates of an even or object. For example, we use this to represent the spatial location of a farm, a capture of an animal or a case report.  
+  - *Line*, Includes the spatial location of an object and the direction. we can use lines to represent a road, a river or a route.  
+  - *Polygon*, Includes the spatial location and geometry of an object. We use polygon data to represent the shape of a building, lake or a administrative area.  
+  
+Besides having the location of an object, we can include other characteristics such as the name, id, temperature recorded, number of animals in the farm, etc...  
+
+## Components of spatial datasets
+
+There are multiple ways to loading spatial data into R, we will use the function `st_read()` to load the data contained in the STNet library. lets get started:
+
+```{r}
 # Loading the libraries
 library(STNet) 
 library(sf)
 library(dplyr)
-# Loading the data from the package
-data("PRRS") 
-data("SwinePrem")
+
 # Loading the spatial data from the package
-Io <- st_read(system.file("data/Io.shp", package = "STNet"))
+MxSp <- st_read(system.file("data/MxShp.shp", package = "STNet")) 
 ```
 
-The `st_read()` function automatically shows some information about our shapefile, but we can see more details when printing the object into the console.  
+The whole data set is a shapefile of Mexico aggregated at the administration level 3 (Municipality). Since we will not be using the whole country for our analysis, we will filter the data only for the study region. Luckly for us, we can use the same function `filter()` we are already familiarized with:
 
 ```{r}
-Io
+# Filter to study area
+Area <- MxSp %>% # This is the data we will filter
+  filter(CVE_ENT %in% c('15', '12', '16')) %>%  # Filter the data to use the states with codes: 15, 12 y 16
+  st_transform(crs = st_crs(4326)) # transform to lat/long
 ```
+
+Notice that the last line transformed the data to a different coordinate reference system, we will talk more about this later. Lets examine the data for now:
+
+```{r}
+head(Area)
+```
+
+## Projecting the data.
+
+Our spatial data is in the WGS84 CRS, which is a non-projected format. Good for locations, bad for measuring distances. The impact of the projection in our data will be associated with the size of our study area. In smaller areas the projection wont have a big impact, but as our study are increases the projection will have a bigger impact when calculating distances.  
+We can use the function `st_transform()` to set a projection to our data.  
+  
+*How do I know which projection to use?* We can use tools such as [epsg.io](https://epsg.io/) to look for the area we will be working and identify the most proper projection. In this exercise we will use the WGS84 CRS.
 
 The output shows:  
   - `geometry type`: The type of shapefile (either point data, lines or polygons).
   - `dimension` Dimensions used in the data.  
-  - `bbox`: The extent of our data.  
-  - `epsg (SRID)`: The projection in the *EPSG* format (which is a standardized code to describe the projection).  
-  - `proj4string`: The projection in proj4string format.  
+  - `Bounding bix`: The extent of our data.  
+  - `CRS`: The coordinate reference system.  
   - And the first 10 features.  
 
 The `sf` objects are basically a data.frame with extra information about geometry, projection and CRS. We can ask for the geometry only using the `$` operator or the function `st_geometry()`and then show it in a plot.  
   
 ```{r}
-plot(Io$geometry)
+plot(Area$geometry)
 ```
 
 We can also extract only the data frame without geometry using the function `data.frame()`:  
+
 ```{r}
-data.frame(Io) %>%
+data.frame(Area) %>%
   head() # We use this function to see the first 6 only
 ```
 
-## Converting from data.frame to sf
+### What is the coordinate reference system?
 
-First we obtain the prevalence per farm: 
-
-```{r}
-PRRS_S <- PRRS %>% 
-  group_by(id) %>%
-  summarise(N = n(), Cases = sum(Result)) %>% # Get the number of samples and positives
-  mutate(Prevalence = Cases/N) # Estimate an apparent prevalence.
-```
-
-Now we join this new values with the locations of the farms (*SwinePrem*):  
-
-```{r}
-SwinePrem <- SwinePrem %>% 
-  left_join(PRRS_S, by = "id")
-```
-
-We can use the function `st_as_sf()` to transform the `data.frame` to `sf`. For this we will need to specify the data frame, coordinates and CRS.  
-```{r}
-Nodes <- SwinePrem %>%
-  st_as_sf(coords = c("long", "lat"), # The names of the coordinates in our data
-           crs = st_crs(Io)) # The CRS we will use.
-```
-
-## Projecting the data.
-
-Our spatial objects are not projected, which means that are we are representing the data in a planar scale without considering the earth curvature, something only a flat earther will do. The impact of the projection in our data will be associated with the size of our study area. In smaller areas the projection wont have a big impact, but as our study are increases the projection will have a bigger impact when calculating distances.  
-We can use the function `st_transform()` to set a projection to our data.  
-
-```{r}
-Iop <- Io %>%
-  st_transform(st_crs(26975))
-
-Nodesp <- Nodes %>% 
-  st_transform(st_crs(Iop))
-```
-
-If we observe our map (projected and not projected) side by side, we can notice that there is a slight curvature on the straight lines such as the north and south borders.  
-
-```{r}
-par(mfrow = c(1,2), mar = c(0, 0, 0, 0))
-plot(Io$geometry)
-plot(Iop$geometry)
-```
-
-Now that we have our data correctly projected, we can improve the visual aspect of our map.  
+The coordinate reference system (CRS) is a format to specify the scale for the coordinates being used to describe the location of our data. The most commonly used CRS is WGS84, which provides the latitude and longitude values in a scale of -90 to 90 for latitude and -180 to 180 for longitude. THis CRS is ideal to report locations in a map but it is important to consider that does not takes into account the curvature of the earth, which is an important factor when we are measuring distances.  
   
-___________________________________________
-  
-  
-# Data visualization
-
-## Point data
-
-We can visualize multiple spatial objects in the same map adding several layers to our plot. We use the argument `add = T` in the layers we want to add to our base plot.
+To see the full description of the CRS from a spatial object we can use the function `st_crs()`: 
 
 ```{r}
-plot(Io$geometry) # Base map, first layer
-plot(Nodes["Prevalence"], pch = 16, add = T) # Second layer
+st_crs(Area)
 ```
 
-Using the information of the apparent prevalence by farm we can change the size of the point and color them by type of farm. We use the function `rescale()` from the `scales` package to rescale the points between 0.5 - 1.5 according to their apparent prevalence.  
-We can also add a legend that shows what they simbology means in our map. For this we use the function `legend()`, which will take multiple arguments such as the location, names to display, among others.  
+## Point data (converting from a data frame)
+
+We can convert a data.frame to a spatial points if we have the coordinates information, lets try with one of the data sets from the STNet library:
 
 ```{r}
-# We use the function rainbow to obtain a palette
-colpal <- rainbow(length(levels(Nodes$farm_type)), # Number of colors needed
-                  s = 0.6) # saturation for the colors
-
-# Visualize the map
-## background map
-plot(Iop$geometry, col = "grey90", main = "Farm distribution and its prevalence") 
-## First layer
-plot(Nodesp$geometry, # Spatial points object
-     pch = 16, # Type of point
-     cex = scales::rescale(Nodesp$Prevalence, to = c(0.5, 1.5)), # Size
-     col = colpal[Nodesp$farm_type], # Color for the points
-     add = T) # Add as a second layer for previous plot
-## Legend
-legend("topright", # Position of the legend
-       legend = levels(Nodesp$farm_type), # Categories to show
-       pch = 16, # Type of point
-       col = colpal)  # Colors for the points
+data('captures') # we load the data
+# Lets look at the variables
+head(captures)
 ```
 
-## Choropleth Maps
-
-We can aggregate the data at county level to create a choropleth map.  First we will join the farm information with the county using a spatial joint with the function `st_join()`. This function will create duplicates of our counties since we have multiple farms per county, so then we will sum all the cases and number of observations using `group_by()` and `summarise()`, and calculate the prevalence at county level (instead of farm level).    
+This data has the column *LATITUD* and *LONG*, which correspond with x and y for a spatial coordinate. We can use the function `st_as_sf()` to do this:
 
 ```{r}
-Iop <- Iop %>%
-  st_join(Nodesp) %>% # the data we are joining with
-  group_by(NAME_2) %>% # group by county
-  summarise_at(vars(N, Cases), .funs = ~sum(.,na.rm = T)) %>% # apply the sum function to the variables sN and Cases
-  mutate(Prevalence = Cases/N) # get the apparent prevalence at county level
+capturesSp <- captures %>% 
+  st_as_sf(
+    coords = c('lon', 'lat'), # the names of the variables with the x and y information
+    crs = st_crs(4326) # the CRS for those coordinates
+  )
+
+# Lets have a look at our points
+plot(capturesSp$geometry)
 ```
+
+You will notice that the points by itself does not provides a lot of useful information. Lets try to put the points and the polygons in the same map:
 
 ```{r}
-plot(Iop["Prevalence"])
-```
-  
-___________________________________________
-  
-  
-
-# Other mapping libraries
-
-There are other libraries that can be used to create maps in R, the base R functions for graphics can be very flexible, but require more knowledge about the functions in R. There ar other options such as `tmap` and `ggplot` that allow us to use more intuitive functions to create maps.  
-  
-## tmap
-
-[`tmap`](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html) has several options for mapping and with very similar syntax to the tidyverse packages (`dplyr`, `ggplot2`). We can create several maps and arrange them into a layout. For example, we can specify a predefined color palette for our map without the need of telling R how many colors we need.  
-
-```{r message = F}
-library(tmap)
+plot(Area$geometry)
+plot(capturesSp$geometry, add = T)
 ```
 
-First we create a map of the farms and their apparent prevalence  
+Still not pretty enough, we will work more on this later...
+
+## Joining spatial objects
+
+So far we have two kind of spatial objects, we can extract the information for the points to the polygons by joining based on where they intersect, for this we can sue the `st_join()` function. It is important that the two spatial objects are in the same CRS.
 
 ```{r}
-tm_shape(Iop) +  # base layer
-  tm_polygons(col = "grey80") + # color of the base layer
-  tm_shape(Nodesp) + # second layer
-  # Options for second layer
-  tm_symbols("Prevalence", # Name of the variable we will use
-             size = 0.5, # Size of the points
-             legend.hist = T) + # Add a histogram
-  # Layout options
-  tm_layout(legend.outside = T, # We want the legend outside the box
-            frame = F, # remove frame
-            legend.hist.width = 3) # with of histogram
+spJoin <- Area %>% 
+  st_join(capturesSp)
+
+# Lets examine our object
+head(spJoin)
 ```
 
-### Interactive maps
-
-One of the nice things about tmap is that we can ver easy convert our static map into something interactive. We use the function `tmap_mode()` to switch between the interactive mode ('view') to the static mode ('plot'). Now we will create a choropleth map like the one we did before, but add it as an interactive map layer.  
+If we look at our object, we will notice that it is a Multipolygon with 606 observations now, instead of the original 319 observations from the Area file. This is beacause there were more than one point joined to each polygon, so there are some repeated polygons. We can use the tools we have used before to summarise the total number of captures by municipality.
 
 ```{r}
-tmap_mode('view')
-tm_shape(Iop) +
-  tm_polygons("Prevalence", palette = "-RdYlBu", alpha = 0.5) +
-  tm_layout(legend.outside = T, frame = F)
+spJoin <- spJoin %>% 
+  data.frame() %>% # first we will transfor to a data.frame (this makes easier for the aggregation)
+  group_by(CVEGEO) %>% 
+  summarise(captures = sum(captures, na.rm = T), treated = sum(treated, na.rm = T))
+
+# Lets look at the result
+head(spJoin)
 ```
 
-## ggplot2
-
-`ggplot2` is one of the most popular libraries for creating figures in R, we can add sf objects using the function `geom_sf()`  
+Now we have a data.frame with the Municipality ID and the number of captures and treated. But the problem is that we have lost all the other spatial information when we did this. We can just join this new data.frame with the one with the spatial information, for this we can use the function `left_join()`:
 
 ```{r}
-library(ggplot2)
+Area <- Area %>% 
+  left_join(spJoin, by = 'CVEGEO')
 
-p <- ggplot() + # first we call the ggplot() function
-  geom_sf(data = Iop, # we specify our data
-          aes(fill = Prevalence)) + # we use aes() to add the variables that we want to plot
-  theme_void()
-
-p
+# Now that we have all the information in a single file we can see the captures by municipality:
+plot(Area['captures'])
 ```
 
-Similarly to `tmap`, we can also convert our map into an interactive map using the library `plotly`
+## Raster data:
+
+We use raster data to represent continuous values in a field. Raster are just a grid where each cell has a value and in a grid. The resolution of a raster just represent the size of the cells from the grid. We use raster data to represent values such as altitude, temperature, among other continuous values.  
+
+There are multiple ways to get raster data, one example is getting the data directly from R. We can use the function `getData()` from the `raster()` package to get altitude data:
 
 ```{r}
-# make sure you have it installed 
-# install.packages("plotly")
-plotly::ggplotly(p)
+library(raster)
+MxAlt <- getData('alt', country='MEX') # get the data for the whole country
+
+plot(MxAlt) # see the data
 ```
 
-ggplot and tmap have more personalization options that will not be covered in this tutorial. For more plotting information i recommend the [R Graph Gallery](https://www.r-graph-gallery.com) which has several examples and code for making different types of plots
+Rasters are basically grids with a specific resolution and a value associated to each pixel. You can see the information it includes by printing the object:
+
+```{r}
+MxAlt
+```
+Now let's map our raster using the `ggplot` library. For this, we will need to convert the format of our raster to another that integrates better with the `ggplot` library. We will use the library `stars` for this. SO if you have not installed it yet, make sure to install it.
+
+```{r ggplot raster}
+library(stars) # load the stars library
+
+# Convert the format
+Mxst <- stars::st_as_stars(MxAlt) %>% # first we convert to the stars format
+  st_crop(., Area) # we will crop the raster to get only our study area
+
+# Create the figure
+ggplot() + # set the empty canvas
+  geom_stars(data = Mxst) + # We use the function geom_stars to add the raster layer
+  theme_void() # set the theme to void
+```
+
+# Putting everything together wit ggplot
+
+Now that we know a bit more about spatial data, lets put everything together using the `ggplot` library. So far we have been using only a few layers for making our figures, but in the next example we will add one by one the layers to put all the data in the same figure:
+
+```{r}
+# first we crete an empty container to save out maps
+Maps <- list()
+
+# Now we will integrate the concepts we have been talking about to create a map:
+Maps$map01 <- ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') + # add point layer
+  theme_void() + # theme for the figure
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) + # color for the gradient
+  labs(title = 'Map of the study area', fill = 'Altitude') # labels for the figure
+
+Maps$map01
+```
+
+```{r echo=F}
+ggsave(Maps$map01, filename = 'slides/img/4a_map.png', bg = 'white')
+```
 
 # Getting data for other countries/regions
 
-One of the easiest ways to get data from other countries or regions is downloading directly from R using the `raster` library. For example, we will get a shapefile for Denmark. The data will be downloaded in your computer and store in your project directory. Once downloaded you can just load it directly from your computer without internet connection with the function `read_sf`.
+One of the easiest ways to get data from other countries or regions is downloading directly from R using the `raster` library with the `getData()` function. This function downloads data from the GADM database using the ISO codes for each country.  
+For example, we will get a shapefile for Mexico, The data will be downloaded in your computer and store in your project directory. Once downloaded you can just load it directly from your computer without internet connection with the function `read_sf`.
 
 ```{r}
-TT <- raster::getData(name = 'GADM', # this is the data source
+Sp <- raster::getData(name = 'GADM', # this is the data source
                       level = 1, # Level of administration
-                      country = 'TT') %>%  # country code
+                      country = 'Mx') %>%  # country code
   st_as_sf() # Now transform the data to sf
 
 # the dataset can be quite detailed, so we can simplify it to make it easier to plot
-TT <- rmapshaper::ms_simplify(TT)
+Sp <- rmapshaper::ms_simplify(Sp)
 
 # Plot the map
-ggplot() +
-  geom_sf(data = TT) +
-  theme_void()
+Maps$mx <- ggplot() + # set our empty canvas
+  geom_sf(data = Sp) + # add the polygons layer
+  theme_void() # set the theme to void
+
+Maps$mx
 ```
+
+**Exercise - Making your own map:** Get a map from the region you were born (or if you prefer where you currently live). For this, use the `getData()` function with the ISO code for your country. Use the level of resolution 2, then filter your map to show only the administration level 1 from the location selected. 
+
+___________________________________________
+
+# Cartography
+
+Now that we are familiarized with spatial data and visualization, we can go more detailed into making a pretty map.
+
+First lets aggregate all the capture regarding the year, so we can create a map with the points corresponding to the number of captures:
+
+```{r}
+cap <- capturesSp %>% # Captures data
+  count(Loc, wt = captures) %>%  # count the number of captures by location
+  rename(captures = n) # rename the variable 
+
+# Lets see how it looks like
+Maps$area <- ggplot(data = cap) + # Create the empty canvas
+  geom_sf(data = Area) + # add the layer for polygons
+  theme_void() + # set the theme to void
+  theme(legend.position = 'none', panel.background = element_rect(fill = 'gray95')) # Remove the legend
+
+# We can add extra layers to our base map
+Maps$area +
+  geom_sf(aes(size = captures), alpha = 0.2) # add the layer for points
+```
+
+## Change the map extent
+
+Most of the data is concentrated in a specific region and its hard to see it clear, for this we will zoom in into the region with our points. We can use the function `lims()` to specify the x and y limits of our map. We will define the limits based on the bounding box of the captures data and save this to an object so we can use it later
+
+
+```{r}
+bbox <- st_bbox(capturesSp) # Get the bounding box
+mapLims <- lims(x = bbox[c(1, 3)], y = bbox[c(2, 4)]) # specify the limits and save to an object 
+
+# Visualize the map 
+Maps$areaZoom <- ggplot() + # we set the canvas
+  geom_sf(data = Area,col = 'grey60') +
+  geom_sf(data = cap, aes(size = captures), alpha = 0.5) +
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red') +
+  scale_size(range = c(0.1, 3)) +
+  mapLims
+
+Maps$areaZoom
+```
+
+## Facets
+
+```{r}
+ggplot(data = capturesSp) +
+  geom_sf(data = Area,col = 'grey60') +
+  geom_sf(size = 0.5, alpha = 0.5) +
+  theme_void() +
+  mapLims +
+  facet_wrap(~year) +
+  theme_dark() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+
+## Additional legends
+
+Often we want to show additional legends in our maps to provide more context of the study area. Two common legends used are a scale bar and a arrow that points where is the north. The library `ggspatial` has some functions to annotate our map and provide these legends.
+
+First we will add a scale bar using the function `annotation_scale()`. Notice that since we already have a map saved in the container Maps, we can just use the same object and add the additional line of code for our scale bar, connecting with the `+` operator:
+
+```{r scale bar}
+library(ggspatial)
+
+Maps$areaZoom <- Maps$areaZoom + # this is the map we previously created
+  annotation_scale( # add the scale bar
+    location = 'br', # Location of the scale bar
+    width_hint = 0.25, # how wide the scale bar will be
+    line_width = 0.2, # width of the outline
+    height = unit(.03, "in") # how tall the scale bar will be
+  ) 
+
+Maps$areaZoom
+```
+
+We can also add other additional legends like a north arrow, we will add one with the function `annotation_north_arrow()` from the `ggspatial` library:
+
+```{r}
+Maps$areaZoom <- Maps$areaZoom + # use the previously created map
+  annotation_north_arrow(location = "tl", which_north = "true", style = north_arrow_fancy_orienteering(text_size = 5), 
+                         height = unit(.6, "in"),
+                         width = unit(.6, "in"),
+                         pad_x = unit(0.05, "in"), pad_y = unit(0.05, "in"))
+
+Maps$areaZoom
+```
+
+
+# Inset maps
+
+```{r}
+Maps$areaZoom + 
+  annotation_custom(
+    ggplotGrob(
+      Maps$area +
+        geom_rect(xmin = bbox[1], ymin = bbox[2], xmax = bbox[3], ymax = bbox[4], fill = NA, col = 'red')
+    ),
+    xmin = bbox[1], xmax = bbox[1] + 0.5, ymin = bbox[2], ymax = bbox[2] + 0.5
+  )
+```
+
+# Scatter pie
+
+https://rdrr.io/cran/scatterpie/man/geom_scatterpie.html
+
+```{r}
+# Example ----------
+library(ggplot2)
+library(scatterpie)
+d <- data.frame(x=rnorm(5), y=rnorm(5))
+d$A <- abs(rnorm(5, sd=1))
+d$B <- abs(rnorm(5, sd=2))
+d$C <- abs(rnorm(5, sd=3))
+
+ggplot() + 
+  geom_scatterpie(aes(x=x, y=y), data=d, cols=c("A", "B", "C")) + 
+  coord_fixed()
+
+# my data ---------
+d <- captures %>% 
+  mutate(noTreat = captures - treated) %>% 
+  group_by(lon, lat) %>% 
+  summarise(treated = sum(treated), noTreat = sum(noTreat), captures = sum(captures)) 
+
+ggplot() +
+  geom_sf(data = Area) +
+  geom_scatterpie(aes(x=lon, y=lat, r = scales::rescale(captures, to = c(0.02, 0.05))), data=d, cols=c('treated', 'noTreat'), color = NA, alpha = 0.5) +
+  theme_void() +
+  mapLims
+  
+```
+
+
+<!-- ```{r radius example} -->
+<!-- library(ggplot2) -->
+<!-- d <- data.frame(x=rnorm(5), y=rnorm(5)) -->
+<!-- d$A <- abs(rnorm(5, sd=1)) -->
+<!-- d$B <- abs(rnorm(5, sd=2)) -->
+<!-- d$C <- abs(rnorm(5, sd=3)) -->
+<!-- ggplot() +  -->
+<!--   geom_scatterpie(aes(x=x, y=y), data=d, cols=c("A", "B", "C")) +  -->
+<!--   coord_fixed() -->
+
+<!-- d <- tidyr::gather(d, key="letters", value="value", -x:-y) -->
+
+<!-- ggplot() + -->
+<!--   geom_scatterpie(aes(x=x, y=y), data=d, cols="letters", long_format=TRUE) +  -->
+<!--   coord_fixed() -->
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- d <- captures %>%  -->
+<!--   group_by(lat, lon) %>%  -->
+<!--   summarise(captures = sum(captures), treated = sum(treated)) %>%  -->
+<!--   mutate(id = 1:n()) -->
+
+<!-- ggplot() + -->
+<!--   geom_sf(data = Area) + -->
+<!--   geom_scatterpie(mapping = aes(x = lon, y = lat, group = id),  -->
+<!--                   data = d, color = NA, alpha = 0.5, -->
+<!--                   cols = c('captures', 'treated')) + -->
+<!--   scale_fill_manual(values = c('red','blue')) + -->
+<!--   bbox + -->
+<!--   theme_void() -->
+<!-- ``` -->
+
 

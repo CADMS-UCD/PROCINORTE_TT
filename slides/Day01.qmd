@@ -48,56 +48,6 @@ title-slide-attributes:
 -   Gephi (network visualization tool)
 :::
 
-## What is this workshop? {background-image="img/bg.png"}
-
-<br/>
-
-::: incremental
--   [This workshop is an introduction to R]{.black}
--   [DO NOT EXPECT TO MASTER R AFTER THE WORKSHOP]{.black}
--   [If you already have experience with R, is always nice to see how other people do things, so feel free to share!]{.black}
-:::
-
-::: notes
--   This workshop is an introduction to R, we will cover A LOT of material in a brief time, so please be patient.
--   Do not expect that by the end of the workshop you will master all the topics covered, mastering R takes time and the more you do it the easier it gets. All the materials will remain accessible online for you to review and feel free to reach anytime in the future for questions
--   If
-:::
-
-## Tentative Schedule {background-image="img/bg.png"}
-
-<br/>
-
-![](img/1a_schedule.png){width="624"}
-
-## Workshop format {background-image="img/bg.png"}
-
-Homepage: <https://cadms-ucd.github.io/DiseaseModeling/>
-
-![](img/1a_website.png)
-
-
-## [Workshop format]{style="color:black;"} {background-image="img/bg_2.png"}
-
-<br/>
-
-
-<br/>
-
-::: columns
-::: {.column width="33%"}
-![Lectures](img/1a_formatLec.png)
-:::
-
-::: {.column width="33%"}
-![Coding together](img/1a_formatCoding.png)
-:::
-
-::: {.column width="33%"}
-![Independent work](img/1a_formatLabs.png)
-:::
-:::
-
 # Some examples {background-image="img/bg_title.png"}
 
 ## [CSF in Peru]{style="color:black;"} {background-color="black" background-image="img/bg_2.png"}
@@ -162,6 +112,59 @@ Tools used:
 -   Mixed methods
 :::
 :::
+
+## What is this workshop? {background-image="img/bg.png"}
+
+<br/>
+
+::: incremental
+-   [This workshop is an introduction to R]{.black}
+-   [DO NOT EXPECT TO MASTER R AFTER THE WORKSHOP]{.black}
+-   [If you already have experience with R, is always nice to see how other people do things, so feel free to share!]{.black}
+:::
+
+::: notes
+-   This workshop is an introduction to R, we will cover A LOT of material in a brief time, so please be patient.
+-   Do not expect that by the end of the workshop you will master all the topics covered, mastering R takes time and the more you do it the easier it gets. All the materials will remain accessible online for you to review and feel free to reach anytime in the future for questions
+-   If
+:::
+
+## Tentative Schedule {background-image="img/bg.png"}
+
+<br/>
+
+![](img/1a_schedule.png){width="624"}
+
+## Workshop format {background-image="img/bg.png"}
+
+Homepage: <https://cadms-ucd.github.io/DiseaseModeling/>
+
+![](img/1a_website.png)
+
+## [Workshop format]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+<br/>
+
+::: columns
+::: {.column width="33%"}
+![Lectures](img/1a_formatLec.png)
+:::
+
+::: {.column width="33%"}
+![Coding together](img/1a_formatCoding.png)
+:::
+
+::: {.column width="33%"}
+![Independent work](img/1a_formatLabs.png)
+:::
+:::
+
+# Getting everything ready {background-image="img/bg_title.png"}
+
+
+
 
 # Some programming concepts {background-image="img/bg_title.png"}
 
