@@ -10,7 +10,6 @@ title-slide-attributes:
     data-background-image: img/bg_title.png
 ---
 
-
 ## Workshop participants: {background-image="img/bg.png"}
 
 <br/>
@@ -119,7 +118,7 @@ Tools used:
 <br/>
 
 ::: incremental
--   [This workshop is an introduction to R]{.black}
+-   [This workshop is an introduction]{.black}
 -   [DO NOT EXPECT TO MASTER R AFTER THE WORKSHOP]{.black}
 -   [If you already have experience with R, is always nice to see how other people do things, so feel free to share!]{.black}
 :::
@@ -138,7 +137,7 @@ Tools used:
 
 ## Workshop format {background-image="img/bg.png"}
 
-Homepage: <https://cadms-ucd.github.io/DiseaseModeling/>
+Homepage: <https://cadms-ucd.github.io/PROCINORTE_TT/>
 
 ![](img/1a_website.png)
 
@@ -168,21 +167,23 @@ Homepage: <https://cadms-ucd.github.io/DiseaseModeling/>
 
 <br/>
 
-:::: columns
+::: columns
+::: {.column width="50%"}
+![](img/0_R.jpg){width="40%"}
 
-::: {.column width = "50%"}
-![](img/0_posit.jpg)
-
-![](img/0_posit.jpg)
+![](img/0_Rstudio.png){width="40%"}
 :::
 
-::: {.column width = "50%"}
-
-![](img/0_posit.jpg)
-
+::: {.column width="50%"}
+<br/><br/> ![](img/0_posit.jpg)
+:::
 :::
 
-::::
 
+## Posit cloud {background-image="img/bg.png"}
+[https://posit.cloud](https://posit.cloud)
 
+<br/>
+![](img/0d_positDash.png){width="80%"}
 
+# Questions? {background-image="img/bg_title.png"}
