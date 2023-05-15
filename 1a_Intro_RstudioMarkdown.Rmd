@@ -17,7 +17,7 @@ In this first section we are not going to worry at all about coding or the synta
 The goal of this lab is that, by the end, you feel more comfortable with the following concepts:
   
   - Project organization. 
-  - The main components of teh Rstudio interface. 
+  - The main components of the Rstudio interface. 
   - Files you can create with Rstudio.  
 
 # The Rstudio interface

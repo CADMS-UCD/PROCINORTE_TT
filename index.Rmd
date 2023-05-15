@@ -76,7 +76,7 @@ At the end of this workshop you will be able to use your own R to process your d
 
 ------------------------------------------------------------------------
 
-# Tentative schedule
+# Tentative schedule (all times in GMT-4)
 
 ```{r TT schedule}
 data.frame(
@@ -104,6 +104,9 @@ data.frame(
   row_spec(c(4,6, 8), background = "#F6F5FA", italic = T)
 ```
 
+## Registration:
+
+To register the workshop, follow this [link](https://sta-uwi-edu.zoom.us/meeting/register/tJIuf-isqDotEtKd9XZ6lhMRnnrZqBgXebbq#/registration)
 
 ------------------------------------------------------------------------
 

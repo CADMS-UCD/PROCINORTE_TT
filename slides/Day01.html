@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.2.475">
 
   <meta name="author" content="Pablo Gomez">
-  <title>Introduction</title>
+  <title>R syntax</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -388,7 +388,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="img/bg_title.png" class="quarto-title-block center">
-  <h1 class="title">Introduction</h1>
+  <h1 class="title">R syntax</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -399,189 +399,6 @@ Pablo Gomez
 </div>
 
 </section>
-<section id="workshop-participants" class="slide level2" data-background-image="img/bg.png">
-<h2>Workshop participants:</h2>
-<p><br></p>
-<p><span class="black">Let’s do some brief introductions:</span></p>
-<ul>
-<li><span class="black">Name</span></li>
-<li><span class="black">Brief description of your background</span></li>
-<li><span class="black">Experience with R</span></li>
-</ul>
-</section>
-<section id="why-r" class="slide level2" data-background-image="img/bg.png">
-<h2>Why R?</h2>
-<p><br></p>
-<div>
-<ul>
-<li class="fragment"><span class="black">It’s FREE!</span></li>
-<li class="fragment"><span class="black">Open source</span></li>
-<li class="fragment"><span class="black">Runs in any OS</span></li>
-<li class="fragment"><span class="black">Programming languages are great for collaboration and replicable research</span></li>
-</ul>
-</div>
-<aside class="notes">
-<ul>
-<li>R is free! the version we will use runs in the cloud with limited resources for free, plans are available if more resources needed.. but also, everything we will learn in this workshop is directly applicable for the R desktop version, which will be able to use all the resources available in your computer.</li>
-<li>R is open source, this means anyone can contribute to improve R and create new functions.. and yes there is a looot of people doing this just for the sake of open science (which measn that science should be as accessible and easy to do for everyone)</li>
-<li>Runs in any OS, as opposed to other software coff coff ARC GIS and @Risk, R can be run in Windows, Linux, MAC and other os using the cloud version</li>
-<li>As opposed to software that relies completely in UI, programming allows you to document every step of your work, meaning that you can come back to your code years later, and if documented properly, you shouldnt worry to much about remembering off the top of your head exactly what you did and in what order</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="why-r-1" class="slide level2" data-presentation-heading-color="black" data-background-image="img/bg_2.png">
-<h2><span style="color:black;">Why R?</span></h2>
-<div>
-<ul>
-<li class="fragment">Excel</li>
-<li class="fragment">Word</li>
-<li class="fragment">PowerPoint</li>
-<li class="fragment">GIS software (ARC, QGIS)</li>
-<li class="fragment">Gephi (network visualization tool)</li>
-</ul>
-</div>
-</section>
-<section id="what-is-this-workshop" class="slide level2" data-background-image="img/bg.png">
-<h2>What is this workshop?</h2>
-<p><br></p>
-<div>
-<ul>
-<li class="fragment"><span class="black">This workshop is an introduction to R</span></li>
-<li class="fragment"><span class="black">DO NOT EXPECT TO MASTER R AFTER THE WORKSHOP</span></li>
-<li class="fragment"><span class="black">If you already have experience with R, is always nice to see how other people do things, so feel free to share!</span></li>
-</ul>
-</div>
-<aside class="notes">
-<ul>
-<li>This workshop is an introduction to R, we will cover A LOT of material in a brief time, so please be patient.</li>
-<li>Do not expect that by the end of the workshop you will master all the topics covered, mastering R takes time and the more you do it the easier it gets. All the materials will remain accessible online for you to review and feel free to reach anytime in the future for questions</li>
-<li>If</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="tentative-schedule" class="slide level2" data-background-image="img/bg.png">
-<h2>Tentative Schedule</h2>
-<p><br></p>
-
-<img data-src="img/1a_schedule.png" width="624" class="r-stretch"></section>
-<section id="workshop-format" class="slide level2" data-background-image="img/bg.png">
-<h2>Workshop format</h2>
-<p>Homepage: <a href="https://cadms-ucd.github.io/DiseaseModeling/" class="uri">https://cadms-ucd.github.io/DiseaseModeling/</a></p>
-
-<img data-src="img/1a_website.png" class="r-stretch"></section>
-<section id="workshop-format-1" class="slide level2" data-background-image="img/bg_2.png">
-<h2><span style="color:black;">Workshop format</span></h2>
-<p><br></p>
-<p><br></p>
-<div class="columns">
-<div class="column" style="width:33%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/1a_formatLec.png"></p>
-<p></p><figcaption>Lectures</figcaption><p></p>
-</figure>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/1a_formatCoding.png"></p>
-<p></p><figcaption>Coding together</figcaption><p></p>
-</figure>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/1a_formatLabs.png"></p>
-<p></p><figcaption>Independent work</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section>
-<section id="some-examples" class="title-slide slide level1 center" data-background-image="img/bg_title.png">
-<h1>Some examples</h1>
-
-</section>
-<section id="csf-in-peru" class="slide level2" data-background-color="black" data-background-image="img/bg_2.png">
-<h2><span style="color:black;">CSF in Peru</span></h2>
-<div class="columns">
-<div class="column" style="width:70%;">
-<p><img data-src="img/1a_CSF.png"></p>
-</div><div class="column" style="width:30%;">
-<p>Tools used:</p>
-<ul>
-<li>Network analysis</li>
-<li>GLM</li>
-<li>GIS</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="more-sna" class="slide level2" data-background-color="black" data-background-image="img/bg_2.png">
-<h2><span style="color:black;">More SNA</span></h2>
-<div class="columns">
-<div class="column" style="width:70%;">
-<p><img data-src="img/1a_SNA-SA.png"></p>
-</div><div class="column" style="width:30%;">
-<p>Tools used:</p>
-<ul>
-<li>Network analysis</li>
-<li>GIS</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="risk-assessment" class="slide level2" data-background-color="black" data-background-image="img/bg_2.png">
-<h2><span style="color:black;">Risk assessment</span></h2>
-<div class="columns">
-<div class="column" style="width:70%;">
-<p><img data-src="img/1a_RA.png"></p>
-</div><div class="column" style="width:30%;">
-<p>Tools used:</p>
-<ul>
-<li>Stochastic modeling</li>
-<li>Risk Assessment</li>
-<li>GIS</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="expert-elicitation" class="slide level2" data-background-color="black" data-background-image="img/bg_2.png">
-<h2><span style="color:black;">Expert elicitation</span></h2>
-<div class="columns">
-<div class="column" style="width:70%;">
-<p><img data-src="img/1a_EKE.png"></p>
-</div><div class="column" style="width:30%;">
-<p>Tools used:</p>
-<ul>
-<li>Expert knowledge elicitation</li>
-<li>Surveys</li>
-<li>Mixed methods</li>
-</ul>
-</div>
-</div>
-</section></section>
 <section>
 <section id="some-programming-concepts" class="title-slide slide level1 center" data-background-image="img/bg_title.png">
 <h1>Some programming concepts</h1>
