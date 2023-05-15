@@ -392,7 +392,7 @@ interface and what kind of files we can create with it.</p>
 with the following concepts:</p>
 <ul>
 <li>Project organization.</li>
-<li>The main components of teh Rstudio interface.</li>
+<li>The main components of the Rstudio interface.</li>
 <li>Files you can create with Rstudio.</li>
 </ul>
 <div id="the-rstudio-interface" class="section level1" number="1">
@@ -448,27 +448,51 @@ project</em> and continue.</p>
 <p>Once the project is created, in the files tab you will see that
 Rstudio created the files for your project in the folder that you
 selected. The project organization depends on your personal preferences,
-but I usuallly like to create 3 folders (code, data and docs) to
-organice my files related with the current project.</p>
+but I usually like to create 3 folders (code, data and docs) to organice
+my files related with the current project.</p>
 <p><img src="img/Ia_05-NewProj.png" style="width:30%" align="center"/></p>
 </div>
-<div id="intro-to-markdown" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Intro to Markdown</h1>
+<div id="editors-in-rstudio" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Editors in Rstudio</h1>
+<div id="rscripts.r" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Rscripts(.R)</h2>
+<p>Now we are going to open our first R script. In the <a
+href="https://ucdavis.box.com/s/ztydby6t65nil1oh8elhnogdjisrwgcc">shared
+folder</a> you will find an R script under <code>Code/pkgs.R</code>,
+download it to your computer and we will import it to our R project. Go
+to the files tab located in the bottom left panel and click on the
+upload button:</p>
+<p><img src="img/0_upload1.png" style="width:100.0%" /></p>
+<p>A box will pop up with a few options, click on the <em>Choose
+file</em> option and locate the script you downloaded in your
+computer.</p>
+<p><img src="img/0_upload2.png" style="width:30.0%" /></p>
+<p>Now that you uploaded the file to your project, open in and run the
+script by clicking on the <em>Source</em> button. This will install a
+few libraries we will be using during the workshop.</p>
+<p><img src="img/0_source.png" style="width:100.0%" /></p>
+<p>R scripts are the most common type of file used by the R software,
+but there are other types of files that will make easier generating
+documents.</p>
+</div>
+<div id="intro-to-markdown" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Intro to
+Markdown</h2>
 <p><img src="img/Ia_Docs.png" style="float:right;width:16.0%" /></p>
-<p>R studio can create several types of documents including: R scritps,
+<p>R studio can create several types of documents including: R scripts,
 text files, Markdown, among others. To create a new document you can go
 to the menu located at the upper left corner.</p>
 <p>A menu will show with all the different document types you can
-create. For now we will select the option “R Markdown”.</p>
-<p>It might ask you to install a library if its not already installed,
-so just clikc yes if it does. This will open a window where will ask for
-a Title, author and Date. Give a name to the document and put your name
-for the author. For now we will leave all the other options without
-changes.</p>
+create. For now we will select the option <em>R Markdown…</em>.</p>
+<p>It might ask you to install a library if it’s not already installed,
+so just click yes if it does. This will open a window where will ask for
+a Title, author and Date. We will go to the</p>
 <p><img src="img/Ia_RmdCreate.png" style="width:30%" align="center"/></p>
-<div id="documents-with-rmd" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Documents with
-Rmd</h2>
+</div>
+<div id="documents-with-r-markdown-.rmd" class="section level2"
+number="3.3">
+<h2><span class="header-section-number">3.3</span> Documents with R
+Markdown (.Rmd)</h2>
 <p>We created our first document with R Markdown. The document will
 contain already a template with some text, and will look like this:</p>
 <p><img src="img/Ia_RmdDoc.png" style="width:60%" align="center"/></p>
@@ -496,8 +520,8 @@ level. For example if we want to define a title hierarchy we write:</p>
 ### Subtitle 2</code></pre>
 <p>Which in our visual and rendered document will look like this:</p>
 <p><img src="img/Ia_Titles.png" style="width:40%" align="center"/></p>
-<div id="navigating-the-document" class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Navigating the
+<div id="navigating-the-document" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Navigating the
 document</h3>
 <p>Having defined sections in our document is nice because we can
 quickly jump between them. There are 2 ways of quickly navigating
@@ -514,8 +538,8 @@ contained which means taht all the objects and functions you use must be
 declared and loaded in order for the document to render properly (we
 will talk more about this later).</p>
 </div>
-<div id="rendering-the-document" class="section level3" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> Rendering the
+<div id="rendering-the-document" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Rendering the
 document</h3>
 <p>Now that we have a document we are going to render it to different
 formats. To render the document you can either click on the
@@ -524,19 +548,23 @@ style="width:10.0%" />, or use the shortcut <code>ctrl+shift+k</code>.
 The default format that the document will be rendered is html, but you
 can choose different formats from the dropdown menu.</p>
 <p><img src="img/Ia_KnitMenu.png" style="width:35%" align="center"/></p>
-<p><strong>Exercise:</strong> Add a new section with a short bio about
-yourself and try the different rendering modes (pdf and word).</p>
+</div>
+</div>
+<div id="exercise-1" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Exercise 1</h2>
+<p>Add a new section with a short bio about yourself, and include your
+favorite song and/or favorite food. Try the different rendering modes
+(pdf and word) and submit the document.</p>
+</div>
+<div id="presentations-with-quarto" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Presentations with
+quarto</h2>
 <p>Like you saw, R studio can be used for more than just coding. R
 studio can be used as a free alternative to text editors, which allow us
 to generate different kind of documents such as reports. But wait… there
 is more things we can use R studio for, in the next section we will
 briefly introduce on how to use R studio to generate presentations,
 similar to something you could achieve with power point.</p>
-</div>
-</div>
-<div id="presentations-with-quarto" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Presentations with
-quarto</h2>
 <p>Quarto is a platform for creating presentations using a very similar
 approach as R markdown. To create a quarto presentation you can use the
 same menu that you previously used to create a new document.</p>

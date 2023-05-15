@@ -82,11 +82,11 @@ At the end of this workshop you will be able to use your own R to process your d
 data.frame(
   Time = c('', '9:00-10:00', '10:00-10:30', '10:30-10:50', '10:50-12:00', '12:00-13:00', '13:00-14:00', '14:00-14:20', '14:20-15:00'),
   D01 = cell_spec(
-    c('Introduction to R and GIS', 'Introduction to R', 'R syntax and the tidyverse', 'Coffee break', 'Graphics in R', 'Lunch', 'Intro to vectors and Rasters', 'Coffee break', 'Spatial statistics and Cartography'), 'html',
+    c('R and data visualization', 'Introduction to R', 'R syntax', 'Coffee break', 'Data manipulation', 'Lunch', 'Graphics in R', 'Coffee break', 'Graphics part II'), 'html',
     link = c('slides/Day01.html', '', '', '', '', 'Lunch.html', '', '', '')
   ),
   D02 = cell_spec(
-    c('Network Analysis', 'Introduction to Social Network Analysis', 'Network analysis in R', 'Coffee break', 'Network visualization', 'Lunch', 'Bipartite Networks', 'Coffee break', 'Dynamic Networks'), 'html',
+    c('GIS and Network Analysis', 'Vectors and Rasters', 'Cartography', 'Coffee break', 'Introduction to Network analysis', 'Lunch', 'Network visualization', 'Coffee break', 'Dynamic Networks'), 'html',
     link = c('', '', '', '', '', 'Lunch.html', '', '', '')
   ),
   D03 = cell_spec(
@@ -119,7 +119,7 @@ The data used for this workshop is contained in the package `STNet`. To install 
 ## Links
 
 -   [Shared
-    folder](https://ucdavis.box.com/s/65bg7mu85kblruofbkf481ontvuw128e),
+    folder](https://ucdavis.box.com/s/ztydby6t65nil1oh8elhnogdjisrwgcc),
     we will use this folder to provide some workshop materials such as
     code, data, or other resources.
 <!-- -   [R bloggers](https://www.r-bloggers.com), Website that shares tutorials and posts from different contributors. -->
