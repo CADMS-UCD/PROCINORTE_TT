@@ -12,16 +12,16 @@ library(kableExtra); library(dplyr)
 data.frame(
   Time = c('', '9:00-10:00', '10:00-10:30', '10:30-10:50', '10:50-12:00', '12:00-13:00', '13:00-14:00', '14:00-14:20', '14:20-15:00'),
   D01 = cell_spec(
-    c('Introduction to R and GIS', 'Introduction to R', 'R syntax and the tidyverse', 'Coffee break', 'Graphics in R', 'Lunch', 'Intro to vectors and Rasters', 'Coffee break', 'Cartography'), 'html',
-    link = c('slides/Day01.html', '1a_Intro_RstudioMarkdown.html', '1b_RandTidyverse.html', '', '1c_GraphicsI.html', 'Lunch.html', '2a_VectorsRasters.html', '', '')
+    c('R and data visualization', 'Introduction to R', 'R syntax', 'Coffee break', 'Data manipulation', 'Lunch', 'Graphics in R', 'Coffee break', 'Graphics part II'), 'html',
+    link = c('slides/Day01.html', '1a_Intro_RstudioMarkdown.html', '1b_RandTidyverse.html', 'coffeeBreak.html', '1b_RandTidyverse.html', 'Lunch.html', '1c_GraphicsI.html', 'coffeeBreak.html', '1c_GraphicsI.html')
   ),
   D02 = cell_spec(
-    c('Network Analysis', 'Introduction to Social Network Analysis', 'Network analysis in R', 'Coffee break', 'Network visualization', 'Lunch', 'Bipartite Networks', 'Coffee break', 'Dynamic Networks'), 'html',
-    link = c('', '', '3a_NetworkIntro.html', '', '3b_NetworkViz.html', 'Lunch.html', '', '', '3c_DynamicNetworks.html')
+    c('GIS and Network Analysis', 'Vectors and Rasters', 'Cartography', 'Coffee break', 'Introduction to Network analysis', 'Lunch', 'Network visualization', 'Coffee break', 'Dynamic Networks'), 'html',
+    link = c('', '2a_VectorsRasters.html', '2a_VectorsRasters.html', 'coffeeBreak.html', '3a_NetworkIntro.html', 'Lunch.html', '3b_NetworkViz.html', 'coffeeBreak.html', '')
   ),
   D03 = cell_spec(
     c('Risk Assessment', 'Case Studies', 'Introduction to Risk Assessment', 'Coffee break', 'Risk assessment in R I', 'Lunch', 'Feedback evaluation', 'Coffee break', 'Office Hours'), 'html',
-    link = c('', '', '', '', '4a_RiskAssessment.html', 'Lunch.html', '', '', '')
+    link = c('', '', '', 'coffeeBreak.html', '4a_RiskAssessment.html', 'Lunch.html', '', 'coffeeBreak.html', '')
   )
 ) %>%
   kbl("html", escape = FALSE, col.names = c('', 'Day 01', 'Day 02', 'Day 03')) %>%
