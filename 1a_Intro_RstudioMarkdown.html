@@ -325,21 +325,6 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Pre Workshop
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Intro_to_R.html">Intro to R</a>
-    </li>
-    <li>
-      <a href="Spatial_intro.html">Intro to Spatial data</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Contact
      
     <span class="caret"></span>
@@ -454,9 +439,9 @@ my files related with the current project.</p>
 </div>
 <div id="editors-in-rstudio" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Editors in Rstudio</h1>
-<div id="rscripts.r" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Rscripts(.R)</h2>
-<p>Now we are going to open our first R script. In the <a
+<div id="r-scripts.r" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> R scripts(.R)</h2>
+<p>We are going to open our first R script. In the <a
 href="https://ucdavis.box.com/s/ztydby6t65nil1oh8elhnogdjisrwgcc">shared
 folder</a> you will find an R script under <code>Code/pkgs.R</code>,
 download it to your computer and we will import it to our R project. Go
@@ -486,19 +471,26 @@ to the menu located at the upper left corner.</p>
 create. For now we will select the option <em>R Markdown…</em>.</p>
 <p>It might ask you to install a library if it’s not already installed,
 so just click yes if it does. This will open a window where will ask for
-a Title, author and Date. We will go to the</p>
+a Title, author and Date. We will go to the left side menu and select
+the option from template.</p>
 <p><img src="img/Ia_RmdCreate.png" style="width:30%" align="center"/></p>
+<p>If you installed properly the libraries from the pkgs.R script in the
+previous step, you will see a template called <em>blank</em> from the
+<code>STNet</code> library. This is just an empty template I made.
+Select the template and click ok.</p>
+<p><img src="img/Ia_templates.png" style="width:30%" align="center"/></p>
 </div>
 <div id="documents-with-r-markdown-.rmd" class="section level2"
 number="3.3">
 <h2><span class="header-section-number">3.3</span> Documents with R
 Markdown (.Rmd)</h2>
-<p>We created our first document with R Markdown. The document will
-contain already a template with some text, and will look like this:</p>
+<p>We created our first document with R Markdown, and will look like
+this:</p>
 <p><img src="img/Ia_RmdDoc.png" style="width:60%" align="center"/></p>
-<p>The text in the document is a brief introduction to the Rmd syntax,
-which is just a syntax for creating documents that combines Markdown
-with R code. You can find more information about the syntax in <a
+<p>The document has already the header and a code ‘chunk’ (we will talk
+more about this later). Add a title for the document and put your name
+in the author field. The Rmd documents use a syntax called markdown
+which we will not cover in detail, but you can find more info in <a
 href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">this
 link</a>. You can edit the document directly with the Rmd syntax, but if
 you prefer to save some time and don’t have to deal with learning
@@ -511,7 +503,7 @@ notice that a toolbar with some familiar icons appeared at the top.</p>
 title. The titles can be hierarchical similar to what we are used in
 other text editors (Title, Subtitle 1, Subtitle 2, etc…). To define a
 new title we use the character <code>#</code> in front of the text, and
-the number of <code>#</code> before the text will be the hiereachy
+the number of <code>#</code> before the text will be the hierarchy
 level. For example if we want to define a title hierarchy we write:</p>
 <pre><code># Title 1
 
@@ -551,10 +543,17 @@ can choose different formats from the dropdown menu.</p>
 </div>
 </div>
 <div id="exercise-1" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Exercise 1</h2>
-<p>Add a new section with a short bio about yourself, and include your
-favorite song and/or favorite food. Try the different rendering modes
-(pdf and word) and submit the document.</p>
+<h2><span class="header-section-number">3.4</span> <span
+style="color: darkred;">Exercise 1</span></h2>
+<p>Add a new section to your document with a short bio about yourself
+(background and research interests), and include your favorite song
+and/or favorite food. Try the different rendering modes (pdf and word),
+save it as <em>exercise1_yourName</em> and submit the document in the
+following box OR <a
+href="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31">this
+link</a>.</p>
+<iframe src="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31" height="200" width="800">
+</iframe>
 </div>
 <div id="presentations-with-quarto" class="section level2" number="3.5">
 <h2><span class="header-section-number">3.5</span> Presentations with

@@ -13,13 +13,6 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: Pre Workshop 
-    menu:
-    - text: Intro to R
-      href: Intro_to_R.html
-    - text: Intro to Spatial data
-      href: Spatial_intro.html
-  
   - text: Contact
     menu:
     - icon: fa-users

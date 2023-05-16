@@ -12,13 +12,13 @@ knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
 
-In this first section we are not going to worry at all about coding or the syntax used in R, we will focus on familiarizing with the Rstudio interface and what kind of files we can create with it.  
+In this first section we are not going to worry at all about coding or the syntax used in R, we will focus on familiarizing with the Rstudio interface and what kind of files we can create with it.
 
 The goal of this lab is that, by the end, you feel more comfortable with the following concepts:
-  
-  - Project organization. 
-  - The main components of the Rstudio interface. 
-  - Files you can create with Rstudio.  
+
+-   Project organization.
+-   The main components of the Rstudio interface.
+-   Files you can create with Rstudio.
 
 # The Rstudio interface
 
@@ -56,9 +56,9 @@ Once the project is created, in the files tab you will see that Rstudio created 
 
 # Editors in Rstudio
 
-## Rscripts(.R)
+## R scripts(.R)
 
-Now we are going to open our first R script. In the [shared folder](https://ucdavis.box.com/s/ztydby6t65nil1oh8elhnogdjisrwgcc) you will find an R script under `Code/pkgs.R`, download it to your computer and we will import it to our R project. Go to the files tab located in the bottom left panel and click on the upload button:
+We are going to open our first R script. In the [shared folder](https://ucdavis.box.com/s/ztydby6t65nil1oh8elhnogdjisrwgcc) you will find an R script under `Code/pkgs.R`, download it to your computer and we will import it to our R project. Go to the files tab located in the bottom left panel and click on the upload button:
 
 ![](img/0_upload1.png){width="100%"}
 
@@ -80,21 +80,25 @@ R studio can create several types of documents including: R scripts, text files,
 
 A menu will show with all the different document types you can create. For now we will select the option *R Markdown...*.
 
-It might ask you to install a library if it's not already installed, so just click yes if it does. This will open a window where will ask for a Title, author and Date. We will go to the 
+It might ask you to install a library if it's not already installed, so just click yes if it does. This will open a window where will ask for a Title, author and Date. We will go to the left side menu and select the option from template.
 
 <img src="img/Ia_RmdCreate.png" style="width:30%" align="center"/>
 
+If you installed properly the libraries from the pkgs.R script in the previous step, you will see a template called *blank* from the `STNet` library. This is just an empty template I made. Select the template and click ok. 
+
+<img src="img/Ia_templates.png" style="width:30%" align="center"/>
+
 ## Documents with R Markdown (.Rmd)
 
-We created our first document with R Markdown. The document will contain already a template with some text, and will look like this:
+We created our first document with R Markdown, and will look like this:
 
 <img src="img/Ia_RmdDoc.png" style="width:60%" align="center"/>
 
-The text in the document is a brief introduction to the Rmd syntax, which is just a syntax for creating documents that combines Markdown with R code. You can find more information about the syntax in [this link](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). You can edit the document directly with the Rmd syntax, but if you prefer to save some time and don't have to deal with learning everything from scratch, there is an option to edit the document in a more familiar way. To do this just change the option located in the top right of the document from *Source* to *Visual*. You will notice that a toolbar with some familiar icons appeared at the top.
+The document has already the header and a code 'chunk' (we will talk more about this later). Add a title for the document and put your name in the author field. The Rmd documents use a syntax called markdown which we will not cover in detail, but you can find more info in [this link](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). You can edit the document directly with the Rmd syntax, but if you prefer to save some time and don't have to deal with learning everything from scratch, there is an option to edit the document in a more familiar way. To do this just change the option located in the top right of the document from *Source* to *Visual*. You will notice that a toolbar with some familiar icons appeared at the top.
 
 <img src="img/Ia_RmdVisual.png" style="width:60%" align="center"/>
 
-To add a new section to the document, you might want to start with a title. The titles can be hierarchical similar to what we are used in other text editors (Title, Subtitle 1, Subtitle 2, etc...). To define a new title we use the character `#` in front of the text, and the number of `#` before the text will be the hiereachy level. For example if we want to define a title hierarchy we write:
+To add a new section to the document, you might want to start with a title. The titles can be hierarchical similar to what we are used in other text editors (Title, Subtitle 1, Subtitle 2, etc...). To define a new title we use the character `#` in front of the text, and the number of `#` before the text will be the hierarchy level. For example if we want to define a title hierarchy we write:
 
 ```         
 # Title 1
@@ -122,9 +126,11 @@ Now that we have a document we are going to render it to different formats. To r
 
 <img src="img/Ia_KnitMenu.png" style="width:35%" align="center"/>
 
-## Exercise 1 
+## [Exercise 1]{style="color: darkred;"}
 
-Add a new section with a short bio about yourself, and include your favorite song and/or favorite food. Try the different rendering modes (pdf and word) and submit the document.
+Add a new section to your document with a short bio about yourself (background and research interests), and include your favorite song and/or favorite food. Try the different rendering modes (pdf and word), save it as *exercise1_yourName* and submit the document in the following box OR [this link](https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31).
+
+<iframe src="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31" height="200" width="800"></iframe>
 
 ## Presentations with quarto
 
@@ -133,7 +139,6 @@ Like you saw, R studio can be used for more than just coding. R studio can be us
 Quarto is a platform for creating presentations using a very similar approach as R markdown. To create a quarto presentation you can use the same menu that you previously used to create a new document.
 
 <img src="img/Ia_DocsQuarto.png" align="center" width="15%"/>
-
 
 Your presentation will have already some text based on the default template and will look similar to this:
 
@@ -151,18 +156,14 @@ For pdf:
 
 We are not going to cover in detail how to go beyond the formatting of the presentations, but here are some exaples so you can see the scope:
 
-  - https://runapp2022.talks.jamesgoldie.dev/#/james-goldie
-  - https://emilhvitfeldt.github.io/useR2022-textrecipes/#/section-8
-  
-https://github.com/mcanouil/awesome-quarto#real-life-examples
+-   <https://runapp2022.talks.jamesgoldie.dev/#/james-goldie>
+-   <https://emilhvitfeldt.github.io/useR2022-textrecipes/#/section-8>
+
+<https://github.com/mcanouil/awesome-quarto#real-life-examples>
 
 ------------------------------------------------------------------------
 
-*This lab has been developed with contributions from: [Jose Pablo
-Gomez-Vazquez](https://www.spablo-temporal.network).\
-Feel free to use these training materials for your own research and
-teaching. When using the materials we would appreciate using the proper
-credits. If you would be interested in a training session, please
-contact: [jpgo\@ucdavis.edu](mailto:jpgo@ucdavis.edu){.email}*
+*This lab has been developed with contributions from: [Jose Pablo Gomez-Vazquez](https://www.spablo-temporal.network).\
+Feel free to use these training materials for your own research and teaching. When using the materials we would appreciate using the proper credits. If you would be interested in a training session, please contact: [jpgo\@ucdavis.edu](mailto:jpgo@ucdavis.edu){.email}*
 
 ------------------------------------------------------------------------
