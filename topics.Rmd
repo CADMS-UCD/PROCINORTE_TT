@@ -12,7 +12,7 @@ library(kableExtra); library(dplyr)
 data.frame(
   Time = c('', '9:00-10:00', '10:00-10:30', '10:30-10:50', '10:50-12:00', '12:00-13:00', '13:00-14:00', '14:00-14:20', '14:20-15:00'),
   D01 = cell_spec(
-    c('R and data visualization', 'Introduction to R', 'R syntax', 'Coffee break', 'Data manipulation', 'Lunch', 'Graphics in R', 'Coffee break', 'Graphics part II'), 'html',
+    c('R and data visualization', 'Introduction to R studio', 'R syntax', 'Coffee break', 'Data manipulation', 'Lunch', 'Graphics in R', 'Coffee break', 'Graphics part II'), 'html',
     link = c('slides/Day01.html', '1a_Intro_RstudioMarkdown.html', '1b_RandTidyverse.html', 'coffeeBreak.html', '1b_RandTidyverse.html', 'Lunch.html', '1c_GraphicsI.html', 'coffeeBreak.html', '1c_GraphicsI.html')
   ),
   D02 = cell_spec(
@@ -24,7 +24,7 @@ data.frame(
     link = c('', '', '', 'coffeeBreak.html', '4a_RiskAssessment.html', 'Lunch.html', '', 'coffeeBreak.html', '')
   )
 ) %>%
-  kbl("html", escape = FALSE, col.names = c('', 'Day 01', 'Day 02', 'Day 03')) %>%
+  kbl("html", escape = FALSE, col.names = c('', 'May 16, 2023', 'May 17, 2023', 'May 18, 2023')) %>%
   kable_paper(full_width = F, lightable_options = c('hover')) %>%
   column_spec(1, bold = T, border_right = T) %>%
   column_spec(2, border_right = T) %>%

@@ -82,7 +82,7 @@ At the end of this workshop you will be able to use your own R to process your d
 data.frame(
   Time = c('', '9:00-10:00', '10:00-10:30', '10:30-10:50', '10:50-12:00', '12:00-13:00', '13:00-14:00', '14:00-14:20', '14:20-15:00'),
   D01 = cell_spec(
-    c('R and data visualization', 'Introduction to R', 'R syntax', 'Coffee break', 'Data manipulation', 'Lunch', 'Graphics in R', 'Coffee break', 'Graphics part II'), 'html',
+    c('R and data visualization', 'Introduction to R studio', 'R syntax', 'Coffee break', 'Data manipulation', 'Lunch', 'Graphics in R', 'Coffee break', 'Graphics part II'), 'html',
     link = c('slides/Day01.html', '1a_Intro_RstudioMarkdown.html', '1b_RandTidyverse.html', 'coffeeBreak.html', '1b_RandTidyverse.html', 'Lunch.html', '1c_GraphicsI.html', 'coffeeBreak.html', '1c_GraphicsI.html')
   ),
   D02 = cell_spec(

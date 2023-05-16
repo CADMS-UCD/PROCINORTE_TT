@@ -12,7 +12,7 @@
 <meta name="author" content="Pablo Gomez" />
 
 
-<title>R syntax and the tidyverse</title>
+<title>R basics</title>
 
 <script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -326,21 +326,6 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Pre Workshop
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Intro_to_R.html">Intro to R</a>
-    </li>
-    <li>
-      <a href="Spatial_intro.html">Intro to Spatial data</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Contact
      
     <span class="caret"></span>
@@ -381,14 +366,14 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">R syntax and the tidyverse</h1>
+<h1 class="title toc-ignore">R basics</h1>
 <h4 class="author">Pablo Gomez</h4>
 
 </div>
 
 
-<div id="r-basics" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> R basics</h1>
+<div id="r-syntax" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> R syntax</h1>
 <p>R is like a calculator, we can make mathematical operations, for
 example:</p>
 <pre class="r"><code>2 + 2</code></pre>
@@ -483,9 +468,18 @@ it.</p>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p><strong>Exercise: </strong> What kind of variable is the output from
 the first function you defined <code>F1()</code>?</p>
-<p>There are other type of variables that we will see later in the
-course.</p>
-<!-- **Introduce different type of variables in R (e.g. Numeric, String, Factor, Date)** -->
+<p>The most commonly used types of variables include:</p>
+<ul>
+<li><em>numeric</em> This are continuous numeric variables WITH any
+decimal values. For example: KG of product imported, probability of an
+event happening.</li>
+<li><em>integer</em> These variables are whole numbers WITHOUT decimal
+values. For example: Number of animals, number of shipments, etc..</li>
+<li><em>character</em> Alphanumeric variables. For example: name of a
+region, name of a disease, farm ID.</li>
+<li><em>factor</em> Alphanumeric variable with specific categories or
+levels. For example: type of product imported, type of farm, etc…</li>
+</ul>
 </div>
 <div id="introducing-the-pipes" class="section level2" number="1.4">
 <h2><span class="header-section-number">1.4</span> Introducing the
@@ -526,8 +520,8 @@ use whatever syntax you prefer, but for this course we will use mostly
 the pipes and writing the code from left to right.</p>
 </div>
 </div>
-<div id="importing-datasets" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Importing datasets</h1>
+<div id="data-manipulation" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Data manipulation</h1>
 <p>R can import data in different formats. The most common are excel
 files (<em>.csv</em>, <em>.xls</em> y <em>.xlsx</em>), text files
 <em>.txt</em> and spatial data <em>.shp</em>, which we will talk about
@@ -558,23 +552,14 @@ function <code>class()</code>:</p>
 <pre class="r"><code># Ask the class of a given object
 class(PRRS)</code></pre>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
-<pre class="r"><code>PRRS %&gt;% 
-  select(Result, Age, Sex) %&gt;% # select COlumns Result, Age, Sex
-  filter(Age &gt;= 20) %&gt;% 
-  filter(Result == 1)</code></pre>
-<pre><code>## # A tibble: 0 × 3
-## # ℹ 3 variables: Result &lt;chr&gt;, Age &lt;dbl&gt;, Sex &lt;chr&gt;</code></pre>
 <p>It is possible that objects can have more than 1 class. In the
 previous example, you can notice that the <code>PRRS</code> object has 3
 different types of class.</p>
-</div>
-<div id="data-manipulation" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Data manipulation</h1>
 <p>In the following section we will cover some basics of data
 manipulation, this includes create, modify and summarise variables in
 our data.</p>
-<div id="reducing-our-data" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Reducing our
+<div id="reducing-our-data" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Reducing our
 data</h2>
 <p>Sometimes we want to select specific columns and rows on our data to
 reduce the dimentionality, for this we can use the functions:</p>
@@ -586,8 +571,8 @@ position</li>
 condition</li>
 </ul>
 <div id="selecting-specific-columns" class="section level3"
-number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Selecting specific
+number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Selecting specific
 columns</h3>
 <pre class="r"><code>PRRS %&gt;%  # the name of our data
   select(Result, farm_type) # we want to select only the columns Result and farm_type</code></pre>
@@ -624,8 +609,8 @@ data:</p>
 ## 10 Yes    H                0 Armstrong Research Farm sow farm  Pottawattamie
 ## # ℹ 1,343 more rows</code></pre>
 </div>
-<div id="filtering-specific-rows" class="section level3" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> Filtering specific
+<div id="filtering-specific-rows" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Filtering specific
 rows</h3>
 <p>Filtering columns works based on boolean logic, so we can specify a
 condition and R will show only the rows that satisfy that condition. For
@@ -657,8 +642,8 @@ example, lets filter only the observations from boar studs:</p>
 </div>
 </div>
 <div id="creating-or-modifying-variables" class="section level2"
-number="3.2">
-<h2><span class="header-section-number">3.2</span> Creating or modifying
+number="2.2">
+<h2><span class="header-section-number">2.2</span> Creating or modifying
 variables</h2>
 <p>To create a new variable we can use the function
 <code>mutate()</code>. For example, lets create a new variable that will
@@ -708,8 +693,8 @@ make any mistake, so you can easily reach to your progress before the
 mistake.</p>
 </div>
 <div id="grouping-and-summarizing-tables" class="section level2"
-number="3.3">
-<h2><span class="header-section-number">3.3</span> Grouping and
+number="2.3">
+<h2><span class="header-section-number">2.3</span> Grouping and
 summarizing tables</h2>
 <p>Often times we want to calculate summary statistics from our data, we
 can group by a specific variable (or even multiple variables) to examine
@@ -759,8 +744,8 @@ Sex:</p>
 <pre class="r"><code># PRRS %&gt;% 
   # count(Sex, wt = Result)</code></pre>
 </div>
-<div id="joining-data-sets" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Joining data
+<div id="joining-data-sets" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Joining data
 sets</h2>
 <p>Sometimes we have different data sets that have variables in common
 and we want to integrate them into a single data set for further
@@ -838,8 +823,8 @@ number of incoming movements:</p>
 <!-- # Loops in R -->
 </div>
 </div>
-<div id="exporting-the-data" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Exporting the data</h1>
+<div id="exporting-the-data" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Exporting the data</h1>
 <p>Once that you have processed the data, often times you want to export
 it so the next time dont have to run all the code. YOu can export to
 multiple formats, but the most common is to a comma delimited file

@@ -1,5 +1,5 @@
 ---
-title: "R syntax and the tidyverse"
+title: "R basics"
 author: "Pablo Gomez"
 output:
   html_document:
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
 
-# R basics
+# R syntax
 
 R is like a calculator, we can make mathematical operations, for example:
 
@@ -108,9 +108,12 @@ class(x)
 class(F1(name = 'Pablo'))
 ```
 
-There are other type of variables that we will see later in the course. 
+The most commonly used types of variables include:
 
-<!-- **Introduce different type of variables in R (e.g. Numeric, String, Factor, Date)** -->
+  - *numeric* This are continuous numeric variables WITH any decimal values. For example: KG of product imported, probability of an event happening.
+  - *integer* These variables are whole numbers WITHOUT decimal values. For example: Number of animals, number of shipments, etc..
+  - *character* Alphanumeric variables. For example: name of a region, name of a disease, farm ID.
+  - *factor* Alphanumeric variable with specific categories or levels. For example: type of product imported, type of farm, etc...
 
 ## Introducing the pipes
 
@@ -146,7 +149,7 @@ x %>% # First we call the data
 
 You will notice that the outputs are exactly the same. Feel free to use whatever syntax you prefer, but for this course we will use mostly the pipes and writing the code from left to right.
 
-# Importing datasets
+# Data manipulation
 
 R can import data in different formats. The most common are excel files (*.csv*, *.xls* y *.xlsx*), text files *.txt* and spatial data *.shp*, which we will talk about more in detail later.  
 To read *.xls*, *.xlsx* and *.shp* files we will need to install some libraries. To install a new library you need to be connected to the internet and use the function `install.packages()` to install the library. Once it has been installed, you can load the library using the function `library()`.  
@@ -170,20 +173,7 @@ The most popular format for tables in R are called `data.frame`, when we import 
 class(PRRS)
 ```
 
-
-```{r}
-PRRS %>% 
-  select(Result, Age, Sex) %>% # select COlumns Result, Age, Sex
-  filter(Age >= 20) %>% 
-  filter(Result == 1)
-```
-
-
-
-
 It is possible that objects can have more than 1 class. In the previous example, you can notice that the `PRRS` object has 3 different types of class.  
-
-# Data manipulation
 
 In the following section we will cover some basics of data manipulation, this includes create, modify and summarise variables in our data. 
 
@@ -277,7 +267,6 @@ PRRS %>%
     sdAge = sd(Age) # Calculate the standard deviation
   )
 ```
-
 
 ```{r weighted count}
 # PRRS %>% 

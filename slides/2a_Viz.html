@@ -7,10 +7,10 @@
 <link href="2a_Viz_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="2a_Viz_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="2a_Viz_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.335">
+  <meta name="generator" content="quarto-1.2.475">
 
   <meta name="author" content="Pablo Gomez">
-  <title>R syntax and Data visualization</title>
+  <title>R syntax</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -391,7 +391,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="img/bg_title.png" class="quarto-title-block center">
-  <h1 class="title">R syntax and Data visualization</h1>
+  <h1 class="title">R syntax</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -821,7 +821,7 @@ Pablo Gomez
 <p>Filtering only the observations from boar studs:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>PRRS <span class="sc">%&gt;%</span> </span>
-<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">filter</span>(farm_type <span class="sc">==</span> <span class="st">'boar studs'</span>) <span class="co"># we will use the equals to operator for this</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">filter</span>(farm_type <span class="sc">==</span> <span class="st">'boar stud'</span>) <span class="co"># we will use the equals to operator for this</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -842,53 +842,53 @@ Pablo Gomez
 <tbody>
   <tr>
    <td style="text-align:left;"> No </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:right;"> 40 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:right;"> 48 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 13 </td>
-   <td style="text-align:left;"> Wild Woods Farm </td>
-   <td style="text-align:left;"> nursery </td>
-   <td style="text-align:left;"> Johnson </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:left;"> Farm Sweet Farm at Rosmann Family Farms </td>
+   <td style="text-align:left;"> boar stud </td>
+   <td style="text-align:left;"> Shelby </td>
   </tr>
   <tr>
    <td style="text-align:left;"> No </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:right;"> 60 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 13 </td>
-   <td style="text-align:left;"> Wild Woods Farm </td>
-   <td style="text-align:left;"> nursery </td>
-   <td style="text-align:left;"> Johnson </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:left;"> Farm Sweet Farm at Rosmann Family Farms </td>
+   <td style="text-align:left;"> boar stud </td>
+   <td style="text-align:left;"> Shelby </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Yes </td>
    <td style="text-align:left;"> H </td>
-   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 60 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 13 </td>
-   <td style="text-align:left;"> Wild Woods Farm </td>
-   <td style="text-align:left;"> nursery </td>
-   <td style="text-align:left;"> Johnson </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:left;"> Farm Sweet Farm at Rosmann Family Farms </td>
+   <td style="text-align:left;"> boar stud </td>
+   <td style="text-align:left;"> Shelby </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:left;"> Farm Sweet Farm at Rosmann Family Farms </td>
+   <td style="text-align:left;"> boar stud </td>
+   <td style="text-align:left;"> Shelby </td>
   </tr>
   <tr>
    <td style="text-align:left;"> No </td>
    <td style="text-align:left;"> H </td>
-   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 68 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 13 </td>
-   <td style="text-align:left;"> Wild Woods Farm </td>
-   <td style="text-align:left;"> nursery </td>
-   <td style="text-align:left;"> Johnson </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> No </td>
-   <td style="text-align:left;"> H </td>
-   <td style="text-align:right;"> 50 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 13 </td>
-   <td style="text-align:left;"> Wild Woods Farm </td>
-   <td style="text-align:left;"> nursery </td>
-   <td style="text-align:left;"> Johnson </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:left;"> Farm Sweet Farm at Rosmann Family Farms </td>
+   <td style="text-align:left;"> boar stud </td>
+   <td style="text-align:left;"> Shelby </td>
   </tr>
 </tbody>
 </table>
@@ -1220,7 +1220,7 @@ Pablo Gomez
 <section id="back-to-the-excercise" class="title-slide slide level1 center">
 <h1><a href="https://cadms-ucd.github.io/DiseaseModeling/1b_RandTidyverse.html">Back to the excercise!</a></h1>
 <div class="footer footer-default">
-<p><a href="https://cadms-ucd.github.io/DiseaseModeling/">Workshop homepage</a></p>
+<p><a href="https://cadms-ucd.github.io/PROCINORTE_TT/">Workshop homepage</a></p>
 </div>
 </section>
     </div>
