@@ -2,13 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-
-PROCINORTE_TT.Rproj
-
 .DS_Store
-
 misc/
-
 MEX_msk_alt.grd
 MEX_msk_alt.gri
 MEX_msk_alt.vrt
