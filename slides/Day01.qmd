@@ -81,6 +81,7 @@ Homepage: <https://cadms-ucd.github.io/PROCINORTE_TT/>
 
 
 # [It's Lab time!](https://cadms-ucd.github.io/PROCINORTE_TT/1a_Intro_RstudioMarkdown.html)
+Introduction to R studio
 
 # Some programming concepts {background-image="img/bg_title.png"}
 
@@ -442,6 +443,8 @@ Out <- mov %>% # This is the movement data set
 
 # [It's Lab time!](https://cadms-ucd.github.io/PROCINORTE_TT/1b_RandTidyverse.html)
 
+R syntax (Section 1)
+
 # Let's use some Data! {background-image="img/bg_title.png"}
 
 ## [Importing data]{style="color:black;"} {background-image="img/bg_2.png"}
@@ -615,6 +618,8 @@ Pable(nodes)
 ```
 
 # [Back to the excercise!](https://cadms-ucd.github.io/PROCINORTE_TT/1b_RandTidyverse.html)
+
+R syntax (Sections 2 and 3)
 
 # Data visualization  {background-image="img/bg_title.png"}
 
