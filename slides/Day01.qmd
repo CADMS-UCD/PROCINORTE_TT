@@ -15,6 +15,8 @@ title-slide-attributes:
 ```{r echo = F, warning=F, message=F}
 knitr::opts_chunk$set(warning = F, message = F, echo = T)
 library(dplyr); library(kableExtra);library(DT)
+library(STNet); library(ggplot2)
+data('captures')
 options(DT.options = list(pageLength = 5))
 
 Pable <- function(x, head = 5){
@@ -438,7 +440,7 @@ Out <- mov %>% # This is the movement data set
 
 <br/> And we can break down the code easier!
 
-# [It's Lab time!](https://cadms-ucd.github.io/PROCINORTE_TT/RandTidyverse.html)
+# [It's Lab time!](https://cadms-ucd.github.io/PROCINORTE_TT/1b_RandTidyverse.html)
 
 # Let's use some Data! {background-image="img/bg_title.png"}
 
@@ -612,4 +614,127 @@ nodes <- nodes %>%
 Pable(nodes)
 ```
 
-# [Back to the excercise!](https://cadms-ucd.github.io/DiseaseModeling/1b_RandTidyverse.html)
+# [Back to the excercise!](https://cadms-ucd.github.io/PROCINORTE_TT/1b_RandTidyverse.html)
+
+# Data visualization  {background-image="img/bg_title.png"}
+
+## ggplot2 {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+::: columns
+::: {.column width="50%"}
+-   [We build our figures based on layers]{.black}
+-   [Similar syntax as dplyr]{.black}
+-   [We can combine data wrangling and visualization into a single code chunk]{.black}
+
+:::
+
+::: {.column width="50%"}
+![Lectures](img/shrek-ogres-have-layers.gif)
+:::
+
+:::
+
+::: {.fragment}
+[Instead of the `%>%`, in ggplot we connect pieces of code with `+`]{.black}
+:::
+
+## ggplot2 {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+[The basic components that we need to define for a plot are the following:]{.black}
+
+-   [*data*, the data set we will use to generate the figure]{.black}
+-   [*geometry*, or type of graphic we will generate (i.e. histogram, bar, scatter, etc..)]{.black}
+-   [*aesthetic*, variables or arguments that will be used for the figure for example: location, color, size, etc..]{.black}
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "1"
+#| eval: false
+captures # Data
+``` 
+
+. . .
+
+```{r echo = F}
+Pable(captures)
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r eval = F}
+#| code-line-numbers: "2"
+captures %>% # Data used
+  count(year, wt = treated)  # Some data transformation
+```
+
+. . .
+
+```{r echo = F}
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  Pable()
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "4"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() # Add an empty canvas
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r eval=F}
+#| code-line-numbers: "5"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() + # Add an empty canvas
+  geom_bar() # This is the geometry type
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "5-8"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() + # Add an empty canvas
+  geom_bar( # This is the geometry type
+    aes( # Aesthetics or mapping
+      x = year, # X axis
+      y = n # Y axis
+      ), 
+    stat = 'identity' # extra arguments
+  ) 
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "11-14"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() + # Add an empty canvas
+  geom_bar(aes(x = year, y = n), stat = 'identity') +
+  labs(# extra arguments
+    title = 'Bar plot',
+    x = 'Year', y = 'Frequency'
+  )
+```
+
+## ggplot2 {background-image="img/bg.png" body-color="black"}
+
+![](img/3_cheatsheet.png){width="493"}
+
+[Link to the cheasheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf)
+
+[Other cheatsheets](https://posit.co/resources/cheatsheets/?type=posit-cheatsheets/)
+
+# [It's Lab time!](https://cadms-ucd.github.io/PROCINORTE_TT/1c_GraphicsI.html)

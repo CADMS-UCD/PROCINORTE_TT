@@ -842,7 +842,7 @@ Pablo Gomez
 <p><br> And we can break down the code easier!</p>
 </section></section>
 <section id="its-lab-time-1" class="title-slide slide level1 center">
-<h1><a href="https://cadms-ucd.github.io/PROCINORTE_TT/RandTidyverse.html">It’s Lab time!</a></h1>
+<h1><a href="https://cadms-ucd.github.io/PROCINORTE_TT/1b_RandTidyverse.html">It’s Lab time!</a></h1>
 
 </section>
 
@@ -1445,7 +1445,241 @@ Pablo Gomez
 </div>
 </section></section>
 <section id="back-to-the-excercise" class="title-slide slide level1 center">
-<h1><a href="https://cadms-ucd.github.io/DiseaseModeling/1b_RandTidyverse.html">Back to the excercise!</a></h1>
+<h1><a href="https://cadms-ucd.github.io/PROCINORTE_TT/1b_RandTidyverse.html">Back to the excercise!</a></h1>
+
+</section>
+
+<section>
+<section id="data-visualization" class="title-slide slide level1 center" data-background-image="img/bg_title.png">
+<h1>Data visualization</h1>
+
+</section>
+<section id="ggplot2" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
+<h2>ggplot2</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><span class="black">We build our figures based on layers</span></li>
+<li><span class="black">Similar syntax as dplyr</span></li>
+<li><span class="black">We can combine data wrangling and visualization into a single code chunk</span></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/shrek-ogres-have-layers.gif"></p>
+<p></p><figcaption>Lectures</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="black">Instead of the <code>%&gt;%</code>, in ggplot we connect pieces of code with <code>+</code></span></p>
+</div>
+</section>
+<section id="ggplot2-1" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
+<h2>ggplot2</h2>
+<p><br></p>
+<p><span class="black">The basic components that we need to define for a plot are the following:</span></p>
+<ul>
+<li><span class="black"><em>data</em>, the data set we will use to generate the figure</span></li>
+<li><span class="black"><em>geometry</em>, or type of graphic we will generate (i.e.&nbsp;histogram, bar, scatter, etc..)</span></li>
+<li><span class="black"><em>aesthetic</em>, variables or arguments that will be used for the figure for example: location, color, size, etc..</span></li>
+</ul>
+</section>
+<section id="example" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Example</span></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>captures <span class="co"># Data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+
+<table class=" lightable-material-dark lightable-hover" style="font-family: &quot;Source Sans Pro&quot;, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> municipality </th>
+   <th style="text-align:left;"> location </th>
+   <th style="text-align:left;"> Loc </th>
+   <th style="text-align:left;"> date </th>
+   <th style="text-align:left;"> year </th>
+   <th style="text-align:right;"> captures </th>
+   <th style="text-align:right;"> treated </th>
+   <th style="text-align:right;"> lat </th>
+   <th style="text-align:right;"> lon </th>
+   <th style="text-align:right;"> trap_type </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Temascaltepec </td>
+   <td style="text-align:left;"> San Pedro Tenayac </td>
+   <td style="text-align:left;"> Cueva  el Uno </td>
+   <td style="text-align:left;"> 11/06/14 </td>
+   <td style="text-align:left;"> 2014 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 18.03546 </td>
+   <td style="text-align:right;"> -100.2095 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Tlatlaya </td>
+   <td style="text-align:left;"> Nuevo Copaltepec </td>
+   <td style="text-align:left;"> La alcantarilla </td>
+   <td style="text-align:left;"> 12/05/05 </td>
+   <td style="text-align:left;"> 2005 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 18.40417 </td>
+   <td style="text-align:right;"> -100.2688 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Tlatlaya </td>
+   <td style="text-align:left;"> Nuevo Copaltepec </td>
+   <td style="text-align:left;"> La alcantarilla </td>
+   <td style="text-align:left;"> 12/05/07 </td>
+   <td style="text-align:left;"> 2007 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 18.40417 </td>
+   <td style="text-align:right;"> -100.2688 </td>
+   <td style="text-align:right;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Tlatlaya </td>
+   <td style="text-align:left;"> Nuevo Copaltepec </td>
+   <td style="text-align:left;"> La alcantarilla </td>
+   <td style="text-align:left;"> 12/03/09 </td>
+   <td style="text-align:left;"> 2009 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 18.40417 </td>
+   <td style="text-align:right;"> -100.2688 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Tlatlaya </td>
+   <td style="text-align:left;"> Nuevo Copaltepec </td>
+   <td style="text-align:left;"> La alcantarilla </td>
+   <td style="text-align:left;"> 10/08/10 </td>
+   <td style="text-align:left;"> 2010 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 18.40417 </td>
+   <td style="text-align:right;"> -100.2688 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="example-1" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Example</span></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>captures <span class="sc">%&gt;%</span> <span class="co"># Data used</span></span>
+<span id="cb63-2"><a href="#cb63-2"></a>  <span class="fu">count</span>(year, <span class="at">wt =</span> treated)  <span class="co"># Some data transformation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+
+<table class=" lightable-material-dark lightable-hover" style="font-family: &quot;Source Sans Pro&quot;, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> year </th>
+   <th style="text-align:right;"> n </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2005 </td>
+   <td style="text-align:right;"> 167 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2006 </td>
+   <td style="text-align:right;"> 103 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2007 </td>
+   <td style="text-align:right;"> 249 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2008 </td>
+   <td style="text-align:right;"> 143 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2009 </td>
+   <td style="text-align:right;"> 125 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="example-2" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Example</span></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>captures <span class="sc">%&gt;%</span> <span class="co"># Data used</span></span>
+<span id="cb64-2"><a href="#cb64-2"></a>  <span class="fu">count</span>(year, <span class="at">wt =</span> treated) <span class="sc">%&gt;%</span>   <span class="co"># Some data wrangling</span></span>
+<span id="cb64-3"><a href="#cb64-3"></a>  <span class="fu">ggplot</span>() <span class="co"># Add an empty canvas</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Day01_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" class="r-stretch"></section>
+<section id="example-3" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Example</span></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a>captures <span class="sc">%&gt;%</span> <span class="co"># Data used</span></span>
+<span id="cb65-2"><a href="#cb65-2"></a>  <span class="fu">count</span>(year, <span class="at">wt =</span> treated) <span class="sc">%&gt;%</span>   <span class="co"># Some data wrangling</span></span>
+<span id="cb65-3"><a href="#cb65-3"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># Add an empty canvas</span></span>
+<span id="cb65-4"><a href="#cb65-4"></a>  <span class="fu">geom_bar</span>() <span class="co"># This is the geometry type</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="example-4" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Example</span></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66" data-code-line-numbers="5-8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>captures <span class="sc">%&gt;%</span> <span class="co"># Data used</span></span>
+<span id="cb66-2"><a href="#cb66-2"></a>  <span class="fu">count</span>(year, <span class="at">wt =</span> treated) <span class="sc">%&gt;%</span>   <span class="co"># Some data wrangling</span></span>
+<span id="cb66-3"><a href="#cb66-3"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># Add an empty canvas</span></span>
+<span id="cb66-4"><a href="#cb66-4"></a>  <span class="fu">geom_bar</span>( <span class="co"># This is the geometry type</span></span>
+<span id="cb66-5"><a href="#cb66-5"></a>    <span class="fu">aes</span>( <span class="co"># Aesthetics or mapping</span></span>
+<span id="cb66-6"><a href="#cb66-6"></a>      <span class="at">x =</span> year, <span class="co"># X axis</span></span>
+<span id="cb66-7"><a href="#cb66-7"></a>      <span class="at">y =</span> n <span class="co"># Y axis</span></span>
+<span id="cb66-8"><a href="#cb66-8"></a>      ), </span>
+<span id="cb66-9"><a href="#cb66-9"></a>    <span class="at">stat =</span> <span class="st">'identity'</span> <span class="co"># extra arguments</span></span>
+<span id="cb66-10"><a href="#cb66-10"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Day01_files/figure-revealjs/unnamed-chunk-31-1.png" width="960" class="r-stretch"></section>
+<section id="example-5" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Example</span></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67" data-code-line-numbers="11-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a>captures <span class="sc">%&gt;%</span> <span class="co"># Data used</span></span>
+<span id="cb67-2"><a href="#cb67-2"></a>  <span class="fu">count</span>(year, <span class="at">wt =</span> treated) <span class="sc">%&gt;%</span>   <span class="co"># Some data wrangling</span></span>
+<span id="cb67-3"><a href="#cb67-3"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># Add an empty canvas</span></span>
+<span id="cb67-4"><a href="#cb67-4"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n), <span class="at">stat =</span> <span class="st">'identity'</span>) <span class="sc">+</span></span>
+<span id="cb67-5"><a href="#cb67-5"></a>  <span class="fu">labs</span>(<span class="co"># extra arguments</span></span>
+<span id="cb67-6"><a href="#cb67-6"></a>    <span class="at">title =</span> <span class="st">'Bar plot'</span>,</span>
+<span id="cb67-7"><a href="#cb67-7"></a>    <span class="at">x =</span> <span class="st">'Year'</span>, <span class="at">y =</span> <span class="st">'Frequency'</span></span>
+<span id="cb67-8"><a href="#cb67-8"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Day01_files/figure-revealjs/unnamed-chunk-32-1.png" width="960" class="r-stretch"></section>
+<section id="ggplot2-2" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
+<h2>ggplot2</h2>
+
+<img data-src="img/3_cheatsheet.png" width="493" class="r-stretch"><p><a href="https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf">Link to the cheasheet</a></p>
+<p><a href="https://posit.co/resources/cheatsheets/?type=posit-cheatsheets/">Other cheatsheets</a></p>
+</section></section>
+<section id="its-lab-time-2" class="title-slide slide level1 center">
+<h1><a href="https://cadms-ucd.github.io/PROCINORTE_TT/1c_GraphicsI.html">It’s Lab time!</a></h1>
 <div class="footer footer-default">
 <p><a href="https://cadms-ucd.github.io/PROCINORTE_TT/">Workshop homepage</a></p>
 </div>

@@ -259,7 +259,7 @@ ggplot() + # create the empty canvas
 
 [ChatGPT:](https://chat.openai.com/)
 
-[![](img/4a_helpChat.png){fig-align="center"}]()
+![](img/4a_helpChat.png){fig-align="center"}
 
 ## How can we find help with R? {background-image="img/bg.png"}
 
@@ -280,7 +280,6 @@ ggplot() + # create the empty canvas
 
 ## How can we find help with R? {background-image="img/bg.png"}
 
-<br/>
-[Data to Viz:](https://www.data-to-viz.com)
+<br/> [Data to Viz:](https://www.data-to-viz.com)
 
 ![](img/4a_helpDataViz.png){fig-align="center"}

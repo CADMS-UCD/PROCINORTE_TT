@@ -3,6 +3,15 @@
 .RData
 .Ruserdata
 
+PROCINORTE_TT.Rproj
+
 .DS_Store
 
 misc/
+
+MEX_msk_alt.grd
+MEX_msk_alt.gri
+MEX_msk_alt.vrt
+gadm36_BGD_0_sp.rds
+gadm36_IND_0_sp.rds
+gadm36_MEX_1_sp.rds

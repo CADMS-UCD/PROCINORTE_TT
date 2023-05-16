@@ -324,7 +324,7 @@ ggarrange( # Funciton to arrange the figures
 
 # Interactive figures
 
-Having static figures is the most common application of graphics in R, but R is also capable of making interactive figures that can be used in dashboards and other platforms (i.e. shiny, or quarto). There are several libraries that allow you to create interactive figures, one of the most popular ones is called `plotly`. The best part of plotly is that if you learn how to use ggplot, you can transfer your figures to interactive plotly figures pretty much seamesly. Lets try that.  
+Having static figures is the most common application of graphics in R, but R is also capable of making interactive figures that can be used in dashboards and other platforms (i.e. shiny, or quarto). There are several libraries that allow you to create interactive figures, one of the most popular ones is called `plotly`. The best part of plotly is that if you learn how to use ggplot, you can transfer your figures to interactive plotly figures pretty much seamlessly. Lets try that.  
 
 We use the function `ggplotly()` from the `plotly` library to do that:
 
