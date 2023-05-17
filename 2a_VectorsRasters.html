@@ -444,6 +444,7 @@ STNet library. lets get started:</p>
 library(STNet) 
 library(sf)
 library(dplyr)
+library(ggplot2)
 
 # Loading the spatial data from the package
 MxSp &lt;- st_read(system.file(&quot;data/MxShp.shp&quot;, package = &quot;STNet&quot;)) </code></pre>
@@ -776,13 +777,17 @@ from the GADM database using the ISO codes for each country.<br />
 For example, we will get a shapefile for Mexico, The data will be
 downloaded in your computer and store in your project directory. Once
 downloaded you can just load it directly from your computer without
-internet connection with the function <code>read_sf</code>.</p>
+internet connection with the function <code>read_sf</code>.<br />
+In this section we will use a function from the library rmapshaper, so
+make sure to install it.</p>
 <pre class="r"><code>Sp &lt;- raster::getData(name = &#39;GADM&#39;, # this is the data source
                       level = 1, # Level of administration
                       country = &#39;Mx&#39;) %&gt;%  # country code
   st_as_sf() # Now transform the data to sf
 
 # the dataset can be quite detailed, so we can simplify it to make it easier to plot
+# Make sure you have the library installed
+# install.packages(&quot;rmapshaper&quot;)
 Sp &lt;- rmapshaper::ms_simplify(Sp)
 
 # Plot the map
@@ -885,8 +890,10 @@ Maps$areaZoom</code></pre>
 <p><img src="2a_VectorsRasters_files/figure-html/scale%20bar-1.png" width="672" /></p>
 <p>We can also add other additional legends like a north arrow, we will
 add one with the function <code>annotation_north_arrow()</code> from the
-<code>ggspatial</code> library:</p>
-<pre class="r"><code>Maps$areaZoom &lt;- Maps$areaZoom + # use the previously created map
+<code>ggspatial</code> library, so make sure you have it installed:</p>
+<pre class="r"><code># If you dont have ggspatial installed, you can use:
+# install.packages(&quot;ggspatial&quot;)
+Maps$areaZoom &lt;- Maps$areaZoom + # use the previously created map
   annotation_north_arrow(location = &quot;tl&quot;, which_north = &quot;true&quot;, style = north_arrow_fancy_orienteering(text_size = 5), 
                          height = unit(.6, &quot;in&quot;),
                          width = unit(.6, &quot;in&quot;),

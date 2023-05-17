@@ -63,6 +63,7 @@ There are multiple ways to loading spatial data into R, we will use the function
 library(STNet) 
 library(sf)
 library(dplyr)
+library(ggplot2)
 
 # Loading the spatial data from the package
 MxSp <- st_read(system.file("data/MxShp.shp", package = "STNet")) 
@@ -245,7 +246,8 @@ ggsave(Maps$map01, filename = 'slides/img/4a_map.png', bg = 'white')
 # Getting data for other countries/regions
 
 One of the easiest ways to get data from other countries or regions is downloading directly from R using the `raster` library with the `getData()` function. This function downloads data from the GADM database using the ISO codes for each country.  
-For example, we will get a shapefile for Mexico, The data will be downloaded in your computer and store in your project directory. Once downloaded you can just load it directly from your computer without internet connection with the function `read_sf`.
+For example, we will get a shapefile for Mexico, The data will be downloaded in your computer and store in your project directory. Once downloaded you can just load it directly from your computer without internet connection with the function `read_sf`.  
+In this section we will use a function from the library rmapshaper, so make sure to install it.
 
 ```{r}
 Sp <- raster::getData(name = 'GADM', # this is the data source
@@ -254,6 +256,8 @@ Sp <- raster::getData(name = 'GADM', # this is the data source
   st_as_sf() # Now transform the data to sf
 
 # the dataset can be quite detailed, so we can simplify it to make it easier to plot
+# Make sure you have the library installed
+# install.packages("rmapshaper")
 Sp <- rmapshaper::ms_simplify(Sp)
 
 # Plot the map
@@ -347,9 +351,11 @@ Maps$areaZoom <- Maps$areaZoom + # this is the map we previously created
 Maps$areaZoom
 ```
 
-We can also add other additional legends like a north arrow, we will add one with the function `annotation_north_arrow()` from the `ggspatial` library:
+We can also add other additional legends like a north arrow, we will add one with the function `annotation_north_arrow()` from the `ggspatial` library, so make sure you have it installed:
 
 ```{r}
+# If you dont have ggspatial installed, you can use:
+# install.packages("ggspatial")
 Maps$areaZoom <- Maps$areaZoom + # use the previously created map
   annotation_north_arrow(location = "tl", which_north = "true", style = north_arrow_fancy_orienteering(text_size = 5), 
                          height = unit(.6, "in"),
