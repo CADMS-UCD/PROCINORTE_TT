@@ -1,0 +1,326 @@
+---
+title: "Day 02"
+author: "Pablo Gomez"
+format: 
+  revealjs:
+    theme: [dark, custom.scss]
+    footer: "[Workshop homepage](https://cadms-ucd.github.io/PROCINORTE_TT/)"
+editor: source
+title-slide-attributes:
+    data-background-image: img/bg_title.png
+---
+
+# Recap from Day 01{background-image="img/bg_title.png"}
+
+```{r, echo = F}
+knitr::opts_chunk$set(warning = F, message = F, echo = T)
+library(dplyr); library(kableExtra);library(DT); library(ggplot2)
+library(STNet)
+options(DT.options = list(pageLength = 5))
+
+data('captures')
+
+Pable <- function(x, head = 5){
+  x %>% head(head) %>% 
+  kbl() %>% 
+  kable_material_dark(full_width = F, lightable_options = c('hover'))
+}
+```
+
+## [R syntax]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r echo=T}
+x <- seq(from = 5, to = 23, length.out = 10) # create a sequence of numbers
+y <- seq(from = 0.1, to = 0.78, length.out = 10) # Create another sequence
+
+mean(x*y) # Get the mean of the multiplication
+```
+
+Objects? Operators? Functions? Arguments?
+
+. . . 
+
+::: columns
+::: {.column width="25%"}
+Objects:\
+- x\
+- y
+:::
+
+
+::: {.column width="25%"}
+Operators:\
+- `*`\
+- `<-`
+:::
+
+
+::: {.column width="25%"}
+Functions:\
+- `seq()`\
+- `mean()`
+:::
+
+
+::: {.column width="25%"}
+Arguments:\
+- `from`\
+- `to`\
+- `lengt.out`
+:::
+:::
+
+## Recap: functions for reduction {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+[Some of the function we reviewed:]{.black}
+
+-   `select()` [to select specific *columns*]{.black}
+-   `slice()`
+-   `filter()`
+
+## Recap: functions for reduction {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+[Some of the function we reviewed:]{.black}
+
+-   `select()` [to select specific *columns*]{.black}
+-   `slice()` [to select specific *rows* based on position]{.black}
+-   `filter()`
+
+## Recap: functions for reduction {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+[Some of the function we reviewed:]{.black}
+
+-   `select()` [to select specific *columns*]{.black}
+-   `slice()` [to select specific *rows* based on position]{.black}
+-   `filter()` [to select specific *rows* based on a condition]{.black}
+
+## Review: functions {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+```{r eval=F}
+#| code-line-numbers: "|2"
+# Creating a new variable
+PRRS %>% 
+  filter(Sex == 'M') %>% 
+  mutate( 
+    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) 
+  ) %>% 
+  select(Result, name, SowFarm)
+```
+
+## Review: functions {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+```{r eval=F}
+#| code-line-numbers: "3"
+# Creating a new variable
+PRRS %>% # name of the data set
+  filter(Sex == 'M') %>% 
+  mutate( 
+    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) 
+  ) %>% 
+  select(Result, name, SowFarm)
+```
+
+## Review: functions {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+```{r eval=F}
+#| code-line-numbers: "4"
+# Creating a new variable
+PRRS %>% # name of the data set
+  filter(Sex == 'M') %>% # Selecting rows where only males
+  mutate( 
+    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) 
+  ) %>% 
+  select(Result, name, SowFarm)
+```
+
+## Review: functions {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+```{r eval=F}
+#| code-line-numbers: "5"
+# Creating a new variable
+PRRS %>% # name of the data set
+  filter(Sex == 'M') %>% # Selecting rows where only males
+  mutate( # Function to create a new variable
+    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) 
+  ) %>% 
+  select(Result, name, SowFarm)
+```
+
+## Review: functions {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+```{r eval=F}
+#| code-line-numbers: "7"
+# Creating a new variable
+PRRS %>% # name of the data set
+  filter(Sex == 'M') %>% # Selecting rows where only males
+  mutate( # Function to create a new variable
+    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) # Create a variable based on farm type
+  ) %>% 
+  select(Result, name, SowFarm)
+```
+
+## Review: functions {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+```{r eval=F}
+#| code-line-numbers: "8"
+# Creating a new variable
+PRRS %>% # name of the data set
+  filter(Sex == 'M') %>% # Selecting rows where only males
+  mutate( # Function to create a new variable
+    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) # Create a variable based on farm type
+  ) %>% 
+  select(Result, name, SowFarm) # select columns
+```
+
+## Review: functions {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+[Other function we reviewed:]{.black}
+
+-   `count()` [Count rows by one or more groups]{.black}
+-   `group_by()` [aggregate the data by one or more groups]{.black}
+-   `summarise()` [applies functions to the grouped variables]{.black}
+-   `left_join()` [join tables based on one or more index variables]{.black}
+
+
+# Data visualization{background-image="img/bg_title.png"}
+
+## ggplot2 {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+::: columns
+::: {.column width="50%"}
+-   [We build our figures based on layers]{.black}
+-   [Similar syntax as dplyr]{.black}
+-   [We can combine data wrangling and visualization into a single code chunk]{.black}
+
+:::
+
+::: {.column width="50%"}
+![Lectures](img/shrek-ogres-have-layers.gif)
+:::
+
+:::
+
+::: {.fragment}
+[Instead of the `%>%`, in ggplot we connect pieces of code with `+`]{.black}
+:::
+
+## ggplot2 {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+[The basic components that we need to define for a plot are the following:]{.black}
+
+-   [*data*, the data set we will use to generate the figure]{.black}
+-   [*geometry*, or type of graphic we will generate (i.e. histogram, bar, scatter, etc..)]{.black}
+-   [*aesthetic*, variables or arguments that will be used for the figure for example: location, color, size, etc..]{.black}
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "1"
+#| eval: false
+captures # Data
+``` 
+
+. . .
+
+```{r echo = F}
+Pable(captures)
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r eval = F}
+#| code-line-numbers: "2"
+captures %>% # Data used
+  count(year, wt = treated)  # Some data transformation
+```
+
+. . .
+
+```{r echo = F}
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  Pable()
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "4"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() # Add an empty canvas
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r eval=F}
+#| code-line-numbers: "5"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() + # Add an empty canvas
+  geom_bar() # This is the geometry type
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "5-8"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() + # Add an empty canvas
+  geom_bar( # This is the geometry type
+    aes( # Aesthetics or mapping
+      x = year, # X axis
+      y = n # Y axis
+      ), 
+    stat = 'identity' # extra arguments
+  ) 
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "11-14"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() + # Add an empty canvas
+  geom_bar(aes(x = year, y = n), stat = 'identity') +
+  labs(# extra arguments
+    title = 'Bar plot',
+    x = 'Year', y = 'Frequency'
+  )
+```
+
+## ggplot2 {background-image="img/bg.png" body-color="black"}
+
+![](img/3_cheatsheet.png){width="493"}
+
+[Link to the cheasheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf)
+
+[Other cheatsheets](https://posit.co/resources/cheatsheets/?type=posit-cheatsheets/)
+
+# [It's Lab time!](https://cadms-ucd.github.io/PROCINORTE_TT/1c_GraphicsI.html)

@@ -74,3 +74,12 @@ $code-block-border-color: #000000;
   border: 1px solid #D0E9D1;
   background-color: #00000050; 
 }
+
+// To show fragments in same line
+.inline-fragment {
+  display: flex;
+}
+
+.inline-fragment p {
+  padding-right: 10px;
+}

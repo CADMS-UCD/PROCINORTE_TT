@@ -305,9 +305,9 @@ farms <- nodes %>% # This is the main object we will join with
   left_join(Out, by ="id") # we need to specify the variable name we are joining by
 ```
 
-**Exercise: ** Not create a object that is the same as the `Out` we just created, but instead of counting the outgoing animals, counts the incoming animals. For this you can use the column *id_dest*. Then join the new object you created with the farms data. Name the variable that has the number of pigs moved *incoming*
+**Exercise: ** Now create a object that is the same as the `Out` we just created, but instead of counting the outgoing animals, counts the incoming animals. For this you can use the column *id_dest*. Then join the new object you created with the farms data. Name the variable that has the number of pigs moved *incoming*
 
-```{r echo = F}
+```{r}
 # Get the number of outgoing and incoming shipments 
 In <- mov %>% # First we call the data
   count(id_dest, wt = pigs.moved) %>% # then we count the number of movements

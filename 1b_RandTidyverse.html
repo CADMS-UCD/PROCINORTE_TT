@@ -778,12 +778,20 @@ function:</p>
 # First we join with the outgoing
 farms &lt;- nodes %&gt;% # This is the main object we will join with
   left_join(Out, by =&quot;id&quot;) # we need to specify the variable name we are joining by</code></pre>
-<p><strong>Exercise: </strong> Not create a object that is the same as
+<p><strong>Exercise: </strong> Now create a object that is the same as
 the <code>Out</code> we just created, but instead of counting the
 outgoing animals, counts the incoming animals. For this you can use the
 column <em>id_dest</em>. Then join the new object you created with the
 farms data. Name the variable that has the number of pigs moved
 <em>incoming</em></p>
+<pre class="r"><code># Get the number of outgoing and incoming shipments 
+In &lt;- mov %&gt;% # First we call the data
+  count(id_dest, wt = pigs.moved) %&gt;% # then we count the number of movements
+  rename(id = id_dest, incoming = n) # Rename the variable
+
+## Then we join with the incoming
+farms &lt;- farms %&gt;%
+  left_join(In, by = &quot;id&quot;)</code></pre>
 <p>The first rows of your data should look like these:</p>
 <pre class="r"><code>head(farms)</code></pre>
 <pre><code>##   id                            name      lat      long farm_type outgoing

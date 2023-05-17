@@ -82,12 +82,12 @@ At the end of this workshop you will be able to use your own R to process your d
 data.frame(
   Time = c('', '9:00-10:00', '10:00-10:30', '10:30-10:50', '10:50-12:00', '12:00-13:00', '13:00-14:00', '14:00-14:20', '14:20-15:00'),
   D01 = cell_spec(
-    c('R and data visualization', 'Introduction to R studio', 'R syntax', 'Coffee break', 'Data manipulation', 'Lunch', 'Graphics in R', 'Coffee break', 'Graphics part II'), 'html',
-    link = c('slides/Day01.html', '1a_Intro_RstudioMarkdown.html', '1b_RandTidyverse.html', 'coffeeBreak.html', '1b_RandTidyverse.html', 'Lunch.html', '1c_GraphicsI.html', 'coffeeBreak.html', '1c_GraphicsI.html')
+    c('R and data visualization', 'Introduction to R studio', 'R syntax', 'Coffee break', 'Data reduction', 'Lunch', 'Data manupulation', 'Coffee break', 'Joining data'), 'html',
+    link = c('slides/Day01.html', '1a_Intro_RstudioMarkdown.html', '1b_RandTidyverse.html', 'coffeeBreak.html', '1b_RandTidyverse.html', 'Lunch.html', '1b_RandTidyverse.html', 'coffeeBreak.html', '1b_RandTidyverse.html')
   ),
   D02 = cell_spec(
-    c('GIS and Network Analysis', 'Vectors and Rasters', 'Cartography', 'Coffee break', 'Introduction to Network analysis', 'Lunch', 'Network visualization', 'Coffee break', 'Dynamic Networks'), 'html',
-    link = c('', '', '', '', '', 'Lunch.html', '', '', '')
+    c('GIS and Network Analysis', 'Graphics in R I', 'Graphics in R II', 'Coffee break', 'Spatial Data', 'Lunch', 'Introduction to Network analysis', 'Coffee break', 'Network visualization'), 'html',
+    link = c('slides/Day02.html', '1c_GraphicsI.html', '1c_GraphicsI.html', 'coffeeBreak.html', '2a_VectorsRasters.html', 'Lunch.html', '3a_NetworkIntro.html', 'coffeeBreak.html', '3b_NetworkViz.html')
   ),
   D03 = cell_spec(
     c('Risk Assessment', 'Case Studies', 'Introduction to Risk Assessment', 'Coffee break', 'Risk assessment in R I', 'Lunch', 'Feedback evaluation', 'Coffee break', 'Office Hours'), 'html',
