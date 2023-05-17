@@ -67,7 +67,6 @@ library(dplyr)
 # Loading the spatial data from the package
 MxSp <- st_read(system.file("data/MxShp.shp", package = "STNet")) 
 ```
-
 The whole data set is a shapefile of Mexico aggregated at the administration level 3 (Municipality). Since we will not be using the whole country for our analysis, we will filter the data only for the study region. Luckly for us, we can use the same function `filter()` we are already familiarized with:
 
 ```{r}
@@ -440,4 +439,38 @@ ggplot() +
 <!--   theme_void() -->
 <!-- ``` -->
 
+<!-- ```{r} -->
+<!-- i <- 69 -->
+
+<!-- # Vector -->
+<!-- vec <- ggplot() + -->
+<!--   geom_sf(data = Area[i,],fill = '#CCFCDC', col = 'grey10', linewidth = 1.5) + -->
+<!--   theme_void() -->
+
+<!-- ggsave(vec, filename = 'slides/img/GIS_vector.png') -->
+
+<!-- poly <- st_coordinates(Area[i,]) %>%  -->
+<!--   data.frame() %>%  -->
+<!--   # slice(1:10) %>%  -->
+<!--   st_as_sf(coords = c('X', 'Y'), crs = st_crs(4326)) %>%  -->
+<!--   ggplot() + -->
+<!--   geom_sf(data = Area[i,],fill = '#CCFCDC', col = 'grey70', linewidth = 1) + -->
+<!--   geom_sf(col = 'grey10') + -->
+<!--   theme_void() -->
+
+<!-- ggsave(poly, filename = 'slides/img/GIS_poly.png') -->
+
+<!-- # Raster -->
+<!-- sr <- stars::st_as_stars(MxAlt) %>% # first we convert to the stars format -->
+<!--   st_crop(., Area[i,]) # we will crop the raster to get only our study area -->
+
+<!-- ras <- ggplot() + -->
+<!--   geom_stars(data = sr) + -->
+<!--   scale_fill_gradient(low = 'black', high = '#CCFCDC', na.value = NA) + -->
+<!--   theme_void() + -->
+<!--   theme(legend.position = 'none') + -->
+<!--   coord_fixed() -->
+
+<!-- ggsave(ras, filename = 'slides/img/GIS_raster.png') -->
+<!-- ``` -->
 

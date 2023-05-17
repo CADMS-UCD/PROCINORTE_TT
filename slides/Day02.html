@@ -402,6 +402,48 @@ Pablo Gomez
 </div>
 
 </section>
+<section id="how-can-we-find-help-with-r" class="slide level2" data-background-image="img/bg.png">
+<h2>How can we find help with R?</h2>
+<p><br></p>
+<p><span class="black">Using the <code>?</code> operator:</span></p>
+
+<img data-src="img/4a_help.png" class="r-stretch quarto-figure-center"></section>
+<section id="how-can-we-find-help-with-r-1" class="slide level2" data-background-image="img/bg.png">
+<h2>How can we find help with R?</h2>
+<p><br></p>
+
+<img data-src="img/4a_helpDoc.png" class="r-stretch quarto-figure-center"></section>
+<section id="how-can-we-find-help-with-r-2" class="slide level2" data-background-image="img/bg.png">
+<h2>How can we find help with R?</h2>
+<p><br></p>
+
+<img data-src="img/4a_helpDocArg.png" class="r-stretch quarto-figure-center"></section>
+<section id="how-can-we-find-help-with-r-3" class="slide level2" data-background-image="img/bg.png">
+<h2>How can we find help with R?</h2>
+<p><br></p>
+
+<img data-src="img/4a_helpDocEx.png" class="r-stretch quarto-figure-center"></section>
+<section id="how-can-we-find-help-with-r-4" class="slide level2" data-background-image="img/bg.png">
+<h2>How can we find help with R?</h2>
+<p><br></p>
+<p><a href="https://chat.openai.com/">ChatGPT:</a></p>
+
+<img data-src="img/4a_helpChat.png" class="r-stretch quarto-figure-center"></section>
+<section id="how-can-we-find-help-with-r-5" class="slide level2" data-background-image="img/bg.png">
+<h2>How can we find help with R?</h2>
+<p><br></p>
+<p><a href="https://chat.openai.com/">ChatGPT:</a></p>
+<p><span class="red">! WARNING: CHAT GPT CAN GIVE INCORRECT INFORMATION !</span></p>
+<ul>
+<li><span class="black">If chat GPT does not knows something, sometimes will make up information (i.e.&nbsp;made up references, name of packages, libraries etc…)</span></li>
+<li><span class="black">Make sure to verify the information provided by Chat GPT</span></li>
+</ul>
+</section>
+<section id="how-can-we-find-help-with-r-6" class="slide level2" data-background-image="img/bg.png">
+<h2>How can we find help with R?</h2>
+<p><br></p>
+
+<img data-src="img/4a_helpGoogle.png" class="r-stretch quarto-figure-center"></section>
 <section>
 <section id="recap-from-day-01" class="title-slide slide level1 center" data-background-image="img/bg_title.png">
 <h1>Recap from Day 01</h1>
@@ -794,10 +836,136 @@ Pablo Gomez
 </section></section>
 <section id="its-lab-time" class="title-slide slide level1 center">
 <h1><a href="https://cadms-ucd.github.io/PROCINORTE_TT/1c_GraphicsI.html">It’s Lab time!</a></h1>
-<div class="footer footer-default">
-<p><a href="https://cadms-ucd.github.io/PROCINORTE_TT/">Workshop homepage</a></p>
+<p>Graphics in R</p>
+</section>
+
+<section>
+<section id="spatial-data" class="title-slide slide level1 center" data-background-image="img/bg_title.png">
+<h1>Spatial Data</h1>
+
+</section>
+<section id="spatial-data-formats" class="slide level2" data-background-image="img/bg.png">
+<h2>Spatial data formats</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="black">Vectors</span> <img data-src="img/GIS_vector.png"></p>
+</div><div class="column" style="width:50%;">
+<p><span class="black">Rasters</span> <img data-src="img/GIS_raster.png"></p>
+</div>
 </div>
 </section>
+<section id="spatial-resolution" class="slide level2" data-background-image="img/bg.png">
+<h2>Spatial resolution</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/GIS_resolutionH.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/GIS_resolutionL.png"></p>
+</div>
+</div>
+</section>
+<section id="vectors" class="slide level2" data-background-image="img/bg.png">
+<h2>Vectors</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><span class="black">Point</span><br>
+<img data-src="img/GIS_point.png"></p>
+</div><div class="column" style="width:33%;">
+<p><span class="black">Lines</span><br>
+<img data-src="img/GIS_line.png"></p>
+</div><div class="column" style="width:33%;">
+<p><span class="black">Polygon</span><br>
+<img data-src="img/GIS_poly.png"></p>
+</div>
+</div>
+</section>
+<section id="spatial-data-in-r" class="slide level2" data-background-image="img/bg.png">
+<h2>Spatial data in R</h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb15-2"><a href="#cb15-2"></a></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co"># Loading the spatial data from the package</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>MxSp <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">"data/MxShp.shp"</span>, <span class="at">package =</span> <span class="st">"STNet"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `MxShp' from data source 
+  `/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/STNet/data/MxShp.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 2471 features and 6 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 1058748 ymin: 319149.1 xmax: 4082958 ymax: 2349605
+Projected CRS: MEXICO_ITRF_2008_LCC</code></pre>
+</div>
+</div>
+</section>
+<section id="spatial-data-in-r-1" class="slide level2" data-background-image="img/bg.png">
+<h2>Spatial data in R</h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Filter to study area</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>Area <span class="ot">&lt;-</span> MxSp <span class="sc">%&gt;%</span> <span class="co"># This is the data we will filter</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">filter</span>(CVE_ENT <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'15'</span>, <span class="st">'12'</span>, <span class="st">'16'</span>)) <span class="sc">%&gt;%</span>  <span class="co"># Filter the data to use the states with codes: 15, 12 y 16</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="fu">st_crs</span>(<span class="dv">4326</span>)) <span class="co"># transform to lat/long</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="spatial-data-in-r-2" class="slide level2" data-background-image="img/bg.png">
+<h2>Spatial data in R</h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">head</span>(Area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 6 features and 6 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -100.5848 ymin: 16.88094 xmax: -98.218 ymax: 18.35471
+Geodetic CRS:  WGS 84
+  CVEGEO CVE_ENT CVE_MUN                  NOMGEO AREA_LCC    ID
+1  12067      12     067              Tlapehuala  284.696 12067
+2  12043      12     043              Metlatónoc  584.023 12043
+3  12081      12     081               Iliatenco  235.682 12081
+4  12066      12     066      Tlapa de Comonfort  609.030 12066
+5  12078      12     078      Cochoapa el Grande  638.160 12078
+6  12079      12     079 José Joaquín de Herrera  131.977 12079
+                        geometry
+1 MULTIPOLYGON (((-100.3237 1...
+2 MULTIPOLYGON (((-98.26956 1...
+3 MULTIPOLYGON (((-98.57511 1...
+4 MULTIPOLYGON (((-98.5618 17...
+5 MULTIPOLYGON (((-98.28944 1...
+6 MULTIPOLYGON (((-98.95271 1...</code></pre>
+</div>
+</div>
+</section>
+<section id="spatial-data-in-r-3" class="slide level2" data-background-image="img/bg.png">
+<h2>Spatial data in R</h2>
+<p><br></p>
+<p>The output shows:<br>
+- <code>geometry type</code>: The type of shapefile (either point data, lines or polygons). - <code>dimension</code> Dimensions used in the data.<br>
+- <code>Bounding bix</code>: The extent of our data.<br>
+- <code>CRS</code>: The coordinate reference system.<br>
+- And the first 10 features.</p>
+</section>
+<section id="maps" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Maps</span></h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20" data-code-line-numbers="8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># create the empty canvas</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> Mxst) <span class="sc">+</span> <span class="co"># add raster layer</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Area, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'grey60'</span>) <span class="sc">+</span> <span class="co"># add polygon layer</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> capturesSp, <span class="at">cex =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">'skyblue'</span>) <span class="sc">+</span> <span class="co"># add point layer</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> <span class="co"># theme for the figure</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'black'</span>, <span class="at">high =</span> <span class="st">'red'</span>, <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># color for the gradient</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Map of the study area'</span>, <span class="at">fill =</span> <span class="st">'Altitude'</span>) <span class="co"># labels for the figure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="img/4a_map.png" class="r-stretch quarto-figure-center"><div class="footer footer-default">
+<p><a href="https://cadms-ucd.github.io/PROCINORTE_TT/">Workshop homepage</a></p>
+</div>
+</section></section>
     </div>
   </div>
 

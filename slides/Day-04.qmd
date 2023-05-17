@@ -4,7 +4,7 @@ format:
   revealjs:
     theme: [dark, custom.scss]
     footer: "[Workshop homepage](https://cadms-ucd.github.io/DiseaseModeling/)"
-editor: visual
+editor: source
 title-slide-attributes:
     data-background-image: img/bg_title.png
 ---
