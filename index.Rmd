@@ -138,6 +138,11 @@ The data used for this workshop is contained in the package `STNet`. To install 
 
 <!-- We would appreciate if you take a minute to fill a quick anonymous survey for feedback. To go to the survey follow [THIS LINK](https://ucdavis.co1.qualtrics.com/jfe/form/SV_40oI9hjyLzb4W0K) -->
 
+
+# Other materiasl
+
+https://cadms-ucd.github.io/PROCINORTE_TT/topics.html
+
 ------------------------------------------------------------------------
 
 *This course has been developed with contributions from: [Jose Pablo
