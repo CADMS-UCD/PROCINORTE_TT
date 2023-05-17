@@ -128,6 +128,16 @@ Arguments:\
 
 [Some of the function we reviewed:]{.black}
 
+-   `select()` 
+-   `slice()`
+-   `filter()`
+
+## Recap: functions for reduction {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+[Some of the function we reviewed:]{.black}
+
 -   `select()` [to select specific *columns*]{.black}
 -   `slice()`
 -   `filter()`
@@ -378,6 +388,12 @@ captures %>% # Data used
 # [It's Lab time!](https://cadms-ucd.github.io/PROCINORTE_TT/1c_GraphicsI.html)
 Graphics in R
 
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/> [Data to Viz:](https://www.data-to-viz.com)
+
+![](img/4a_helpDataViz.png){fig-align="center"}
+
 # Spatial Data{background-image="img/bg_title.png"}
 
 ## Spatial data formats{background-image="img/bg.png"}
@@ -463,12 +479,13 @@ head(Area)
 ## Spatial data in R{background-image="img/bg.png"}
 <br/>
 
-The output shows:  
-  - `geometry type`: The type of shapefile (either point data, lines or polygons).
-  - `dimension` Dimensions used in the data.  
-  - `Bounding bix`: The extent of our data.  
-  - `CRS`: The coordinate reference system.  
-  - And the first 10 features.  
+[The output shows:]{.black}  
+  
+  - `geometry type`[: The type of shapefile (either point data, lines or polygons).]{.black}  
+  - `dimension` [Dimensions used in the data.]{.black}  
+  - `Bounding box`[: The extent of our data.]{.black}  
+  - `CRS`[: The coordinate reference system.]{.black}  
+  - [And the first 10 features.]{.black}  
 
 
 ## [Maps]{style="color:black;"} {background-image="img/bg_2.png"}
@@ -488,3 +505,65 @@ ggplot() + # create the empty canvas
 
 ![](img/4a_map.png){fig-align="center"}
 
+
+# Network analysis{background-image="img/bg_title.png"}
+
+## Why represent events in a network?{background-image="img/bg.png"}
+<br/>
+
+:::: columns
+::: {.column}
+[Identify individuals that are very active]{.black}
+![](img/sna_01.png){fig-align="center"}
+:::
+
+::: {.column}
+[Identify individuals that are intermediate]{.black}
+![](img/sna_02.png){fig-align="center"}
+:::
+
+::::
+
+
+## What is a graph?{background-image="img/bg.png"}
+<br/>
+
+![](img/sna_graphs.png){fig-align="center"}
+
+## Elements of a network{background-image="img/bg.png"}
+<br/>
+
+[Nodes (vertices)]{.black}
+
+![](img/sna_nodes.png){fig-align="center"}
+
+[$$V = [1, 2, 3, ..., i]$$]{.black}
+
+
+## Elements of a network{background-image="img/bg.png"}
+<br/>
+
+[Nodes (vertices)]{.black}
+
+![](img/sna_nodesFaces.png){fig-align="center"}
+
+[$$V = [1, 2, 3, ..., i]$$]{.black}
+
+## Elements of a network{background-image="img/bg.png"}
+<br/>
+
+[Edges (links)]{.black}
+
+![](img/sna_edges.png){fig-align="center"}
+
+[$$E = [(1, 2), (1, 3), (2, 3), ..., (i,j)]$$]{.black}
+
+## General properties{background-image="img/bg.png"}
+<br/>
+
+![](img/sna_generalProperties.png){fig-align="center"}
+
+## Local properties{background-image="img/bg.png"}
+<br/>
+
+![](img/sna_localProperties.png){fig-align="center"}

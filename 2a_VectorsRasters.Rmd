@@ -373,36 +373,36 @@ Maps$areaZoom +
   )
 ```
 
-# Scatter pie
+<!-- # Scatter pie -->
 
-https://rdrr.io/cran/scatterpie/man/geom_scatterpie.html
+<!-- https://rdrr.io/cran/scatterpie/man/geom_scatterpie.html -->
 
-```{r}
-# Example ----------
-library(ggplot2)
-library(scatterpie)
-d <- data.frame(x=rnorm(5), y=rnorm(5))
-d$A <- abs(rnorm(5, sd=1))
-d$B <- abs(rnorm(5, sd=2))
-d$C <- abs(rnorm(5, sd=3))
+<!-- ```{r} -->
+<!-- # Example ---------- -->
+<!-- library(ggplot2) -->
+<!-- library(scatterpie) -->
+<!-- d <- data.frame(x=rnorm(5), y=rnorm(5)) -->
+<!-- d$A <- abs(rnorm(5, sd=1)) -->
+<!-- d$B <- abs(rnorm(5, sd=2)) -->
+<!-- d$C <- abs(rnorm(5, sd=3)) -->
 
-ggplot() + 
-  geom_scatterpie(aes(x=x, y=y), data=d, cols=c("A", "B", "C")) + 
-  coord_fixed()
+<!-- ggplot() +  -->
+<!--   geom_scatterpie(aes(x=x, y=y), data=d, cols=c("A", "B", "C")) +  -->
+<!--   coord_fixed() -->
 
-# my data ---------
-d <- captures %>% 
-  mutate(noTreat = captures - treated) %>% 
-  group_by(lon, lat) %>% 
-  summarise(treated = sum(treated), noTreat = sum(noTreat), captures = sum(captures)) 
+<!-- # my data --------- -->
+<!-- d <- captures %>%  -->
+<!--   mutate(noTreat = captures - treated) %>%  -->
+<!--   group_by(lon, lat) %>%  -->
+<!--   summarise(treated = sum(treated), noTreat = sum(noTreat), captures = sum(captures))  -->
 
-ggplot() +
-  geom_sf(data = Area) +
-  geom_scatterpie(aes(x=lon, y=lat, r = scales::rescale(captures, to = c(0.02, 0.05))), data=d, cols=c('treated', 'noTreat'), color = NA, alpha = 0.5) +
-  theme_void() +
-  mapLims
-  
-```
+<!-- ggplot() + -->
+<!--   geom_sf(data = Area) + -->
+<!--   geom_scatterpie(aes(x=lon, y=lat, r = scales::rescale(captures, to = c(0.02, 0.05))), data=d, cols=c('treated', 'noTreat'), color = NA, alpha = 0.5) + -->
+<!--   theme_void() + -->
+<!--   mapLims -->
+
+<!-- ``` -->
 
 
 <!-- ```{r radius example} -->

@@ -491,7 +491,7 @@ Pablo Gomez
 <p><br></p>
 <p><span class="black">Some of the function we reviewed:</span></p>
 <ul>
-<li><code>select()</code> <span class="black">to select specific <em>columns</em></span></li>
+<li><code>select()</code></li>
 <li><code>slice()</code></li>
 <li><code>filter()</code></li>
 </ul>
@@ -502,11 +502,21 @@ Pablo Gomez
 <p><span class="black">Some of the function we reviewed:</span></p>
 <ul>
 <li><code>select()</code> <span class="black">to select specific <em>columns</em></span></li>
-<li><code>slice()</code> <span class="black">to select specific <em>rows</em> based on position</span></li>
+<li><code>slice()</code></li>
 <li><code>filter()</code></li>
 </ul>
 </section>
 <section id="recap-functions-for-reduction-2" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
+<h2>Recap: functions for reduction</h2>
+<p><br></p>
+<p><span class="black">Some of the function we reviewed:</span></p>
+<ul>
+<li><code>select()</code> <span class="black">to select specific <em>columns</em></span></li>
+<li><code>slice()</code> <span class="black">to select specific <em>rows</em> based on position</span></li>
+<li><code>filter()</code></li>
+</ul>
+</section>
+<section id="recap-functions-for-reduction-3" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
 <h2>Recap: functions for reduction</h2>
 <p><br></p>
 <p><span class="black">Some of the function we reviewed:</span></p>
@@ -834,11 +844,16 @@ Pablo Gomez
 <img data-src="img/3_cheatsheet.png" width="493" class="r-stretch"><p><a href="https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf">Link to the cheasheet</a></p>
 <p><a href="https://posit.co/resources/cheatsheets/?type=posit-cheatsheets/">Other cheatsheets</a></p>
 </section></section>
+<section>
 <section id="its-lab-time" class="title-slide slide level1 center">
 <h1><a href="https://cadms-ucd.github.io/PROCINORTE_TT/1c_GraphicsI.html">It’s Lab time!</a></h1>
 <p>Graphics in R</p>
 </section>
+<section id="how-can-we-find-help-with-r-7" class="slide level2" data-background-image="img/bg.png">
+<h2>How can we find help with R?</h2>
+<p><br> <a href="https://www.data-to-viz.com">Data to Viz:</a></p>
 
+<img data-src="img/4a_helpDataViz.png" class="r-stretch quarto-figure-center"></section></section>
 <section>
 <section id="spatial-data" class="title-slide slide level1 center" data-background-image="img/bg_title.png">
 <h1>Spatial Data</h1>
@@ -943,11 +958,18 @@ Geodetic CRS:  WGS 84
 <section id="spatial-data-in-r-3" class="slide level2" data-background-image="img/bg.png">
 <h2>Spatial data in R</h2>
 <p><br></p>
-<p>The output shows:<br>
-- <code>geometry type</code>: The type of shapefile (either point data, lines or polygons). - <code>dimension</code> Dimensions used in the data.<br>
-- <code>Bounding bix</code>: The extent of our data.<br>
-- <code>CRS</code>: The coordinate reference system.<br>
-- And the first 10 features.</p>
+<p><span class="black">The output shows:</span></p>
+<ul>
+<li><code>geometry type</code><span class="black">: The type of shapefile (either point data, lines or polygons).</span><br>
+</li>
+<li><code>dimension</code> <span class="black">Dimensions used in the data.</span><br>
+</li>
+<li><code>Bounding box</code><span class="black">: The extent of our data.</span><br>
+</li>
+<li><code>CRS</code><span class="black">: The coordinate reference system.</span><br>
+</li>
+<li><span class="black">And the first 10 features.</span></li>
+</ul>
 </section>
 <section id="maps" class="slide level2" data-background-image="img/bg_2.png">
 <h2><span style="color:black;">Maps</span></h2>
@@ -962,7 +984,59 @@ Geodetic CRS:  WGS 84
 <span id="cb20-7"><a href="#cb20-7"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Map of the study area'</span>, <span class="at">fill =</span> <span class="st">'Altitude'</span>) <span class="co"># labels for the figure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="img/4a_map.png" class="r-stretch quarto-figure-center"><div class="footer footer-default">
+<img data-src="img/4a_map.png" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="network-analysis" class="title-slide slide level1 center" data-background-image="img/bg_title.png">
+<h1>Network analysis</h1>
+
+</section>
+<section id="why-represent-events-in-a-network" class="slide level2" data-background-image="img/bg.png">
+<h2>Why represent events in a network?</h2>
+<p><br></p>
+<div class="columns">
+<div class="column">
+<p><span class="black">Identify individuals that are very active</span> <img data-src="img/sna_01.png" data-fig-align="center"></p>
+</div><div class="column">
+<p><span class="black">Identify individuals that are intermediate</span> <img data-src="img/sna_02.png" data-fig-align="center"></p>
+</div>
+</div>
+</section>
+<section id="what-is-a-graph" class="slide level2" data-background-image="img/bg.png">
+<h2>What is a graph?</h2>
+<p><br></p>
+
+<img data-src="img/sna_graphs.png" class="r-stretch quarto-figure-center"></section>
+<section id="elements-of-a-network" class="slide level2" data-background-image="img/bg.png">
+<h2>Elements of a network</h2>
+<p><br></p>
+<p><span class="black">Nodes (vertices)</span></p>
+
+<img data-src="img/sna_nodes.png" class="r-stretch quarto-figure-center"><p><span class="black"><span class="math display">\[V = [1, 2, 3, ..., i]\]</span></span></p>
+</section>
+<section id="elements-of-a-network-1" class="slide level2" data-background-image="img/bg.png">
+<h2>Elements of a network</h2>
+<p><br></p>
+<p><span class="black">Nodes (vertices)</span></p>
+
+<img data-src="img/sna_nodesFaces.png" class="r-stretch quarto-figure-center"><p><span class="black"><span class="math display">\[V = [1, 2, 3, ..., i]\]</span></span></p>
+</section>
+<section id="elements-of-a-network-2" class="slide level2" data-background-image="img/bg.png">
+<h2>Elements of a network</h2>
+<p><br></p>
+<p><span class="black">Edges (links)</span></p>
+
+<img data-src="img/sna_edges.png" class="r-stretch quarto-figure-center"><p><span class="black"><span class="math display">\[E = [(1, 2), (1, 3), (2, 3), ..., (i,j)]\]</span></span></p>
+</section>
+<section id="general-properties" class="slide level2" data-background-image="img/bg.png">
+<h2>General properties</h2>
+<p><br></p>
+
+<img data-src="img/sna_generalProperties.png" class="r-stretch quarto-figure-center"></section>
+<section id="local-properties" class="slide level2" data-background-image="img/bg.png">
+<h2>Local properties</h2>
+<p><br></p>
+
+<img data-src="img/sna_localProperties.png" class="r-stretch quarto-figure-center"><div class="footer footer-default">
 <p><a href="https://cadms-ucd.github.io/PROCINORTE_TT/">Workshop homepage</a></p>
 </div>
 </section></section>
