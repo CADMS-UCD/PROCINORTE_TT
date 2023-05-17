@@ -45,7 +45,7 @@ package.check <- lapply(
 )
 
 
-devtools::install_github('jpablo91/QuantRRA', dependencies = T) # RRA toolset
+devtools::install_github('spablotemporal/QuantRRA', dependencies = T) # RRA toolset
 ```
 
 
