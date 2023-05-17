@@ -804,7 +804,7 @@ style="color: darkred;">Exercise 1</span></h2>
 were born (or if you prefer where you currently live). For this:</p>
 <ol style="list-style-type: decimal">
 <li>Use the <code>getData()</code> function with the ISO code for your
-country. Use the administration level 2 (i.e. municipality),</li>
+country. Use the administration level 1.</li>
 <li>Filter your map to show only the administration level 1 (i.e. state)
 from the location selected.</li>
 <li>Add a title with the name of the location and get creative with the
@@ -815,6 +815,29 @@ link</a>.</li>
 </ol>
 <iframe src="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31" height="200" width="800">
 </iframe>
+<p>For example, to get the map from the place I was born I would use
+this code:</p>
+<pre class="r"><code># I will get the data for Mexico
+Sp &lt;- raster::getData(name = &#39;GADM&#39;, # this is the data source
+                      level = 1, # Level of administration
+                      country = &#39;Mx&#39;) %&gt;%  # country code
+  st_as_sf() # Now transform the data to sf
+
+# Then filter to the state I was born
+nl &lt;- Sp %&gt;% 
+  filter(NAME_1 == &#39;Nuevo León&#39;)
+
+# And map it with ggplot
+myMap &lt;- nl %&gt;% 
+  ggplot() +
+  geom_sf(fill = &#39;lightgreen&#39;, col = &#39;black&#39;, linewidth = 1) +
+  theme_void() +
+  labs(title = &#39;Nuevo Leon, Mexico&#39;, subtitle = &#39;Pablo&#39;)
+
+myMap</code></pre>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<pre class="r"><code># dont forget to export it however you prefer
+ggsave(myMap, filename = &#39;myMap.png&#39;)</code></pre>
 <hr />
 </div>
 </div>
@@ -838,7 +861,7 @@ Maps$area &lt;- ggplot(data = cap) + # Create the empty canvas
 # We can add extra layers to our base map
 Maps$area +
   geom_sf(aes(size = captures), alpha = 0.2) # add the layer for points</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <div id="change-the-map-extent" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Change the map
 extent</h2>
@@ -861,7 +884,7 @@ Maps$areaZoom &lt;- ggplot() + # we set the canvas
   mapLims
 
 Maps$areaZoom</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </div>
 <div id="facets" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Facets</h2>
@@ -876,7 +899,7 @@ Maps$areaZoom</code></pre>
     axis.text = element_blank(),
     axis.ticks = element_blank()
   )</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>
 <div id="additional-legends" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Additional
@@ -914,7 +937,7 @@ Maps$areaZoom &lt;- Maps$areaZoom + # use the previously created map
                          pad_x = unit(0.05, &quot;in&quot;), pad_y = unit(0.05, &quot;in&quot;))
 
 Maps$areaZoom</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </div>
 </div>
 <div id="inset-maps" class="section level1" number="6">
@@ -927,7 +950,7 @@ Maps$areaZoom</code></pre>
     ),
     xmin = bbox[1], xmax = bbox[1] + 0.5, ymin = bbox[2], ymax = bbox[2] + 0.5
   )</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <!-- # Scatter pie -->
 <!-- https://rdrr.io/cran/scatterpie/man/geom_scatterpie.html -->
 <!-- ```{r} -->

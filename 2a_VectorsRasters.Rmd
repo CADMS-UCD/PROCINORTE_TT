@@ -272,12 +272,39 @@ Maps$mx
 
 **Making your own map:** Get a map from the region you were born (or if you prefer where you currently live). For this:
   
-  1. Use the `getData()` function with the ISO code for your country. Use the administration level 2 (i.e. municipality), 
+  1. Use the `getData()` function with the ISO code for your country. Use the administration level 1. 
   2. Filter your map to show only the administration level 1 (i.e. state) from the location selected. 
   3. Add a title with the name of the location and get creative with the colors and other settings. 
   4. Export and submit the map in the following box OR [this link](https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31). 
 
 <iframe src="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31" height="200" width="800"></iframe>
+
+For example, to get the map from the place I was born I would use this code:
+
+```{r}
+# I will get the data for Mexico
+Sp <- raster::getData(name = 'GADM', # this is the data source
+                      level = 1, # Level of administration
+                      country = 'Mx') %>%  # country code
+  st_as_sf() # Now transform the data to sf
+
+# Then filter to the state I was born
+nl <- Sp %>% 
+  filter(NAME_1 == 'Nuevo León')
+
+# And map it with ggplot
+myMap <- nl %>% 
+  ggplot() +
+  geom_sf(fill = 'lightgreen', col = 'black', linewidth = 1) +
+  theme_void() +
+  labs(title = 'Nuevo Leon, Mexico', subtitle = 'Pablo')
+
+myMap
+
+# dont forget to export it however you prefer
+ggsave(myMap, filename = 'myMap.png')
+```
+
 
 
 ___________________________________________
