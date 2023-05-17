@@ -268,7 +268,17 @@ Maps$mx <- ggplot() + # set our empty canvas
 Maps$mx
 ```
 
-**Exercise - Making your own map:** Get a map from the region you were born (or if you prefer where you currently live). For this, use the `getData()` function with the ISO code for your country. Use the level of resolution 2, then filter your map to show only the administration level 1 from the location selected. 
+## [Exercise 1]{style="color: darkred;"}
+
+**Making your own map:** Get a map from the region you were born (or if you prefer where you currently live). For this:
+  
+  1. Use the `getData()` function with the ISO code for your country. Use the level of resolution 2, 
+  2. Filter your map to show only the administration level 1 from the location selected. 
+  3. Add a title with the name of the location and feel free to change the color of the map to your liking. 
+  4. Export and submit the map in the following box OR [this link](https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31). 
+
+<iframe src="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31" height="200" width="800"></iframe>
+
 
 ___________________________________________
 
