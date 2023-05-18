@@ -706,9 +706,14 @@ grid. We use raster data to represent values such as altitude,
 temperature, among other continuous values.</p>
 <p>There are multiple ways to get raster data, one example is getting
 the data directly from R. We can use the function <code>getData()</code>
-from the <code>raster()</code> package to get altitude data:</p>
+from the <code>raster()</code> package to get altitude data: <em>Note:
+</em> If the download is slow, you can just download the object from the
+<a
+href="https://ucdavis.box.com/s/uilibf50xcbqim5cmkoi5hx7fpq6d4k3">shared
+folder</a>, and open it with the function <code>readRDS()</code>.</p>
 <pre class="r"><code>library(raster)
 MxAlt &lt;- getData(&#39;alt&#39;, country=&#39;MEX&#39;) # get the data for the whole country
+# MxAlt &lt;- readRDS(&#39;Data/Outputs/MxAtl.rds&#39;) # or optionally, if you downloaded the object from the shared folder you can use
 
 plot(MxAlt) # see the data</code></pre>
 <p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
@@ -764,7 +769,7 @@ Maps$map01 &lt;- ggplot() + # create the empty canvas
   labs(title = &#39;Map of the study area&#39;, fill = &#39;Altitude&#39;) # labels for the figure
 
 Maps$map01</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
 <div id="getting-data-for-other-countriesregions" class="section level1"
 number="4">
@@ -796,7 +801,7 @@ Maps$mx &lt;- ggplot() + # set our empty canvas
   theme_void() # set the theme to void
 
 Maps$mx</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <div id="exercise-1" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> <span
 style="color: darkred;">Exercise 1</span></h2>
@@ -835,7 +840,7 @@ myMap &lt;- nl %&gt;%
   labs(title = &#39;Nuevo Leon, Mexico&#39;, subtitle = &#39;Pablo&#39;)
 
 myMap</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <pre class="r"><code># dont forget to export it however you prefer
 ggsave(myMap, filename = &#39;myMap.png&#39;)</code></pre>
 <hr />
@@ -861,7 +866,7 @@ Maps$area &lt;- ggplot(data = cap) + # Create the empty canvas
 # We can add extra layers to our base map
 Maps$area +
   geom_sf(aes(size = captures), alpha = 0.2) # add the layer for points</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <div id="change-the-map-extent" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Change the map
 extent</h2>
@@ -884,7 +889,7 @@ Maps$areaZoom &lt;- ggplot() + # we set the canvas
   mapLims
 
 Maps$areaZoom</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>
 <div id="facets" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Facets</h2>
@@ -899,7 +904,7 @@ Maps$areaZoom</code></pre>
     axis.text = element_blank(),
     axis.ticks = element_blank()
   )</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </div>
 <div id="additional-legends" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Additional
@@ -937,7 +942,7 @@ Maps$areaZoom &lt;- Maps$areaZoom + # use the previously created map
                          pad_x = unit(0.05, &quot;in&quot;), pad_y = unit(0.05, &quot;in&quot;))
 
 Maps$areaZoom</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 </div>
 </div>
 <div id="inset-maps" class="section level1" number="6">
@@ -950,7 +955,7 @@ Maps$areaZoom</code></pre>
     ),
     xmin = bbox[1], xmax = bbox[1] + 0.5, ymin = bbox[2], ymax = bbox[2] + 0.5
   )</code></pre>
-<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <!-- # Scatter pie -->
 <!-- https://rdrr.io/cran/scatterpie/man/geom_scatterpie.html -->
 <!-- ```{r} -->

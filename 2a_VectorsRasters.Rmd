@@ -191,10 +191,12 @@ plot(Area['captures'])
 We use raster data to represent continuous values in a field. Raster are just a grid where each cell has a value and in a grid. The resolution of a raster just represent the size of the cells from the grid. We use raster data to represent values such as altitude, temperature, among other continuous values.  
 
 There are multiple ways to get raster data, one example is getting the data directly from R. We can use the function `getData()` from the `raster()` package to get altitude data:
+*Note: * If the download is slow, you can just download the object from the [shared folder](https://ucdavis.box.com/s/uilibf50xcbqim5cmkoi5hx7fpq6d4k3), and open it with the function `readRDS()`. 
 
 ```{r}
 library(raster)
 MxAlt <- getData('alt', country='MEX') # get the data for the whole country
+# MxAlt <- readRDS('Data/Outputs/MxAtl.rds') # or optionally, if you downloaded the object from the shared folder you can use
 
 plot(MxAlt) # see the data
 ```
@@ -218,6 +220,12 @@ ggplot() + # set the empty canvas
   geom_stars(data = Mxst) + # We use the function geom_stars to add the raster layer
   theme_void() # set the theme to void
 ```
+
+```{r eval = F, echo=F}
+# readr::write_rds(Mxst, "Data/Outputs/Mxst.rds")
+# readr::write_rds(MxAlt, "Data/Outputs/MxAtl.rds")
+```
+
 
 # Putting everything together wit ggplot
 
