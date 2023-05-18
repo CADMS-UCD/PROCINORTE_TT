@@ -11,7 +11,7 @@ In this lab we will review concepts of community detection and how to represent 
 
 First we will load the data and the libraries we will be using. Remember that on the previous lab we exported a data set at the end, we will continue using this objects.  
 
-```{r}
+```{r message=F, warning=F}
 # If you are starting a new session, load the files and libraries again 
 # Load the data
 net <- readRDS("Data/Outputs/net.rds") # Loading the network object
@@ -86,18 +86,19 @@ CP[['Walktrap']] <- pc +
 ggarrange(plotlist = CP)
 ```
 
+We can select specific communities to show by filtering by the newly created community variable.
+
 ```{r}
 c %N>% 
-  filter(walktrap == '4') %>% # filter for community
+  filter(walktrap == '1') %>% # filter for community 1
   ggraph(layout = 'nicely') + # call the ggraph function
   geom_edge_link() + # add the edges
   geom_node_point(aes(col = walktrap), size = 2) + # we add the nodes
-  theme(legend.position = 'bottom') # set the legend position to bottom
+  theme(legend.position = 'bottom') + # set the legend position to bottom
+  labs(title = 'Subset of the nework for the community 1')
 ```
 
-
-
-*Excercise: * Now increase the number of steps in the walk trap algorithm, what happens when we increase the number of steps? What do you think would be the optimal number of steps for this example
+*Exercise: * Now increase the number of steps in the walk trap algorithm, what happens when we increase the number of steps? What do you think would be the optimal number of steps for this example
 
 ```{r eval=FALSE, include=FALSE}
 c <- c %N>%
@@ -180,9 +181,7 @@ map + geom_sf(data = NodeSp, # name of our data
   ggtitle("Farms and their indegree") # the title of our plot
 ```
 
-**Excercise:** Make the same plot, but make the size of the nodes relative to outdegree
-
-
+**Exercise:** Make the same plot, but make the size of the nodes relative to outdegree
 
 ## Adding the euclidean contacts
 
@@ -203,7 +202,6 @@ map +
                    color=type_orig,
                    alpha = pigs.moved))
 ```
-
 
 ## Putting everything together
 
@@ -244,7 +242,7 @@ map +
 We will also add at the end the function `ggplotly()` from the package `plotly` to obtain a map were we can zoom and hover over some features to obtain more information.  
 
   
-```{r}
+```{r warning=F, message=F}
 # We store the map of movements between GDU to sow farm
 m <- map +
   edge %>%

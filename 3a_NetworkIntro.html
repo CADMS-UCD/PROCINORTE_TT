@@ -372,13 +372,9 @@ div.tocify {
 
 <p>In this lab we will start making our first network objects, obtain
 network statistics and some visualization of the data.</p>
-<div id="network-visualization" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Network
-visualization</h1>
-<div id="loading-the-data-and-visualizing-the-network"
-class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Loading the data and
-visualizing the network</h2>
+<div id="creating-the-network" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Creating the
+network</h1>
 <pre class="r"><code># Libraries we will use:
 library(dplyr) # for data manipulation
 library(ggplot2) # For making figures
@@ -434,6 +430,9 @@ and edges, we can see that our network has 40 nodes and 1611 edges. Then
 we can also see the attributes for the nodes (which in this case there
 is only the name) and the edges (which for this example has from, to,
 date, pigs.moved, type_orig, and type_dest).</p>
+<div id="adding-extra-attributes" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Adding extra
+attributes</h2>
 <p>We can treat this object like two data frames that are joined by an
 key or identification variable. Whenever we want to access one of the
 data frames to modify it, we can use either the function
@@ -442,14 +441,51 @@ data frames to modify it, we can use either the function
 the edges. In the next example we will add the rest of the node
 information to our <code>tbl_graph</code></p>
 <pre class="r"><code>net &lt;- net %N&gt;% # &lt;- Notice we are including &#39;N&#39; inside our pipe to specify we want to access the nodes
-  left_join(node, by = c(&#39;name&#39; = &#39;id&#39;)) # Now we join to the node dataframe to include other variables</code></pre>
+  left_join(node, by = c(&#39;name&#39; = &#39;id&#39;)) # Now we join to the node data frame to include other variables</code></pre>
 <pre class="r"><code># We can ask for the nodes data specifically to see the changes
 net %N&gt;% 
   data.frame()</code></pre>
+</div>
+<div id="calculating-centrality-measures" class="section level2"
+number="1.2">
+<h2><span class="header-section-number">1.2</span> Calculating
+centrality measures</h2>
+<p>We can use other network centrality measures such as outdegree,
+closeness, betwenness, among others. In the following code chunk, we
+will calculate more centrality measures:</p>
+<pre class="r"><code>net &lt;- net %&gt;% # This is our entwork data
+  mutate(outdegree  = centrality_degree(mode = &#39;out&#39;, loops = F), # calculate the outdegree
+         closeness = centrality_closeness(), # calculate the closeness
+         betweenness = centrality_betweenness(), # calculate betweenness
+         Nbs = neighborhood.size(graph = .) # calculate the number of neighbors
+         )
+# lets have a look at our network with the new variables
+net</code></pre>
+<pre><code>## # A tbl_graph: 40 nodes and 1611 edges
+## #
+## # A directed multigraph with 1 component
+## #
+## # A tibble: 40 × 9
+##   name  name.y         lat  long farm_type outdegree closeness betweenness   Nbs
+##   &lt;chr&gt; &lt;fct&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+## 1 17    US Farm Lea…  41.6 -93.6 finisher         68    0.04         220.     20
+## 2 12    Uncle Bill&#39;…  41.7 -92.7 nursery           5    0.0233        46.1    10
+## 3 14    Western Iow…  42.4 -96.3 nursery          15    0.0345        64.7     9
+## 4 11    Loess Hills…  41.7 -95.9 nursery           1    0.0217         0       2
+## 5 7     Kloubec Koi   41.8 -91.8 GDU               3    0.0217        25.2     9
+## 6 9     Kroul Farms   41.9 -91.5 nursery           6    0.0270         0       4
+## # ℹ 34 more rows
+## #
+## # A tibble: 1,611 × 6
+##    from    to date    pigs.moved type_orig type_dest
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;    
+## 1     1     7 8/20/15        160 finisher  sow farm 
+## 2     1     7 8/20/15         76 finisher  sow farm 
+## 3     1     3 9/11/15        155 finisher  nursery  
+## # ℹ 1,608 more rows</code></pre>
 <p>To visualize the network we can use the function
 <code>plot()</code>.</p>
-<pre class="r"><code>#plot network#
-#for help look look for: ?plot.igraph#
+<pre class="r"><code>#plot network
 plot(net)</code></pre>
 <p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>This figure looks a bit messy, to make it more informative we can
@@ -463,29 +499,52 @@ plot(net, # Our network object
      vertex.size=4,  # the sie of the node
      vertex.label=NA) # We remove the name of the nodes</code></pre>
 <p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p><strong>Exercise:</strong> Change the size of the nodes and the
-arrows to make a different graph.</p>
 </div>
-<div id="using-ggraph" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Using ggraph</h2>
-<p>We can use base R to make our figures, but since we will be focusing
-on ggplot2, we will use the library ggraph which is based in
-ggplot2.</p>
-<div id="changing-the-node-color" class="section level3" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> Changing the node
-color</h3>
+</div>
+<div id="network-visualization" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Network
+visualization</h1>
+<p>We can use base R to make our figures, but since in this workshop we
+have been focusing on ggplot2, we will use the library ggraph which is
+based in ggplot2. The way the library <code>ggraph</code> works is very
+similar to <code>ggplot2</code>, we use the function
+<code>ggraph()</code> to set our empty canvas, same way we would do with
+the function <code>ggplot()</code> in
+ggplot2<code>. The library</code>ggraph` also introduces a bunch of new
+geometry tipes for both the nodes and the edges.</p>
+<div id="node-attributes" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Node attributes</h2>
+<div id="color" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Color</h3>
 <p>We can get specific attributes from the <code>tbl_graph</code> inside
 the <code>aes()</code> argument, similar to what we would do for
 ggplot2. In the following plot, we will set the node color to the type
-of farm.</p>
-<pre class="r"><code>ggraph(graph = net) + # First we call the ggraph and specify our network
+of farm. Let’s try it:</p>
+<pre class="r"><code>ggraph(graph = net) + # First we set our empty canvas
   geom_edge_link() + # Add the edges
   geom_node_point(aes(color = farm_type), size = 3) # add the nodes</code></pre>
 <p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
+<div id="node-size" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Node size</h3>
+<p>We will use the indegree value to assign the node size. First we will
+calculate indegree using the function <code>centrality_degree()</code>
+with the argument <code>mode = "in"</code>, and we will also get rid of
+the loops with the argument <code>loops = F</code>.</p>
+<pre class="r"><code># First calculate the indegree for the nodes:
+net &lt;- net %&gt;% 
+  mutate(indegree = centrality_degree(mode = &#39;in&#39;, loops = F))
+
+# Now we use ggraph to visualize it in the network
+ggraph(net, layout = &#39;kk&#39;) + # this is our empty canvas
+  geom_edge_link(aes(width = pigs.moved)) + # Add the edges
+  geom_node_point(aes(color = farm_type, size = indegree)) + # Add the nodes
+  scale_edge_width(range = c(0.01, 0.9)) # we set the range for the width of the edges</code></pre>
+<p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
-<div id="layouts" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Layouts</h2>
+</div>
+<div id="layouts" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Layouts</h2>
 <p>We can change the position of the nodes using the argument
 <code>layout</code>. If we don’t specify any layout, ggraph will
 automatically set the layout ‘stress’. Force directed layouts place the
@@ -498,155 +557,106 @@ ggraph(net, layout = &#39;nicely&#39;) +
   geom_edge_link() + # Add the edges
   geom_node_point(aes(color = farm_type), size = 3) + # add the nodes
   labs(title = &#39;Layout nicely&#39;)</code></pre>
-<p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <pre class="r"><code># Plot with layout kk
 ggraph(net, layout = &#39;kk&#39;) +
   geom_edge_link() + # Add the edges
   geom_node_point(aes(color = farm_type), size = 3) +
   labs(title = &#39;Layout KK&#39;)</code></pre>
-<p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
 <p>You can read more about the different layouts available <a
 href="https://ggraph.data-imaginist.com/articles/Layouts.html">HERE</a></p>
-<p>Now we will use different layouts to see how the network changes.</p>
-<p><strong>Exercise:</strong> Try different layouts, for example: ‘fr’,
-‘lgl’, ‘graphopt’.</p>
+<p><strong>Exercise:</strong> Let’s have a look at different layouts to
+see how the network changes. Try using a couple of different layouts to
+produce a different figure (i.e. ‘fr’, ‘lgl’, ‘graphopt’).</p>
 </div>
-<div id="size-of-the-edge" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Size of the edge</h2>
+<div id="edge-attributes" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Edge attributes</h2>
 <p>We can change the size of the edge to represent the number of pigs
 moved between nodes</p>
 <pre class="r"><code>ggraph(net, layout = &#39;kk&#39;) +
   geom_edge_link(aes(width = pigs.moved)) + # Add the edges
   geom_node_point(aes(color = farm_type), size = 3) +
   scale_edge_width(range = c(0.01, 0.9))</code></pre>
-<p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-</div>
-<div id="node-size" class="section level2" number="1.5">
-<h2><span class="header-section-number">1.5</span> Node size</h2>
-<p>We will use the indegree value to assign the node size. First we will
-calculate indegree using the function <code>centrality_degree()</code>
-with the argument <code>mode = "in"</code>, and we will also get rid of
-the loops with the argument <code>loops = F</code>.</p>
-<pre class="r"><code>net &lt;- net %&gt;% 
-  mutate(indegree = centrality_degree(mode = &#39;in&#39;, loops = F))
-
-ggraph(net, layout = &#39;kk&#39;) +
-  geom_edge_link(aes(width = pigs.moved)) + # Add the edges
-  geom_node_point(aes(color = farm_type, size = indegree)) +
-  scale_edge_width(range = c(0.01, 0.9))</code></pre>
 <p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>We can use other network centrality measures such as outdegree,
-closeness, betwenness, among others.</p>
-<pre class="r"><code>net &lt;- net %&gt;% 
-  mutate(outdegree  = centrality_degree(mode = &#39;out&#39;, loops = F),
-         closeness = centrality_closeness(),
-         betweenness = centrality_betweenness(),
-         Nbs = neighborhood.size(graph = .)
-         )
-
-net</code></pre>
-<pre><code>## # A tbl_graph: 40 nodes and 1611 edges
-## #
-## # A directed multigraph with 1 component
-## #
-## # A tibble: 40 × 10
-##   name  name.y      lat  long farm_type indegree outdegree closeness betweenness
-##   &lt;chr&gt; &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-## 1 17    US Farm …  41.6 -93.6 finisher       821        68    0.04         220. 
-## 2 12    Uncle Bi…  41.7 -92.7 nursery         21         5    0.0233        46.1
-## 3 14    Western …  42.4 -96.3 nursery        121        15    0.0345        64.7
-## 4 11    Loess Hi…  41.7 -95.9 nursery          0         1    0.0217         0  
-## 5 7     Kloubec …  41.8 -91.8 GDU            116         3    0.0217        25.2
-## 6 9     Kroul Fa…  41.9 -91.5 nursery          0         6    0.0270         0  
-## # ℹ 34 more rows
-## # ℹ 1 more variable: Nbs &lt;dbl&gt;
-## #
-## # A tibble: 1,611 × 6
-##    from    to date    pigs.moved type_orig type_dest
-##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;    
-## 1     1     7 8/20/15        160 finisher  sow farm 
-## 2     1     7 8/20/15         76 finisher  sow farm 
-## 3     1     3 9/11/15        155 finisher  nursery  
-## # ℹ 1,608 more rows</code></pre>
 <p><strong>Exercise:</strong> explore plotting the network using the
 different centrality measures to change its color or size.</p>
-<!-- # Using other packages to plot the network -->
-<!-- ## Interactive visualization using networkD3 -->
-<!-- The package `networkD3` offer some interesting visualization options. This package uses javascript to create interactive visualizations so we need to start our indexing at 0 and not at 1 for the edges. for this we will substract 1 to the edges indexing -->
-<!-- ```{r} -->
-<!-- # Loading the library -->
-<!-- library(networkD3) -->
-<!-- # SUbstract 1 from the indexing of the nodes -->
-<!-- edge_s <- edge %>% -->
-<!--   count(id_orig, id_dest) %>% -->
-<!--   mutate(id_orig = as.numeric(id_orig) - 1, id_dest = as.numeric(id_dest) - 1) -->
-<!-- # Plot a simple network -->
-<!-- simpleNetwork(edge_s) -->
-<!-- ``` -->
-<!-- We can also add more information to our network such as the name, type of node and size of the edges.   -->
-<!-- ```{r} -->
-<!-- # Plot -->
-<!-- forceNetwork(Links = edge_s, Nodes = node, -->
-<!--             Source = "id_orig", Target = "id_dest", -->
-<!--             Value = "n", NodeID = "name", -->
-<!--             Group = "farm_type", opacity = 0.8) -->
-<!-- ``` -->
-<!-- Another interesting visualization from this package are the Sankey Networks. THis type of visualizations can be very helpful to se the flow of the movements. The height of the rectangles will represent the indegree, and the shaded line between two nodes represent the number of movements between a pair of nodes -->
-<!-- ```{r} -->
-<!-- # Plot -->
-<!-- sankeyNetwork(Links = edge_s, Nodes = node, Source = "id_orig", -->
-<!--              Target = "id_dest", Value = "n", NodeID = "name", -->
-<!--              fontSize = 12, nodeWidth = 30) -->
-<!-- ``` -->
 </div>
 </div>
-<div id="calculating-euclidean-distance" class="section level1"
-number="2">
-<h1><span class="header-section-number">2</span> Calculating euclidean
-distance</h1>
-<p>We can also use the spatial location of the nodes to calculate the
-distance between a movement. To represent this distance we use euclidean
-distance, which is the distance using a straight line between two
-locations.<br />
-We will use the package <code>raster</code> for this part, so make sure
-its installed.</p>
-<pre class="r"><code>library(raster)
-# First we need to include the information of origins and destination
-edge &lt;- edge %&gt;%
-  left_join(node[c(&quot;id&quot;, &quot;lat&quot;, &quot;long&quot;)], by = c(&quot;id_orig&quot; = &quot;id&quot;)) %&gt;%
-  rename(O_Lat = lat, O_Long = long) %&gt;%
-  left_join(node[c(&quot;id&quot;, &quot;lat&quot;, &quot;long&quot;)], by = c(&quot;id_dest&quot; = &quot;id&quot;)) %&gt;%
-  rename(D_Lat = lat, D_Long = long)
-# Now we calculate the distance
-edge$dist &lt;- pointDistance(p1 = edge[c(&quot;O_Long&quot;, &quot;O_Lat&quot;)], # Origin coordinates
-                           p2 = edge[c(&quot;D_Long&quot;, &quot;D_Lat&quot;)], # Destination coordinates
-                           lonlat = T)
-
-# We convert from m to km
-summary(edge$dist/1000)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   24.55  178.00  229.16  223.15  247.91  472.95</code></pre>
-<pre class="r"><code># We can see the quantiles:
-quantile(edge$dist/1000, c(0.05,0.95))</code></pre>
-<pre><code>##       5%      95% 
-## 104.6104 472.9462</code></pre>
-<pre class="r"><code># Lets look the distribution of distances
-hist(edge$dist/1000, 
-     xlim=range(0,500),
-     breaks=20,  
-     main = &quot;Distribution of euclidean distance (Km)&quot;, xlab=&quot;distance (km)&quot;)</code></pre>
+<div id="further-manipulation-of-the-network" class="section level1"
+number="3">
+<h1><span class="header-section-number">3</span> Further manipulation of
+the network</h1>
+<p>We can use some of the functions for data manipulation such as
+<code>filter()</code>, since filtering uses boolean operations, we can
+use some network properties for the filtering</p>
+<div id="filtering-by-edge-variables" class="section level2"
+number="3.1">
+<h2><span class="header-section-number">3.1</span> Filtering by edge
+variables</h2>
+<p>We will use the function <code>filter()</code> to select only
+observations where there was more than 150 animals moved</p>
+<pre class="r"><code>net %E&gt;% # This is the network
+  filter(pigs.moved &gt; 150) %&gt;% # We filter the edges for only the ones with &gt; 150 animals
+  # we visualize the graph:
+  ggraph() + 
+  geom_edge_link() +
+  geom_node_point(size = 4)</code></pre>
+<p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>You will notice that there are a few of isolated nodes that does not
+connect to the main network, this is because we only filtered the edges,
+but not the nodes.sometimes we want this, but other times we would like
+to remove the noeds as well. For this we will add an extra line tot the
+code we previously did:</p>
+<pre class="r"><code>net %E&gt;% # This is the network
+  filter(pigs.moved &gt; 150) %N&gt;% # We filter the edges for only the ones with &gt; 150 animals
+  filter(!node_is_isolated()) %&gt;% # THIS IS THE LINE WE ADDED to filter the isolated nodes out 
+  # we visualize the graph:
+  ggraph() + 
+  geom_edge_link() +
+  geom_node_point(size = 4)</code></pre>
 <p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<pre class="r"><code>boxplot(edge$dist/1000,
-        ylim=c(0,500),
-        main = &quot;Boxlot of euclidean distance (Km)&quot;, ylab=&quot;distance (km)&quot;)</code></pre>
-<p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<p>Notice that in the code I use both the operators <code>%N&gt;%</code>
+and <code>%E&gt;%</code> depending on what I am filtering.</p>
+</div>
+<div id="filtering-by-node-neighborhood" class="section level2"
+number="3.2">
+<h2><span class="header-section-number">3.2</span> Filtering by node
+neighborhood</h2>
+<p>We can filter the network for the neighborhood of a specific node.
+The function <code>convert()</code> will convert the network to the
+nodes that are connected with a specific node.</p>
+<pre class="r"><code>id &lt;- 1 # first we define the id of the node we want
+
+#then we can visualize its neighborhood:
+net %&gt;%  # this is our network
+  convert( # We use the function convert() to subset our network
+    to_local_neighborhood, # we specify that we want to convert to a local neighborhood
+    node = id, # this is the node id we will filter by
+    order = 1, # this is the order of nbs
+    mode = &#39;all&#39; # the type of contact
+  ) %&gt;% 
+  # then we create a variable to color our index node:
+  mutate(index = ifelse(.tidygraph_node_index == id, &#39;1&#39;, &#39;0&#39;)) %&gt;%  
+  # and visualize the network
+  ggraph() +
+  geom_edge_link() +
+  geom_node_point(aes(col = index, shape = index), size = 5)</code></pre>
+<p><img src="3a_NetworkIntro_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="exporting-the-data" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Exporting the
+data</h2>
+<p>We can export the network in tables to use them in another session.
+To do that we will first generate a table for only the nodes:</p>
 <pre class="r"><code>node &lt;- net %N&gt;% 
   data.frame()</code></pre>
-<p>Now we will add the network statistics to the data.frame and export
-the objects so we can load it in another session.</p>
-<pre class="r"><code># we can export the network as a RDS object using the package readr
-
+<p>We can export the data in multiple formats, here we will export the
+network in rds first (which is a format that can be read by R), then we
+will export it in csv format.</p>
+<pre class="r"><code># Export the object in rds format:
 readr::write_rds(net, &quot;Data/Outputs/net.rds&quot;)
+
 # We will also export the edges with the distance and coordinates
 write.csv(edge, &quot;Data/Outputs/edge.csv&quot;, row.names = F)
 write.csv(node, &quot;Data/Outputs/node.csv&quot;, row.names = F)</code></pre>
@@ -664,6 +674,7 @@ credits. If you would be interested in a training session, please
 contact: <a href="mailto:jpgo@ucdavis.edu"
 class="email">jpgo@ucdavis.edu</a></em></p>
 <hr />
+</div>
 </div>
 
 

@@ -15,9 +15,7 @@ library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 
 In this lab we will start making our first network objects, obtain network statistics and some visualization of the data.  
 
-# Network visualization
-
-## Loading the data and visualizing the network
+# Creating the network
 
 ```{r message = F, warning = F}
 # Libraries we will use:
@@ -51,14 +49,15 @@ net
 ```
 
 The results of printing the object will show us the number of nodes and edges, we can see that our network has 40 nodes and 1611 edges. Then we can also see the attributes for the nodes (which in this case there is only the name) and the edges (which for this example has from, to, date, pigs.moved, type_orig, and type_dest).  
+
+## Adding extra attributes
   
 We can treat this object like two data frames that are joined by an key or identification variable. Whenever we want to access one of the data frames to modify it, we can use either the function `activate()` or when using the pipes we can use `%N>%` to call the nodes or `%E>%` to call the edges. In the next example we will add the rest of the node information to our `tbl_graph`
 
 ```{r}
 net <- net %N>% # <- Notice we are including 'N' inside our pipe to specify we want to access the nodes
-  left_join(node, by = c('name' = 'id')) # Now we join to the node dataframe to include other variables
+  left_join(node, by = c('name' = 'id')) # Now we join to the node data frame to include other variables
 ```
-
 
 ```{r eval = F}
 # We can ask for the nodes data specifically to see the changes
@@ -66,12 +65,26 @@ net %N>%
   data.frame()
 ```
 
+## Calculating centrality measures
+
+We can use other network centrality measures such as outdegree, closeness, betwenness, among others. In the following code chunk, we will calculate more centrality measures:
+
+```{r calculating other centrality measures}
+net <- net %>% # This is our entwork data
+  mutate(outdegree  = centrality_degree(mode = 'out', loops = F), # calculate the outdegree
+         closeness = centrality_closeness(), # calculate the closeness
+         betweenness = centrality_betweenness(), # calculate betweenness
+         Nbs = neighborhood.size(graph = .) # calculate the number of neighbors
+         )
+# lets have a look at our network with the new variables
+net
+```
+
 
 To visualize the network we can use the function `plot()`.  
 
 ```{r}
-#plot network#
-#for help look look for: ?plot.igraph#
+#plot network
 plot(net)
 ```
 
@@ -85,20 +98,36 @@ plot(net, # Our network object
      vertex.label=NA) # We remove the name of the nodes
 ```
 
-**Exercise:** Change the size of the nodes and the arrows to make a different graph.  
+# Network visualization
 
-## Using ggraph
+We can use base R to make our figures, but since in this workshop we have been focusing on ggplot2, we will use the library ggraph which is based in ggplot2. The way the library `ggraph` works is very similar to `ggplot2`, we use the function `ggraph()` to set our empty canvas, same way we would do with the function `ggplot()` in ggplot2`. The library `ggraph` also introduces a bunch of new geometry tipes for both the nodes and the edges.
 
-We can use base R to make our figures, but since we will be focusing on ggplot2, we will use the library ggraph which is based in ggplot2.  
+## Node attributes
 
-### Changing the node color
+### Color
 
-We can get specific attributes from the `tbl_graph` inside the `aes()` argument, similar to what we would do for ggplot2. In the following plot, we will set the node color to the type of farm.  
+We can get specific attributes from the `tbl_graph` inside the `aes()` argument, similar to what we would do for ggplot2. In the following plot, we will set the node color to the type of farm. Let's try it:  
 
 ```{r}
-ggraph(graph = net) + # First we call the ggraph and specify our network
+ggraph(graph = net) + # First we set our empty canvas
   geom_edge_link() + # Add the edges
   geom_node_point(aes(color = farm_type), size = 3) # add the nodes
+```
+
+### Node size
+
+We will use the indegree value to assign the node size. First we will calculate indegree using the function `centrality_degree()` with the argument `mode = "in"`, and we will also get rid of the loops with the argument `loops = F`.    
+
+```{r}
+# First calculate the indegree for the nodes:
+net <- net %>% 
+  mutate(indegree = centrality_degree(mode = 'in', loops = F))
+
+# Now we use ggraph to visualize it in the network
+ggraph(net, layout = 'kk') + # this is our empty canvas
+  geom_edge_link(aes(width = pigs.moved)) + # Add the edges
+  geom_node_point(aes(color = farm_type, size = indegree)) + # Add the nodes
+  scale_edge_width(range = c(0.01, 0.9)) # we set the range for the width of the edges
 ```
 
 
@@ -122,11 +151,9 @@ ggraph(net, layout = 'kk') +
 
 You can read more about the different layouts available [HERE](https://ggraph.data-imaginist.com/articles/Layouts.html)
 
-Now we will use different layouts to see how the network changes.  
+**Exercise:** Let's have a look at different layouts to see how the network changes. Try using a couple of different layouts to produce a different figure (i.e. 'fr', 'lgl', 'graphopt').    
 
-**Exercise:** Try different layouts, for example: 'fr', 'lgl', 'graphopt'.    
-
-## Size of the edge
+## Edge attributes
 
 We can change the size of the edge to represent the number of pigs moved between nodes
 
@@ -137,122 +164,79 @@ ggraph(net, layout = 'kk') +
   scale_edge_width(range = c(0.01, 0.9))
 ```
   
-  
-## Node size
-
-We will use the indegree value to assign the node size. First we will calculate indegree using the function `centrality_degree()` with the argument `mode = "in"`, and we will also get rid of the loops with the argument `loops = F`.    
-
-```{r}
-net <- net %>% 
-  mutate(indegree = centrality_degree(mode = 'in', loops = F))
-
-ggraph(net, layout = 'kk') +
-  geom_edge_link(aes(width = pigs.moved)) + # Add the edges
-  geom_node_point(aes(color = farm_type, size = indegree)) +
-  scale_edge_width(range = c(0.01, 0.9))
-```
-
-We can use other network centrality measures such as outdegree, closeness, betwenness, among others.
-
-```{r}
-net <- net %>% 
-  mutate(outdegree  = centrality_degree(mode = 'out', loops = F),
-         closeness = centrality_closeness(),
-         betweenness = centrality_betweenness(),
-         Nbs = neighborhood.size(graph = .)
-         )
-
-net
-```
-
 
 **Exercise:** explore plotting the network using the different centrality measures to change its color or size.  
 
+# Further manipulation of the network
 
-<!-- # Using other packages to plot the network -->
+We can use some of the functions for data manipulation such as `filter()`, since filtering uses boolean operations, we can use some network properties for the filtering
 
-<!-- ## Interactive visualization using networkD3 -->
+## Filtering by edge variables
 
-<!-- The package `networkD3` offer some interesting visualization options. This package uses javascript to create interactive visualizations so we need to start our indexing at 0 and not at 1 for the edges. for this we will substract 1 to the edges indexing -->
+We will use the function `filter()` to select only observations where there was more than 150 animals moved
 
-<!-- ```{r} -->
-<!-- # Loading the library -->
-<!-- library(networkD3) -->
-<!-- # SUbstract 1 from the indexing of the nodes -->
-<!-- edge_s <- edge %>% -->
-<!--   count(id_orig, id_dest) %>% -->
-<!--   mutate(id_orig = as.numeric(id_orig) - 1, id_dest = as.numeric(id_dest) - 1) -->
+```{r}
+net %E>% # This is the network
+  filter(pigs.moved > 150) %>% # We filter the edges for only the ones with > 150 animals
+  # we visualize the graph:
+  ggraph() + 
+  geom_edge_link() +
+  geom_node_point(size = 4)
+```
 
-<!-- # Plot a simple network -->
-<!-- simpleNetwork(edge_s) -->
-<!-- ``` -->
+You will notice that there are a few of isolated nodes that does not connect to the main network, this is because we only filtered the edges, but not the nodes.sometimes we want this, but other times we would like to remove the noeds as well. For this we will add an extra line tot the code we previously did:
 
-<!-- We can also add more information to our network such as the name, type of node and size of the edges.   -->
+```{r}
+net %E>% # This is the network
+  filter(pigs.moved > 150) %N>% # We filter the edges for only the ones with > 150 animals
+  filter(!node_is_isolated()) %>% # THIS IS THE LINE WE ADDED to filter the isolated nodes out 
+  # we visualize the graph:
+  ggraph() + 
+  geom_edge_link() +
+  geom_node_point(size = 4)
+```
 
-<!-- ```{r} -->
-<!-- # Plot -->
-<!-- forceNetwork(Links = edge_s, Nodes = node, -->
-<!--             Source = "id_orig", Target = "id_dest", -->
-<!--             Value = "n", NodeID = "name", -->
-<!--             Group = "farm_type", opacity = 0.8) -->
-<!-- ``` -->
+Notice that in the code I use both the operators `%N>%` and `%E>%` depending on what I am filtering.
 
-<!-- Another interesting visualization from this package are the Sankey Networks. THis type of visualizations can be very helpful to se the flow of the movements. The height of the rectangles will represent the indegree, and the shaded line between two nodes represent the number of movements between a pair of nodes -->
+## Filtering by node neighborhood
 
-<!-- ```{r} -->
-<!-- # Plot -->
-<!-- sankeyNetwork(Links = edge_s, Nodes = node, Source = "id_orig", -->
-<!--              Target = "id_dest", Value = "n", NodeID = "name", -->
-<!--              fontSize = 12, nodeWidth = 30) -->
-<!-- ``` -->
-  
-  
-# Calculating euclidean distance
+We can filter the network for the neighborhood of a specific node. The function `convert()` will convert the network to the nodes that are connected with a specific node. 
 
-We can also use the spatial location of the nodes to calculate the distance between a movement. To represent this distance we use euclidean distance, which is the distance using a straight line between two locations.  
-We will use the package `raster` for this part, so make sure its installed.  
+```{r}
+id <- 1 # first we define the id of the node we want
 
-```{r warning=F, message=F}
-library(raster)
-# First we need to include the information of origins and destination
-edge <- edge %>%
-  left_join(node[c("id", "lat", "long")], by = c("id_orig" = "id")) %>%
-  rename(O_Lat = lat, O_Long = long) %>%
-  left_join(node[c("id", "lat", "long")], by = c("id_dest" = "id")) %>%
-  rename(D_Lat = lat, D_Long = long)
-# Now we calculate the distance
-edge$dist <- pointDistance(p1 = edge[c("O_Long", "O_Lat")], # Origin coordinates
-                           p2 = edge[c("D_Long", "D_Lat")], # Destination coordinates
-                           lonlat = T)
-
-# We convert from m to km
-summary(edge$dist/1000)
-# We can see the quantiles:
-quantile(edge$dist/1000, c(0.05,0.95))
-# Lets look the distribution of distances
-hist(edge$dist/1000, 
-     xlim=range(0,500),
-     breaks=20,  
-     main = "Distribution of euclidean distance (Km)", xlab="distance (km)")
-
-boxplot(edge$dist/1000,
-        ylim=c(0,500),
-        main = "Boxlot of euclidean distance (Km)", ylab="distance (km)")
+#then we can visualize its neighborhood:
+net %>%  # this is our network
+  convert( # We use the function convert() to subset our network
+    to_local_neighborhood, # we specify that we want to convert to a local neighborhood
+    node = id, # this is the node id we will filter by
+    order = 1, # this is the order of nbs
+    mode = 'all' # the type of contact
+  ) %>% 
+  # then we create a variable to color our index node:
+  mutate(index = ifelse(.tidygraph_node_index == id, '1', '0')) %>%  
+  # and visualize the network
+  ggraph() +
+  geom_edge_link() +
+  geom_node_point(aes(col = index, shape = index), size = 5)
 ```
 
 
+## Exporting the data
 
-```{r}
+We can export the network in tables to use them in another session. To do that we will first generate a table for only the nodes:
+
+```{r extracting nodes}
 node <- net %N>% 
   data.frame()
 ```
 
-Now we will add the network statistics to the data.frame and export the objects so we can load it in another session.  
+We can export the data in multiple formats, here we will export the network in rds first (which is a format that can be read by R), then we will export it in csv format.
 
 ```{r eval = F}
-# we can export the network as a RDS object using the package readr
-
+# Export the object in rds format:
 readr::write_rds(net, "Data/Outputs/net.rds")
+
 # We will also export the edges with the distance and coordinates
 write.csv(edge, "Data/Outputs/edge.csv", row.names = F)
 write.csv(node, "Data/Outputs/node.csv", row.names = F)
