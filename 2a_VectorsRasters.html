@@ -713,7 +713,7 @@ href="https://ucdavis.box.com/s/uilibf50xcbqim5cmkoi5hx7fpq6d4k3">shared
 folder</a>, and open it with the function <code>readRDS()</code>.</p>
 <pre class="r"><code>library(raster)
 MxAlt &lt;- getData(&#39;alt&#39;, country=&#39;MEX&#39;) # get the data for the whole country
-# MxAlt &lt;- readRDS(&#39;Data/Outputs/MxAtl.rds&#39;) # or optionally, if you downloaded the object from the shared folder you can use
+# MxAlt &lt;- raster(&#39;Data/Outputs/MxAtl.tif&#39;) # or optionally, if you downloaded the object from the shared folder you can use
 
 plot(MxAlt) # see the data</code></pre>
 <p><img src="2a_VectorsRasters_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>

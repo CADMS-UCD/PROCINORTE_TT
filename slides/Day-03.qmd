@@ -4,7 +4,7 @@ author: "Pablo Gomez"
 format: 
   revealjs:
     theme: [dark, custom.scss]
-    footer: "[Workshop homepage](https://cadms-ucd.github.io/DiseaseModeling/)"
+    footer: "[Workshop homepage](https://cadms-ucd.github.io/PROCINORTE_TT/)"
 editor: source
 title-slide-attributes:
     data-background-image: img/bg_title.png
@@ -388,3 +388,4 @@ Network analysis in R
 
 
 # Risk assessment{background-image="img/bg_title.png"}
+

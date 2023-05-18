@@ -196,7 +196,7 @@ There are multiple ways to get raster data, one example is getting the data dire
 ```{r}
 library(raster)
 MxAlt <- getData('alt', country='MEX') # get the data for the whole country
-# MxAlt <- readRDS('Data/Outputs/MxAtl.rds') # or optionally, if you downloaded the object from the shared folder you can use
+# MxAlt <- raster('Data/Outputs/MxAtl.tif') # or optionally, if you downloaded the object from the shared folder you can use
 
 plot(MxAlt) # see the data
 ```
@@ -222,6 +222,7 @@ ggplot() + # set the empty canvas
 ```
 
 ```{r eval = F, echo=F}
+# raster::writeRaster(MxAlt, 'Data/Outputs/MxAtl.tif')
 # readr::write_rds(Mxst, "Data/Outputs/Mxst.rds")
 # readr::write_rds(MxAlt, "Data/Outputs/MxAtl.rds")
 ```
