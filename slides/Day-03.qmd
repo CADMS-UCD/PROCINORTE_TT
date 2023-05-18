@@ -446,21 +446,115 @@ Network analysis in R
   - [Persistence in the environment]{.black}
   - [Pathogenesis]{.black}
   - [Epidemiology]{.black}
-  - [Diagnosis]{.black}
-  - [Prevention and control]{.blac}
-  - [Impact]{.black}
+  - [Prevention and control]{.black}
 
 ## Formulating your question{background-image="img/bg.png"}
 <br/>
 
+![](img/ra_questions.png)
 
+## Formulating your question{background-image="img/bg.png"}
+<br/>
 
+![](img/ra_questions2.png)
 
+## Data collection{background-image="img/bg.png"}
+<br/>
 
+:::: columns
+:::{.column width="30%"}
+![](img/ra_dataCollection.png)
+:::
 
+:::{.column width="70%"}
+[To facilitate the search for data, eligibility criteria should be defined that take into account:]{.black}
+  
+  - [Population of interest]{.black}
+  - [Variables of concern]{.black}
+  - [Possible geographical and time restrictions]{.black}
 
+:::
+::::
 
+## Expert opinion{background-image="img/bg.png"}
+<br/>
 
+:::: columns
+:::{.column width="30%"}
+![](img/ra_expert.png)
+:::
 
+:::{.column width="70%"}
+  
+  - [Online questionnaire]{.black}
+  - [Expert panel]{.black}
+  - [Interviews]{.black}
+  - [Focus groups discussions]{.black}
+
+:::
+::::
+
+## Performing the assessment{background-image="img/bg.png"}
+<br/>
+
+:::: columns
+:::{.column width="70%"}
+[Type of outputs might include:]{.black}
+  
+  - [Probability]{.black}
+    - [Probability of X event happening]{.black}
+    - [Probability of more than 10 introductions per year]{.black}
+  - [Consequences]{.black}
+    - [Number of animals/people infected]{.black}
+    - [Economic impact]{.black}
+
+:::
+
+:::{.column width="30%"}
+![](img/ra_riskLevel.png)
+:::
+::::
+
+## Performing the assessment{background-image="img/bg.png"}
+<br/>
+
+:::: columns
+:::{.column width="50%"}
+![](img/ra_riskMat.png)
+::::
+:::{.column width="50%"}
+![](img/ra_riskLevels.png)
+:::
+::::
+
+## Performing the assessment{background-image="img/bg.png"}
+<br/>
+
+:::: columns
+:::{.column width="50%"}
+![](img/ra_aRisk.png)
+::::
+:::{.column width="50%"}
+![](img/ra_scripting.png)
+:::
+::::
+
+## Risk assessment in R{background-image="img/bg.png"}
+<br/>
+
+![](img/ra_QuantRRA.png)
+
+## Risk assessment in R{background-image="img/bg.png"}
+<br/>
+
+![](img/ra_modelTbl.png)
+
+## Risk assessment in R{background-image="img/bg.png"}
+<br/>
+
+![](img/ra_sa.png)
+
+# [It's Lab time!](https://cadms-ucd.github.io/PROCINORTE_TT/4a_RiskAssessment.html)
+Risk assessment in R
 
 
