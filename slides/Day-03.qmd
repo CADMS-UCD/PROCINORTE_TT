@@ -385,3 +385,6 @@ ggraph(net, layout = 'kk') + # this is our empty canvas
 
 # [It's Lab time!](https://cadms-ucd.github.io/PROCINORTE_TT/3a_NetworkIntro.html)
 Network analysis in R
+
+
+# Risk assessment{background-image="img/bg_title.png"}
