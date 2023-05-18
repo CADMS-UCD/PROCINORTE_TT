@@ -382,9 +382,6 @@
       margin-right: 0; 
     }
   </style>
-  
-  <script src="Day-03_files/libs/kePrint-0.0.1/kePrint.js"></script>
-  <link href="Day-03_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
 <body class="quarto-dark">
   <div class="reveal">
@@ -440,125 +437,9 @@ Pablo Gomez
 </div>
 </div>
 </section>
-<section id="review-importing-data" class="slide level2" data-background-image="img/bg_2.png">
-<h2><span style="color:black;">Review: importing data</span></h2>
-<p>Importing data:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Import the excel file</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>PRRS <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_xlsx</span>(<span class="st">"Data/PRRS.xlsx"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>PRRS</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-
-<table class=" lightable-material-dark lightable-hover" style="font-family: &quot;Source Sans Pro&quot;, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> Result </th>
-   <th style="text-align:left;"> Sex </th>
-   <th style="text-align:right;"> Age </th>
-   <th style="text-align:right;"> OtherSpecies </th>
-   <th style="text-align:right;"> id </th>
-   <th style="text-align:left;"> name </th>
-   <th style="text-align:left;"> farm_type </th>
-   <th style="text-align:left;"> County </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> No </td>
-   <td style="text-align:left;"> H </td>
-   <td style="text-align:right;"> 18 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 23 </td>
-   <td style="text-align:left;"> Armstrong Research Farm </td>
-   <td style="text-align:left;"> sow farm </td>
-   <td style="text-align:left;"> Pottawattamie </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> No </td>
-   <td style="text-align:left;"> H </td>
-   <td style="text-align:right;"> 60 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 23 </td>
-   <td style="text-align:left;"> Armstrong Research Farm </td>
-   <td style="text-align:left;"> sow farm </td>
-   <td style="text-align:left;"> Pottawattamie </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> No </td>
-   <td style="text-align:left;"> H </td>
-   <td style="text-align:right;"> 60 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 23 </td>
-   <td style="text-align:left;"> Armstrong Research Farm </td>
-   <td style="text-align:left;"> sow farm </td>
-   <td style="text-align:left;"> Pottawattamie </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Yes </td>
-   <td style="text-align:left;"> H </td>
-   <td style="text-align:right;"> 36 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 23 </td>
-   <td style="text-align:left;"> Armstrong Research Farm </td>
-   <td style="text-align:left;"> sow farm </td>
-   <td style="text-align:left;"> Pottawattamie </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</section>
-<section id="review-functions" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
+<section id="review-day-02" class="slide level2" data-background-image="img/bg.png">
+<h2>Review: day 02</h2>
 <p><br></p>
-<p><span class="black">Some of the function we reviewed:</span></p>
-<ul>
-<li><code>select()</code></li>
-<li><code>slice()</code></li>
-<li><code>filter()</code></li>
-<li><code>mutate()</code></li>
-</ul>
-</section>
-<section id="review-functions-1" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
-<p><br></p>
-<p><span class="black">Some of the function we reviewed:</span></p>
-<ul>
-<li><code>select()</code> <span class="black">to select specific <em>columns</em></span></li>
-<li><code>slice()</code></li>
-<li><code>filter()</code></li>
-<li><code>mutate()</code></li>
-</ul>
-</section>
-<section id="review-functions-2" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
-<p><br></p>
-<p><span class="black">Some of the function we reviewed:</span></p>
-<ul>
-<li><code>select()</code> <span class="black">to select specific <em>columns</em></span></li>
-<li><code>slice()</code> <span class="black">to select specific <em>rows</em> based on position</span></li>
-<li><code>filter()</code></li>
-<li><code>mutate()</code></li>
-</ul>
-</section>
-<section id="review-functions-3" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
-<p><br></p>
-<p><span class="black">Some of the function we reviewed:</span></p>
-<ul>
-<li><code>select()</code> <span class="black">to select specific <em>columns</em></span></li>
-<li><code>slice()</code> <span class="black">to select specific <em>rows</em> based on position</span></li>
-<li><code>filter()</code> <span class="black">to select specific <em>rows</em> based on a condition</span></li>
-<li><code>mutate()</code></li>
-</ul>
-</section>
-<section id="review-functions-4" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
-<p><br></p>
-<p><span class="black">Some of the function we reviewed:</span></p>
 <ul>
 <li><code>select()</code> <span class="black">to select specific <em>columns</em></span></li>
 <li><code>slice()</code> <span class="black">to select specific <em>rows</em> based on position</span></li>
@@ -566,86 +447,8 @@ Pablo Gomez
 <li><code>mutate()</code> <span class="black">to create new variables</span></li>
 </ul>
 </section>
-<section id="review-functions-5" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="|2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Creating a new variable</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>PRRS <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">'M'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">mutate</span>( </span>
-<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">SowFarm =</span> <span class="fu">ifelse</span>(farm_type <span class="sc">==</span> <span class="st">'sow farm'</span>, <span class="dv">1</span>, <span class="dv">0</span>) </span>
-<span id="cb4-6"><a href="#cb4-6"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">select</span>(Result, name, SowFarm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="review-functions-6" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Creating a new variable</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>PRRS <span class="sc">%&gt;%</span> <span class="co"># name of the data set</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">'M'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">mutate</span>( </span>
-<span id="cb5-5"><a href="#cb5-5"></a>    <span class="at">SowFarm =</span> <span class="fu">ifelse</span>(farm_type <span class="sc">==</span> <span class="st">'sow farm'</span>, <span class="dv">1</span>, <span class="dv">0</span>) </span>
-<span id="cb5-6"><a href="#cb5-6"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">select</span>(Result, name, SowFarm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="review-functions-7" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Creating a new variable</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>PRRS <span class="sc">%&gt;%</span> <span class="co"># name of the data set</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">'M'</span>) <span class="sc">%&gt;%</span> <span class="co"># Selecting rows where only males</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">mutate</span>( </span>
-<span id="cb6-5"><a href="#cb6-5"></a>    <span class="at">SowFarm =</span> <span class="fu">ifelse</span>(farm_type <span class="sc">==</span> <span class="st">'sow farm'</span>, <span class="dv">1</span>, <span class="dv">0</span>) </span>
-<span id="cb6-6"><a href="#cb6-6"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">select</span>(Result, name, SowFarm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="review-functions-8" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Creating a new variable</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>PRRS <span class="sc">%&gt;%</span> <span class="co"># name of the data set</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">'M'</span>) <span class="sc">%&gt;%</span> <span class="co"># Selecting rows where only males</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">mutate</span>( <span class="co"># Function to create a new variable</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>    <span class="at">SowFarm =</span> <span class="fu">ifelse</span>(farm_type <span class="sc">==</span> <span class="st">'sow farm'</span>, <span class="dv">1</span>, <span class="dv">0</span>) </span>
-<span id="cb7-6"><a href="#cb7-6"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">select</span>(Result, name, SowFarm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="review-functions-9" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Creating a new variable</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>PRRS <span class="sc">%&gt;%</span> <span class="co"># name of the data set</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">'M'</span>) <span class="sc">%&gt;%</span> <span class="co"># Selecting rows where only males</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">mutate</span>( <span class="co"># Function to create a new variable</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>    <span class="at">SowFarm =</span> <span class="fu">ifelse</span>(farm_type <span class="sc">==</span> <span class="st">'sow farm'</span>, <span class="dv">1</span>, <span class="dv">0</span>) <span class="co"># Create a variable based on farm type</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">select</span>(Result, name, SowFarm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="review-functions-10" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Creating a new variable</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>PRRS <span class="sc">%&gt;%</span> <span class="co"># name of the data set</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">'M'</span>) <span class="sc">%&gt;%</span> <span class="co"># Selecting rows where only males</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">mutate</span>( <span class="co"># Function to create a new variable</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>    <span class="at">SowFarm =</span> <span class="fu">ifelse</span>(farm_type <span class="sc">==</span> <span class="st">'sow farm'</span>, <span class="dv">1</span>, <span class="dv">0</span>) <span class="co"># Create a variable based on farm type</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">select</span>(Result, name, SowFarm) <span class="co"># select columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="review-functions-11" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>Review: functions</h2>
+<section id="review-day-02-1" class="slide level2" data-background-image="img/bg.png">
+<h2>Review: day 02</h2>
 <p><br></p>
 <p><span class="black">Other function we reviewed:</span></p>
 <ul>
@@ -654,52 +457,135 @@ Pablo Gomez
 <li><code>summarise()</code> <span class="black">applies functions to the grouped variables</span></li>
 </ul>
 </section>
-<section>
-<section id="data-visualization" class="title-slide slide level1 center">
-<h1>Data visualization</h1>
-
-</section>
-<section id="ggplot2" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>ggplot2</h2>
+<section id="review-figures" class="slide level2" data-background-image="img/bg.png">
+<h2>Review: figures</h2>
 <p><br></p>
+<p><span class="black">Components needed to define a graphic:</span></p>
+<div>
 <ul>
-<li><span class="black">We build our figures based on layers</span></li>
-<li><span class="black">Similar syntax as dplyr</span></li>
-<li><span class="black">We can combine data wrangling and visualization into a single code chunk</span></li>
+<li class="fragment"><span class="black"><em>data</em>, the data set we will use to generate the figure</span></li>
+<li class="fragment"><span class="black"><em>geometry</em>, or type of graphic we will generate (i.e.&nbsp;histogram, bar, scatter, etc..)</span></li>
+<li class="fragment"><span class="black"><em>aesthetic or mapping</em>, variables or arguments that will be used for the figure for example: location, color, size, etc..</span></li>
 </ul>
-<p><span class="black">Instead of the <code>%&gt;%</code>, in ggplot we connect pieces of code with <code>+</code></span></p>
-</section>
-<section id="ggplot2-1" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>ggplot2</h2>
-<p><br></p>
-<p><span class="black">The basic components that we need to define for a plot are the following:</span></p>
-<ul>
-<li><span class="black"><em>data</em>, the data set we will use to generate the figure</span></li>
-<li><span class="black"><em>geometry</em>, or type of graphic we will generate (i.e.&nbsp;histogram, bar, scatter, etc..)</span></li>
-<li><span class="black"><em>aesthetic</em>, variables or arguments that will be used for the figure for example: location, color, size, etc..</span></li>
-</ul>
-</section>
-<section id="bar-chart" class="slide level2" data-background-image="img/bg_2.png">
-<h2><span style="color:black;">Bar chart</span></h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="|1|2|3|4-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>captures <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">count</span>(year, <span class="at">wt =</span> treated) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(</span>
-<span id="cb10-5"><a href="#cb10-5"></a>    <span class="at">x =</span> year, <span class="co"># X axis</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>    <span class="at">y =</span> n <span class="co"># Y axis</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a>  ), <span class="at">stat =</span> <span class="st">'identity'</span>) <span class="co"># type of barplot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="ggplot2-2" class="slide level2" data-background-image="img/bg.png" data-body-color="black">
-<h2>ggplot2</h2>
+<section id="review-maps" class="slide level2" data-background-image="img/bg.png">
+<h2>Review: Maps</h2>
+<p><br></p>
+<p><span class="black">Types of vectors:</span></p>
+<div>
+<ul>
+<li class="fragment"><span class="black"><em>Point</em>, Location</span></li>
+<li class="fragment"><span class="black"><em>Line</em>, Location and direction</span></li>
+<li class="fragment"><span class="black"><em>Polygon</em>, Location and area</span></li>
+</ul>
+</div>
+</section>
+<section id="review-maps-1" class="slide level2" data-background-image="img/bg_2.png">
+<h2>Review: Maps</h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="|1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> Mxst) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Area, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'grey60'</span>) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> capturesSp, <span class="at">cex =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">'skyblue'</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'black'</span>, <span class="at">high =</span> <span class="st">'red'</span>, <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">'Altitude'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="review-maps-2" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Review: Maps</span></h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># create the empty canvas</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> Mxst) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Area, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'grey60'</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> capturesSp, <span class="at">cex =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">'skyblue'</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'black'</span>, <span class="at">high =</span> <span class="st">'red'</span>, <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">'Altitude'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="review-maps-3" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Review: Maps</span></h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># create the empty canvas</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> Mxst) <span class="sc">+</span> <span class="co"># add raster layer</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Area, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'grey60'</span>) <span class="sc">+</span> </span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> capturesSp, <span class="at">cex =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">'skyblue'</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'black'</span>, <span class="at">high =</span> <span class="st">'red'</span>, <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">'Altitude'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="review-maps-4" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Review: Maps</span></h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># create the empty canvas</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> Mxst) <span class="sc">+</span> <span class="co"># add raster layer</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Area, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'grey60'</span>) <span class="sc">+</span> <span class="co"># add polygon layer</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> capturesSp, <span class="at">cex =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">'skyblue'</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'black'</span>, <span class="at">high =</span> <span class="st">'red'</span>, <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">'Altitude'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="review-maps-5" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Review: Maps</span></h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># create the empty canvas</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> Mxst) <span class="sc">+</span> <span class="co"># add raster layer</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Area, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'grey60'</span>) <span class="sc">+</span> <span class="co"># add polygon layer</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> capturesSp, <span class="at">cex =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">'skyblue'</span>) <span class="sc">+</span> <span class="co"># add point layer</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'black'</span>, <span class="at">high =</span> <span class="st">'red'</span>, <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">'Altitude'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="review-maps-6" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Review: Maps</span></h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># create the empty canvas</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> Mxst) <span class="sc">+</span> <span class="co"># add raster layer</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Area, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'grey60'</span>) <span class="sc">+</span> <span class="co"># add polygon layer</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> capturesSp, <span class="at">cex =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">'skyblue'</span>) <span class="sc">+</span> <span class="co"># add point layer</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> <span class="co"># theme for the figure</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'black'</span>, <span class="at">high =</span> <span class="st">'red'</span>, <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">'Altitude'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="review-maps-7" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Review: Maps</span></h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># create the empty canvas</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> Mxst) <span class="sc">+</span> <span class="co"># add raster layer</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Area, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'grey60'</span>) <span class="sc">+</span> <span class="co"># add polygon layer</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> capturesSp, <span class="at">cex =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">'skyblue'</span>) <span class="sc">+</span> <span class="co"># add point layer</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> <span class="co"># theme for the figure</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'black'</span>, <span class="at">high =</span> <span class="st">'red'</span>, <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># color for the gradient</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">'Altitude'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="review-maps-8" class="slide level2" data-background-image="img/bg_2.png">
+<h2><span style="color:black;">Review: Maps</span></h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># create the empty canvas</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> Mxst) <span class="sc">+</span> <span class="co"># add raster layer</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> Area, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'grey60'</span>) <span class="sc">+</span> <span class="co"># add polygon layer</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> capturesSp, <span class="at">cex =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">'skyblue'</span>) <span class="sc">+</span> <span class="co"># add point layer</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> <span class="co"># theme for the figure</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'black'</span>, <span class="at">high =</span> <span class="st">'red'</span>, <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># color for the gradient</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Map of the study area'</span>, <span class="at">fill =</span> <span class="st">'Altitude'</span>) <span class="co"># labels for the figure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
-<img data-src="img/3_cheatsheet.png" width="493" class="r-stretch"><p><a href="https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf">Link to the cheasheet</a></p>
-<p><a href="https://posit.co/resources/cheatsheets/?type=posit-cheatsheets/">Other cheatsheets</a></p>
-</section></section>
-<section id="its-lab-time" class="title-slide slide level1 center">
-<h1><a href="https://cadms-ucd.github.io/DiseaseModeling/1d_GraphicsII.html">It’s Lab time!</a></h1>
-<div class="footer footer-default">
+<img data-src="img/4a_map.png" class="r-stretch quarto-figure-center"><div class="footer footer-default">
 <p><a href="https://cadms-ucd.github.io/DiseaseModeling/">Workshop homepage</a></p>
 </div>
 </section>

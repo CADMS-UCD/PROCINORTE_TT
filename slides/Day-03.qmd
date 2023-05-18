@@ -9,7 +9,6 @@ editor: source
 title-slide-attributes:
     data-background-image: img/bg_title.png
 ---
-
 ## [Review: day 01]{style="color:black;"} {background-image="img/bg_2.png"}
 
 ```{r, echo = F}
@@ -63,171 +62,16 @@ Arguments:\
 :::
 :::
 
-## [Review: importing data]{style="color:black;"} {background-image="img/bg_2.png"}
-
-Importing data:
-
-```{r eval = F}
-# Import the excel file
-PRRS <- readxl::read_xlsx("Data/PRRS.xlsx")
-PRRS
-```
-
-```{r echo = F}
-# Import the excel file
-PRRS <- readxl::read_xlsx("../Data/PRRS.xlsx")
-PRRS %>% 
-  head(4) %>% 
-  kbl() %>% 
-  kable_material_dark(full_width = F, lightable_options = c('hover'))
-```
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
+## Review: day 02 {background-image="img/bg.png"}
 
 <br/>
-
-[Some of the function we reviewed:]{.black}
-
--   `select()`
--   `slice()`
--   `filter()`
--   `mutate()`
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-[Some of the function we reviewed:]{.black}
-
--   `select()` [to select specific *columns*]{.black}
--   `slice()`
--   `filter()`
--   `mutate()`
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-[Some of the function we reviewed:]{.black}
-
--   `select()` [to select specific *columns*]{.black}
--   `slice()` [to select specific *rows* based on position]{.black}
--   `filter()`
--   `mutate()`
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-[Some of the function we reviewed:]{.black}
-
--   `select()` [to select specific *columns*]{.black}
--   `slice()` [to select specific *rows* based on position]{.black}
--   `filter()` [to select specific *rows* based on a condition]{.black}
--   `mutate()`
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-[Some of the function we reviewed:]{.black}
 
 -   `select()` [to select specific *columns*]{.black}
 -   `slice()` [to select specific *rows* based on position]{.black}
 -   `filter()` [to select specific *rows* based on a condition]{.black}
 -   `mutate()` [to create new variables]{.black}
 
-## Review: functions {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-```{r eval=F}
-#| code-line-numbers: "|2"
-# Creating a new variable
-PRRS %>% 
-  filter(Sex == 'M') %>% 
-  mutate( 
-    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) 
-  ) %>% 
-  select(Result, name, SowFarm)
-```
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-```{r eval=F}
-#| code-line-numbers: "3"
-# Creating a new variable
-PRRS %>% # name of the data set
-  filter(Sex == 'M') %>% 
-  mutate( 
-    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) 
-  ) %>% 
-  select(Result, name, SowFarm)
-```
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-```{r eval=F}
-#| code-line-numbers: "4"
-# Creating a new variable
-PRRS %>% # name of the data set
-  filter(Sex == 'M') %>% # Selecting rows where only males
-  mutate( 
-    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) 
-  ) %>% 
-  select(Result, name, SowFarm)
-```
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-```{r eval=F}
-#| code-line-numbers: "6"
-# Creating a new variable
-PRRS %>% # name of the data set
-  filter(Sex == 'M') %>% # Selecting rows where only males
-  mutate( # Function to create a new variable
-    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) 
-  ) %>% 
-  select(Result, name, SowFarm)
-```
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-```{r eval=F}
-#| code-line-numbers: "7"
-# Creating a new variable
-PRRS %>% # name of the data set
-  filter(Sex == 'M') %>% # Selecting rows where only males
-  mutate( # Function to create a new variable
-    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) # Create a variable based on farm type
-  ) %>% 
-  select(Result, name, SowFarm)
-```
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-```{r eval=F}
-#| code-line-numbers: "8"
-# Creating a new variable
-PRRS %>% # name of the data set
-  filter(Sex == 'M') %>% # Selecting rows where only males
-  mutate( # Function to create a new variable
-    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) # Create a variable based on farm type
-  ) %>% 
-  select(Result, name, SowFarm) # select columns
-```
-
-## Review: functions {background-image="img/bg.png" body-color="black"}
+## Review: day 02 {background-image="img/bg.png"}
 
 <br/>
 
@@ -237,48 +81,148 @@ PRRS %>% # name of the data set
 -   `group_by()` [aggregate the data by one or more groups]{.black}
 -   `summarise()` [applies functions to the grouped variables]{.black}
 
-# Data visualization
-
-## ggplot2 {background-image="img/bg.png" body-color="black"}
+## Review: figures {background-image="img/bg.png"}
 
 <br/>
 
--   [We build our figures based on layers]{.black}
--   [Similar syntax as dplyr]{.black}
--   [We can combine data wrangling and visualization into a single code chunk]{.black}
+[Components needed to define a graphic:]{.black}
 
-[Instead of the `%>%`, in ggplot we connect pieces of code with `+`]{.black}
-
-## ggplot2 {background-image="img/bg.png" body-color="black"}
-
-<br/>
-
-[The basic components that we need to define for a plot are the following:]{.black}
-
+::: incremental
 -   [*data*, the data set we will use to generate the figure]{.black}
 -   [*geometry*, or type of graphic we will generate (i.e. histogram, bar, scatter, etc..)]{.black}
--   [*aesthetic*, variables or arguments that will be used for the figure for example: location, color, size, etc..]{.black}
+-   [*aesthetic or mapping*, variables or arguments that will be used for the figure for example: location, color, size, etc..]{.black}
+:::
 
-## [Bar chart]{style="color:black;"} {background-image="img/bg_2.png"}
+## Review: Maps {background-image="img/bg.png"}
 
-```{r}
-#| code-line-numbers: "|1|2|3|4-7"
-#| eval: false
-captures %>% 
-  count(year, wt = treated) %>% 
-  ggplot() +
-  geom_bar(aes(
-    x = year, # X axis
-    y = n # Y axis
-  ), stat = 'identity') # type of barplot
+<br/>
+
+[Types of vectors:]{.black}
+
+::: incremental
+-   [*Point*, Location]{.black}
+-   [*Line*, Location and direction]{.black}
+-   [*Polygon*, Location and area]{.black}
+:::
+
+## Review: Maps {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "|1"
+ggplot() +
+  geom_stars(data = Mxst) +
+  geom_sf(data = Area, fill = NA, col = 'grey60') +
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') +
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
 ```
 
-## ggplot2 {background-image="img/bg.png" body-color="black"}
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
 
-![](img/3_cheatsheet.png){width="493"}
+<br/>
 
-[Link to the cheasheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf)
+```{r eval = F}
+#| code-line-numbers: "2"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) +
+  geom_sf(data = Area, fill = NA, col = 'grey60') +
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') +
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
 
-[Other cheatsheets](https://posit.co/resources/cheatsheets/?type=posit-cheatsheets/)
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
 
-# [It's Lab time!](https://cadms-ucd.github.io/DiseaseModeling/1d_GraphicsII.html)
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "3"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + 
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') +
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "4"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') +
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "5"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') + # add point layer
+  theme_void() +
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "6"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') + # add point layer
+  theme_void() + # theme for the figure
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) +
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "7"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') + # add point layer
+  theme_void() + # theme for the figure
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) + # color for the gradient
+  labs(fill = 'Altitude')
+```
+
+## [Review: Maps]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r eval = F}
+#| code-line-numbers: "8"
+ggplot() + # create the empty canvas
+  geom_stars(data = Mxst) + # add raster layer
+  geom_sf(data = Area, fill = NA, col = 'grey60') + # add polygon layer
+  geom_sf(data = capturesSp, cex = 0.3, col = 'skyblue') + # add point layer
+  theme_void() + # theme for the figure
+  scale_fill_gradient(low = 'black', high = 'red', na.value = NA) + # color for the gradient
+  labs(title = 'Map of the study area', fill = 'Altitude') # labels for the figure
+```
+
+![](img/4a_map.png){fig-align="center"}
