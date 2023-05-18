@@ -91,7 +91,7 @@ data.frame(
   ),
   D03 = cell_spec(
     c('Risk Assessment and SNA', 'Network analysis I', 'Network analysis II', 'Coffee break', 'Network analysis III', 'Lunch', 'Risk assessment I', 'Coffee break', 'Risk assessment II'), 'html',
-    link = c('slides/Day03.html', '3a_NetworkIntro.html', '3a_NetworkIntro.html', 'coffeeBreak.html', '3b_NetworkViz.html', 'Lunch.html', '', 'coffeeBreak.html', '')
+    link = c('slides/Day-03.html', '3a_NetworkIntro.html', '3a_NetworkIntro.html', 'coffeeBreak.html', '3b_NetworkViz.html', 'Lunch.html', '', 'coffeeBreak.html', '')
   )
 ) %>%
   kbl("html", escape = FALSE, col.names = c('', 'May 16, 2023', 'May 17, 2023', 'May 18, 2023')) %>%
