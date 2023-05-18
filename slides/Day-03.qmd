@@ -389,3 +389,78 @@ Network analysis in R
 
 # Risk assessment{background-image="img/bg_title.png"}
 
+## Risk analysis{background-image="img/bg.png"}
+<br/>
+
+![](img/ra_intro.png){fig-align="center"}
+
+## Risk assessment{background-image="img/bg.png"}
+<br/>
+
+:::: columns
+:::{.column width="50%"}
+![](img/ra_methods.png)
+:::
+
+:::{.column width="50%"}
+![](img/ra_guides.png)
+:::
+::::
+
+## Triage{background-image="img/bg.png"}
+<br/>
+
+:::: columns
+:::{.column width="50%"}
+![](img/ra_triage.png)
+:::
+
+:::{.column width="50%"}
+:::
+::::
+
+## Triage{background-image="img/bg.png"}
+<br/>
+
+:::: columns
+:::{.column width="50%"}
+![](img/ra_triage.png)
+:::
+
+:::{.column width="50%"}
+[From this we could conclude:]{.black}
+  
+  - [No need for further action]{.black}
+  - [More information needed]{.black}
+  - [Need for a RA ]{.black}
+
+:::
+::::
+
+## Hazard profiling{background-image="img/bg.png"}
+<br/>
+
+[A description of the health event and its context, current state of knowledge and potential risk management options]{.black}
+  
+  - [Classification of the causative agent]{.black}
+  - [Persistence in the environment]{.black}
+  - [Pathogenesis]{.black}
+  - [Epidemiology]{.black}
+  - [Diagnosis]{.black}
+  - [Prevention and control]{.blac}
+  - [Impact]{.black}
+
+## Formulating your question{background-image="img/bg.png"}
+<br/>
+
+
+
+
+
+
+
+
+
+
+
+

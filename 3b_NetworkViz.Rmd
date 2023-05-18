@@ -12,12 +12,6 @@ In this lab we will review concepts of community detection and how to represent 
 First we will load the data and the libraries we will be using. Remember that on the previous lab we exported a data set at the end, we will continue using this objects.  
 
 ```{r message=F, warning=F}
-# If you are starting a new session, load the files and libraries again 
-# Load the data
-net <- readRDS("Data/Outputs/net.rds") # Loading the network object
-node <- read.csv("Data/Outputs/node.csv") # loading the nodes
-edge <- read.csv("Data/Outputs/edge.csv") # Loading the edges
-
 # libraries we will use.
 library(dplyr) # Data manipulation
 library(sf) # Spatial data manipulation
@@ -25,6 +19,18 @@ library(tidygraph) # Network manipulation and analysis
 library(purrr) # for data manipulation
 library(ggraph) # for network visualization
 library(ggpubr) # for arranging plots
+
+# If you are starting a new session, load the files and libraries again 
+# Load the data for nodes
+node <- STNet::SwinePrem %>% # load the data from the STNet library
+  mutate(id = as.character(id)) # change the id to variable to character
+# Load the data for edges
+edge <- STNet::SwineMov %>% 
+  mutate(id_orig = as.character(id_orig), id_dest = as.character(id_dest))
+
+# create the network object
+net <- as_tbl_graph(edge) %N>% 
+  left_join(node, by = c('name' = 'id'))  # Now we join to the node data frame to include other variables
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -150,7 +156,9 @@ plot(iowa$geometry)
 Next we will transform the nodes as a spatial points object, for this we use the function `st_to_sf()` and we need to specify the names of the columns that have the spatial coordinates.    
 
 ```{r Transform nodes to spatial}
-NodeSp <- node %>% # This is our node data.frame
+NodeSp <- net %N>% # This is our node data.frame
+  mutate(indegree = centrality_degree(mode = 'in')) %>% # calculate the indegree
+  data.frame() %>% 
   st_as_sf(coords = c("long", "lat"), # Variables for the coordinates
            crs = st_crs(iowa)) # This is the CRS we are using
 ```
@@ -184,6 +192,17 @@ map + geom_sf(data = NodeSp, # name of our data
 **Exercise:** Make the same plot, but make the size of the nodes relative to outdegree
 
 ## Adding the euclidean contacts
+
+We can also add the connection between the nodes represented by euclidean distance (fancy word for straight line). But first we will need to add the coordinates to the edge data using joins:  
+
+```{r add coordinates to edges}
+# First we need to include the information of origins and destination
+edge <- edge %>%
+  left_join(node[c("id", "lat", "long")], by = c("id_orig" = "id")) %>%
+  rename(O_Lat = lat, O_Long = long) %>%
+  left_join(node[c("id", "lat", "long")], by = c("id_dest" = "id")) %>%
+  rename(D_Lat = lat, D_Long = long)
+```
 
 In the previous lab we calculated the euclidean distance between each pair of farms involved in a movement. Here we will visualize those movements.  
 
@@ -238,7 +257,7 @@ map +
           aes(color = farm_type), size=3, show.legend = "point")
 ```
   
-  We can be even more specific and filter the movements from sow farms that are directed to GDU.  
+We can be even more specific and filter the movements from sow farms that are directed to GDU.  
 We will also add at the end the function `ggplotly()` from the package `plotly` to obtain a map were we can zoom and hover over some features to obtain more information.  
 
   
@@ -262,66 +281,66 @@ ggplotly(m)
 ```
 
 
-# Kernel density map
+<!-- # Kernel density map -->
 
-Like we just saw, visualizing the movements can be challenging, one approach to do this is using a kernel density map. The idea behind this is to extrapolate values in a continuous surface, but here we are just interested in the visualization of the values, not so much in the interpolation of our values.  
-We will use the package `KernSmooth` for this, so make sure you ahve it installed.  
-First we will define a function to automate the process:  
+<!-- Like we just saw, visualizing the movements can be challenging, one approach to do this is using a kernel density map. The idea behind this is to extrapolate values in a continuous surface, but here we are just interested in the visualization of the values, not so much in the interpolation of our values.   -->
+<!-- We will use the package `KernSmooth` for this, so make sure you have it installed.   -->
+<!-- First we will define a function to automate the process:   -->
 
-```{r}
-library(KernSmooth)
-library(raster)
-# we will create a function to create a density raster:
-processRaster <- function(x, b, shp, res = c(200, 200)) {
-  est <- bkde2D( # we use the function bkde2D to obtain our values
-    x, # This will be our dataset
-    bandwidth = c(b, b), # The bandwidth we define
-    gridsize = res, # the resolution level we want
-    range.x = list(extent(shp)[c(1, 2)], extent(shp)[c(3:4)])
-  )
-  
-  # Add the results to a raster
-  r <- raster(list(
-    x = est$x1,
-    y = est$x2,
-    z = est$fhat
-  )) %>%
-    `projection<-`(st_crs(iowa)) %>% # set the CRS
-    `extent<-`(extent(iowa)) %>% # set the extent
-    crop(., iowa) %>% # crop the raster to the area
-    mask(., iowa) # crop the raster to the stat shape
-  
-  return(r)
-}
-```
+<!-- ```{r} -->
+<!-- library(KernSmooth) -->
+<!-- library(raster) -->
+<!-- # we will create a function to create a density raster: -->
+<!-- processRaster <- function(x, b, shp, res = c(200, 200)) { -->
+<!--   est <- bkde2D( # we use the function bkde2D to obtain our values -->
+<!--     x, # This will be our dataset -->
+<!--     bandwidth = c(b, b), # The bandwidth we define -->
+<!--     gridsize = res, # the resolution level we want -->
+<!--     range.x = list(extent(shp)[c(1, 2)], extent(shp)[c(3:4)]) -->
+<!--   ) -->
 
-Now lets use our function for the data.  
+<!--   # Add the results to a raster -->
+<!--   r <- raster(list( -->
+<!--     x = est$x1, -->
+<!--     y = est$x2, -->
+<!--     z = est$fhat -->
+<!--   )) %>% -->
+<!--     `projection<-`(st_crs(iowa)) %>% # set the CRS -->
+<!--     `extent<-`(extent(iowa)) %>% # set the extent -->
+<!--     crop(., iowa) %>% # crop the raster to the area -->
+<!--     mask(., iowa) # crop the raster to the stat shape -->
 
-```{r}
-# Obtain the estimated kernel with bandwidth 2km
-Erc <- processRaster(x = edge[,c("O_Long", "O_Lat")], # we want the outgoing only
-                     b = 2, # we choose a bandwidth of 2
-                     shp = iowa) # we set our extent 
+<!--   return(r) -->
+<!-- } -->
+<!-- ``` -->
 
-# plot the raster and the map
-plot(Erc)
-plot(iowa$geometry, col=NA, border = "grey80", add = T)
-```
+<!-- Now lets use our function for the data.   -->
 
-We might have used a very large bandwidth in the previous plot, lets try with a smaller size.  
+<!-- ```{r} -->
+<!-- # Obtain the estimated kernel with bandwidth 2km -->
+<!-- Erc <- processRaster(x = edge[,c("O_Long", "O_Lat")], # we want the outgoing only -->
+<!--                      b = 2, # we choose a bandwidth of 2 -->
+<!--                      shp = iowa) # we set our extent  -->
 
-```{r}
-# Using a different bandwidth
-Erc <- processRaster(x = edge[,c("O_Long", "O_Lat")],
-                     b = 0.1,
-                     shp = iowa)
+<!-- # plot the raster and the map -->
+<!-- plot(Erc) -->
+<!-- plot(iowa$geometry, col=NA, border = "grey80", add = T) -->
+<!-- ``` -->
 
-# plot the raster and the map
-plot(Erc)
-plot(iowa$geometry, col=NA, border = "grey80", add = T)
-```
+<!-- We might have used a very large bandwidth in the previous plot, lets try with a smaller size.   -->
 
-**Exercise:** Create a kernel density map for the incoming movements.  
+<!-- ```{r} -->
+<!-- # Using a different bandwidth -->
+<!-- Erc <- processRaster(x = edge[,c("O_Long", "O_Lat")], -->
+<!--                      b = 0.1, -->
+<!--                      shp = iowa) -->
+
+<!-- # plot the raster and the map -->
+<!-- plot(Erc) -->
+<!-- plot(iowa$geometry, col=NA, border = "grey80", add = T) -->
+<!-- ``` -->
+
+<!-- **Exercise:** Create a kernel density map for the incoming movements.   -->
 
 ___________________________________________________
 
@@ -342,7 +361,6 @@ Sys.setenv('MAPBOX_TOKEN' = 'pk.eyJ1Ijoiam9zZXBhYmxvOTEiLCJhIjoiY2tsaXR5ZGd3MmJo
 
 ```{r}
 # Sys.setenv('MAPBOX_TOKEN' = yourKey)
-
 plot_mapbox() %>%
   add_segments(
     data = group_by(edge, id_orig, id_dest),
@@ -351,7 +369,7 @@ plot_mapbox() %>%
     alpha = 0.1, size = I(1), hoverinfo = "none"
   )   %>%
   add_markers(data = node,
-    x = ~long, y = ~lat, size = ~indegree, text = ~id,
+    x = ~long, y = ~lat, text = ~id,
     split = ~farm_type,
     hoverinfo = "text"
   ) %>%
