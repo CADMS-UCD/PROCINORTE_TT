@@ -585,7 +585,175 @@ Pablo Gomez
 <span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Map of the study area'</span>, <span class="at">fill =</span> <span class="st">'Altitude'</span>) <span class="co"># labels for the figure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="img/4a_map.png" class="r-stretch quarto-figure-center"><div class="footer footer-default">
+<img data-src="img/4a_map.png" class="r-stretch quarto-figure-center"></section>
+<section>
+<section id="network-analysis" class="title-slide slide level1 center" data-background-image="img/bg_title.png">
+<h1>Network analysis</h1>
+
+</section>
+<section id="why-represent-events-in-a-network" class="slide level2" data-background-image="img/bg.png">
+<h2>Why represent events in a network?</h2>
+<p><br></p>
+<div class="columns">
+<div class="column">
+<p><span class="black">Identify individuals that are very active</span> <img data-src="img/sna_01.png" data-fig-align="center"></p>
+</div><div class="column">
+<p><span class="black">Identify individuals that are intermediate</span> <img data-src="img/sna_02.png" data-fig-align="center"></p>
+</div>
+</div>
+</section>
+<section id="what-is-a-graph" class="slide level2" data-background-image="img/bg.png">
+<h2>What is a graph?</h2>
+<p><br></p>
+
+<img data-src="img/sna_graphs.png" class="r-stretch quarto-figure-center"></section>
+<section id="elements-of-a-network" class="slide level2" data-background-image="img/bg.png">
+<h2>Elements of a network</h2>
+<p><br></p>
+<p><span class="black">Nodes (vertices)</span></p>
+
+<img data-src="img/sna_nodes.png" class="r-stretch quarto-figure-center"><p><span class="black"><span class="math display">\[V = [1, 2, 3, ..., i]\]</span></span></p>
+</section>
+<section id="elements-of-a-network-1" class="slide level2" data-background-image="img/bg.png">
+<h2>Elements of a network</h2>
+<p><br></p>
+<p><span class="black">Nodes (vertices)</span></p>
+
+<img data-src="img/sna_nodesFaces.png" class="r-stretch quarto-figure-center"><p><span class="black"><span class="math display">\[V = [1, 2, 3, ..., i]\]</span></span></p>
+</section>
+<section id="elements-of-a-network-2" class="slide level2" data-background-image="img/bg.png">
+<h2>Elements of a network</h2>
+<p><br></p>
+<p><span class="black">Edges (links)</span></p>
+
+<img data-src="img/sna_edges.png" class="r-stretch quarto-figure-center"><p><span class="black"><span class="math display">\[E = [(1, 2), (1, 3), (2, 3), ..., (i,j)]\]</span></span></p>
+</section>
+<section id="elements-of-a-network-3" class="slide level2" data-background-image="img/bg.png">
+<h2>Elements of a network</h2>
+<p><br></p>
+<p><span class="black">Network attributes</span></p>
+
+<img data-src="img/sna_attributes.png" class="r-stretch quarto-figure-center"><p><span class="black"><span class="math display">\[V = [0, 1, 1, ..., x_i]\]</span></span></p>
+</section>
+<section id="data-structure" class="slide level2" data-background-image="img/bg.png">
+<h2>Data structure</h2>
+<p><br></p>
+
+<img data-src="img/sna_data.png" class="r-stretch quarto-figure-center"></section>
+<section id="general-properties" class="slide level2" data-background-image="img/bg.png">
+<h2>General properties</h2>
+<p><br></p>
+
+<img data-src="img/sna_generalProperties.png" class="r-stretch quarto-figure-center"></section>
+<section id="general-properties-1" class="slide level2" data-background-image="img/bg.png">
+<h2>General properties</h2>
+<p><br></p>
+<ul>
+<li><span class="black">Size</span></li>
+<li><span class="black">Diameter</span></li>
+<li><span class="black">Average path length</span></li>
+<li><span class="black">Density</span></li>
+<li><span class="black">Fragmentation</span></li>
+<li><span class="black">Clustering Coefficient</span></li>
+</ul>
+</section>
+<section id="general-properties-2" class="slide level2" data-background-image="img/bg.png">
+<h2>General properties</h2>
+<p><br></p>
+
+<img data-src="img/sna_generalAttr-1.png" class="r-stretch quarto-figure-center"></section>
+<section id="general-properties-3" class="slide level2" data-background-image="img/bg.png">
+<h2>General properties</h2>
+<p><br></p>
+
+<img data-src="img/sna_generalAttr-2.png" class="r-stretch quarto-figure-center"></section>
+<section id="local-properties" class="slide level2" data-background-image="img/bg.png">
+<h2>Local properties</h2>
+<p><br></p>
+
+<img data-src="img/sna_localProperties.png" class="r-stretch quarto-figure-center"></section>
+<section id="local-properties-1" class="slide level2" data-background-image="img/bg.png">
+<h2>Local properties</h2>
+<p><br></p>
+
+<img data-src="img/sna_centrality-1.png" class="r-stretch quarto-figure-center"></section>
+<section id="local-properties-2" class="slide level2" data-background-image="img/bg.png">
+<h2>Local properties</h2>
+<p><br></p>
+
+<img data-src="img/sna_centrality-2.png" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="sna-in-r" class="title-slide slide level1 center" data-background-image="img/bg_title.png">
+<h1>SNA in R</h1>
+
+</section>
+<section id="sna-in-r-1" class="slide level2" data-background-image="img/bg.png">
+<h2>SNA in R</h2>
+<p><br></p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>net <span class="ot">&lt;-</span> <span class="fu">as_tbl_graph</span>(edge)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>net</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tbl_graph: 40 nodes and 1611 edges
+#
+# A directed multigraph with 1 component
+#
+# A tibble: 40 × 1
+  name 
+  &lt;chr&gt;
+1 17   
+2 12   
+3 14   
+4 11   
+5 7    
+6 9    
+# ℹ 34 more rows
+#
+# A tibble: 1,611 × 6
+   from    to date    pigs.moved type_orig type_dest
+  &lt;int&gt; &lt;int&gt; &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;    
+1     1     7 8/20/15        160 finisher  sow farm 
+2     1     7 8/20/15         76 finisher  sow farm 
+3     1     3 9/11/15        155 finisher  nursery  
+# ℹ 1,608 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="tidygraph" class="slide level2" data-background-image="img/bg.png">
+<h2>tidygraph</h2>
+<p><br></p>
+<div>
+<ul>
+<li class="fragment"><span class="black">remember <code>%&gt;%</code>?</span><br>
+</li>
+<li class="fragment"><span class="black">tidygrapgh introduces two new type of operators:</span>
+<ul>
+<li class="fragment"><span class="black"><code>%N&gt;%</code> for nodes</span></li>
+<li class="fragment"><span class="black"><code>%E&gt;%</code> for edges</span></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="visualization" class="slide level2" data-background-image="img/bg.png">
+<h2>Visualization</h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">ggraph</span>(net, <span class="at">layout =</span> <span class="st">'kk'</span>) <span class="sc">+</span> <span class="co"># this is our empty canvas</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width =</span> pigs.moved)) <span class="sc">+</span> <span class="co"># Add the edges</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">geom_node_point</span>() <span class="sc">+</span> <span class="co"># Add the nodes</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>)) <span class="sc">+</span> <span class="co"># we set the range for the width of the edges</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Title for the plot'</span>, <span class="at">edge_width =</span> <span class="st">'Number of pigs moved'</span>) <span class="co"># labels for the figure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Day-03_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section></section>
+<section id="its-lab-time" class="title-slide slide level1 center">
+<h1><a href="https://cadms-ucd.github.io/PROCINORTE_TT/3a_NetworkIntro.html">It’s Lab time!</a></h1>
+<p>Network analysis in R</p>
+<div class="footer footer-default">
 <p><a href="https://cadms-ucd.github.io/DiseaseModeling/">Workshop homepage</a></p>
 </div>
 </section>
